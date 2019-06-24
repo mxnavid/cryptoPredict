@@ -9,7 +9,7 @@ class CryptoCrawler:
         self.tweets, self.sentiment = self.setsentiment(util.readerCSV("data/input1.csv"))
 
         self.wiki = self.setwiki()
-        self.dailyprice = self.setdailyprice()
+        self.hourlyprice, self.hourlyvolume = self.sethourlyprice()
 
         ### pull data from crawler/ csv file for rest based on name and dates
         ### call crawler methods
@@ -25,12 +25,17 @@ class CryptoCrawler:
             viewCount[util.dateFormatChanger(item['timestamp'][0:8])] = item['views']
         return viewCount
 
-    ### Get a json based on link
-    ### Only works for bitcoin it seems
-    def setdailyprice(self):
-        link = "https://api.coindesk.com/v1/bpi/historical/close.json?start=" + util.dateFormatChanger(self.startDate) + "&end=" + util.dateFormatChanger(self.endDate)
-        value = util.readerJson(link)
-        return value['bpi']
+    ### Get hourly values based on data sets in format dict[date] = (price, volume)
+    def sethourlyprice(self):
+        everyHour = util.readerCSV("data/hourly/"+self.name+".csv")
+        hoursNeededP = {}
+        hoursNeededV = {}
+        for row in everyHour:
+            if ((row[1][0:10] >= util.dateFormatChanger(self.startDate)) & (row[1][0:10] <= util.dateFormatChanger(self.endDate))):
+                #print(row)
+                hoursNeededP[row[1]] = row[3]
+                hoursNeededV[row[1]] = row[7]
+        return hoursNeededP, hoursNeededV
 
     ### Gets the sentiment value of every tweet
     def setsentiment(self, file_reader_input):
