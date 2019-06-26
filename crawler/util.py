@@ -1,11 +1,11 @@
 import csv
 import urllib.request, json
 import re
-import numpy as np
+import datetime
 
 ### changes format from YYYYYMMDD to YYYYY-MM-DD
-def dateFormatChanger(YYYYMMDD):
-    date = YYYYMMDD[0:4] + "-" + YYYYMMDD[4:6] + "-" + YYYYMMDD[6:]
+def dateFormatChanger(date, format1, format2):
+    date = datetime.datetime.strptime(date, format1).strftime(format2)
     return date
 
 def readerCSV(fileName):
@@ -21,16 +21,8 @@ def readerJson(link):
 def cleanTweets(tweet):
     cleanTweet = re.sub(r'\\x\w+\w', '', tweet)
     cleanTweet = re.sub(r'(http|#|@)\S+', '', cleanTweet)
+    cleanTweet = re.sub(r',', '', cleanTweet)
     return cleanTweet
-
-def writeSentimentCSV(cryptoCrawler, outputFileName):
-    with open(outputFileName, 'w') as csvfile:
-        fileWriter = csv.writer(csvfile)
-        fileWriter.writerow(["tweet","sentiment value"])
-        listsMerged = mergeTwo(cryptoCrawler.tweets, cryptoCrawler.sentiment)
-        for value in listsMerged:
-            fileWriter.writerow(value)
-    return
 
 def writeDictCSV(dict, outputFileName):
     with open(outputFileName, 'w') as csvfile:
@@ -39,6 +31,20 @@ def writeDictCSV(dict, outputFileName):
             fileWriter.writerow([key, value])
     return
 
-def mergeTwo(list1, list2):
-    merged = np.column_stack([list1, list2])
-    return merged
+def writeSentimentCSV(cryptoCrawler, outputFileName):
+    with open(outputFileName, 'w') as csvfile:
+        fileWriter = csv.writer(csvfile)
+        fileWriter.writerow(["date/time", "tweet", "sentiment value"])
+        listsMerged = zip(cryptoCrawler.dates, cryptoCrawler.tweets, cryptoCrawler.sentiment)
+        for value in listsMerged:
+            fileWriter.writerow(value)
+    return
+
+def writeHourlyCSV(cryptoCrawler, outputFileName):
+    with open(outputFileName, 'w') as csvfile:
+        fileWriter = csv.writer(csvfile)
+        fileWriter.writerow(["hour", "price", "volume", "sentiment"])
+        listsMerged = zip(cryptoCrawler.hourlyTime, cryptoCrawler.hourlyPrice, cryptoCrawler.hourlyVolume, [x[1] for x in cryptoCrawler.hourlySentiment])
+        for value in listsMerged:
+            fileWriter.writerow(value)
+    return
