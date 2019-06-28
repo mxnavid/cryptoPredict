@@ -7,19 +7,8 @@ import csv
 api = twitter.Api(CONSUMER_KEY, CONSUMER_SECRET,
                   ACCESS_TOKEN_KEY, ACCESS_TOKEN_SECRET)
 
-results = api.GetSearch(raw_query="l=en&q=bitcoin&src=typd",
-                        return_json="true")
-
-
-# print(results)
-def handleJSON(jsonData):
-    dumpJSON = json.dumps(jsonData)
-    parsedJSON = json.loads(dumpJSON)
-    return parsedJSON
-
 
 def get_tweets(api):
-
     with open("output.csv", 'w+') as writer:
         for i in range(0, 10):
             results = api.GetSearch(
