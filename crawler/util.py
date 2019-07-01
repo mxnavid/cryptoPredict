@@ -44,9 +44,9 @@ def writeSentimentCSV(cryptoCrawler, outputFileName):
 def writeHourlyCSV(cryptoCrawler, outputFileName):
     with open(outputFileName, 'w') as csvfile:
         fileWriter = csv.writer(csvfile)
-        fileWriter.writerow(["hour", "open", "close", "high", "low", "volume", "sentiment"])
+        fileWriter.writerow(["hour", "open", "close", "high", "low", "volumeCoin", "volumeUSD", "sentiment"])
         listsMerged = zip(cryptoCrawler.hourlyTime, cryptoCrawler.hourlyOpen, cryptoCrawler.hourlyClose, cryptoCrawler.hourlyHigh,
-                          cryptoCrawler.hourlyLow, cryptoCrawler.hourlyVolume, [x[1] for x in cryptoCrawler.hourlySentiment])
+                          cryptoCrawler.hourlyLow, cryptoCrawler.hourlyVolumeCoin, cryptoCrawler.hourlyVolumeUSD, [x[1] for x in cryptoCrawler.hourlySentiment])
         for value in listsMerged:
             fileWriter.writerow(value)
     return

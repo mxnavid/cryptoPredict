@@ -13,7 +13,7 @@ class CryptoCrawler:
         self.shortName = cryptoShortName
         self.dates, self.tweets, self.sentiment = zip(*self.setsentiment(util.readerCSV("data/cleanprep.csv")))
         self.hourlySentiment = self.sethourlysentiment()
-        self.hourlyTime, self.hourlyOpen, self.hourlyClose, self.hourlyHigh, self.hourlyLow, self.hourlyVolume = zip(*self.sethourlyprice())
+        self.hourlyTime, self.hourlyOpen, self.hourlyClose, self.hourlyHigh, self.hourlyLow, self.hourlyVolumeCoin, self.hourlyVolumeUSD = zip(*self.sethourlyprice())
         self.wiki = self.setwiki()
 
         ### pull data from crawler/ csv file for rest based on name and dates
@@ -74,6 +74,6 @@ class CryptoCrawler:
 
             reformat = requests.get(url).json()
             lst.append((tim, reformat['Data'][0]['open'], reformat['Data'][0]['close'],
-                         reformat['Data'][0]['high'], reformat['Data'][0]['low'], reformat['Data'][0]['volumefrom']))
+                         reformat['Data'][0]['high'], reformat['Data'][0]['low'], reformat['Data'][0]['volumefrom'], reformat['Data'][0]['volumeto']))
             lst = sorted(lst, key=lambda x: x[0], reverse=True)
         return lst
