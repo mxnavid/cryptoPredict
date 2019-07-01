@@ -50,3 +50,11 @@ def writeHourlyCSV(cryptoCrawler, outputFileName):
         for value in listsMerged:
             fileWriter.writerow(value)
     return
+
+def writeHourlyJson(inputFileName, outputFileName):
+    with open(inputFileName) as f:
+        reader = csv.reader(f, skipinitialspace=True)
+        header = next(reader)
+        dictionary = [dict(zip(header, map(str, row))) for row in reader]
+    with open(outputFileName, 'w') as f:
+        json.dump(dictionary, f)
