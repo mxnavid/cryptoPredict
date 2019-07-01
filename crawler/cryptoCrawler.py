@@ -8,15 +8,15 @@ from crawler.token import t
 
 class CryptoCrawler:
 
-    def __init__(self, cryptoName, cryptoShortName):
+    def __init__(self, cryptoName, cryptoShortName, fileName):
         self.name = cryptoName
         self.shortName = cryptoShortName
-        self.dates, self.tweets, self.sentiment = zip(*self.setsentiment(util.readerCSV("data/cleanprep.csv")))
+        self.dates, self.tweets, self.sentiment = zip(*self.setsentiment(util.readerCSV(fileName)))
         self.hourlySentiment = self.sethourlysentiment()
         self.hourlyTime, self.hourlyOpen, self.hourlyClose, self.hourlyHigh, self.hourlyLow, self.hourlyVolumeCoin, self.hourlyVolumeUSD = zip(*self.sethourlyprice())
         self.wiki = self.setwiki()
 
-        ### pull data from crawler/ csv file for rest based on name and dates
+        ### pull data from crawler/ csv file for rest based on coin and times in tweets
         ### call crawler methods
 
     ### Web crawler details
