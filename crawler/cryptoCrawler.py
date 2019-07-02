@@ -1,50 +1,49 @@
 from crawler import util
 from textblob import TextBlob
+import datetime
+import time
+import requests
+from crawler.token import t
+
 
 class CryptoCrawler:
-    def __init__(self, cryptoName, startDate, endDate):
+
+    def __init__(self, cryptoName, cryptoShortName, fileName):
         self.name = cryptoName
-        self.startDate = startDate
-        self.endDate = endDate
-        self.dates, self.tweets, self.sentiment = zip(*self.setsentiment(util.readerCSV("data/bitcointweets.csv")))
-        self.hourlyTime, self.hourlyPrice, self.hourlyVolume = zip(*self.sethourlyprice())
+        self.shortName = cryptoShortName
+        self.dates, self.tweets, self.sentiment = zip(*self.setsentiment(util.readerCSV(fileName)))
         self.hourlySentiment = self.sethourlysentiment()
-        ### TODO FIX HOURLY TIME
+        self.hourlyTime, self.hourlyOpen, self.hourlyClose, self.hourlyHigh, self.hourlyLow, self.hourlyVolumeCoin, self.hourlyVolumeUSD = zip(*self.sethourlyprice())
         self.wiki = self.setwiki()
 
-        ### pull data from crawler/ csv file for rest based on name and dates
+        ### pull data from crawler/ csv file for rest based on coin and times in tweets
         ### call crawler methods
 
     ### Web crawler details
 
     ### Get a json based on link and return the values as a dictionary
     def setwiki(self):
+        startDate = util.dateFormatChanger(str(min(self.hourlySentiment)[0]), '%Y-%m-%d %H', '%Y%m%d')
+        endDate = util.dateFormatChanger(str(max(self.hourlySentiment)[0]), '%Y-%m-%d %H', '%Y%m%d')
         link = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/" \
-               + self.name + "/daily/" + self.startDate + "00/" + self.endDate + "00"
+               + self.name + "/daily/" + startDate + "00/" + endDate + "00"
         value = util.readerJson(link)
         viewCount = {}
         for item in value['items']:
             viewCount[util.dateFormatChanger(item['timestamp'][0:8], '%Y%m%d', '%Y-%m-%d')] = item['views']
         return viewCount
 
-    ### Get hourly values based on data sets in format dict[date] = (price, volume) - THIS is from a file and not web so cannot get data not from file
-    def sethourlyprice(self):
-        everyHour = util.readerCSV("data/hourly/"+self.name+".csv")
-        hoursNeeded = []
-        for row in everyHour:
-            if ((row[1][0:10] >= util.dateFormatChanger(self.startDate, '%Y%m%d', '%Y-%m-%d')) &
-                    (row[1][0:10] <= util.dateFormatChanger(self.endDate, '%Y%m%d', '%Y-%m-%d'))):
-                hoursNeeded.append((util.dateFormatChanger(row[1], '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H'), row[3], row[7]))
-        return hoursNeeded
-
     ### Gets the sentiment value of every tweet - date, text
     def setsentiment(self, file_reader_input):
         timesentiment = []
         for row in file_reader_input:
-            cleaned_tweet = util.cleanTweets(row[1])
+            ### TODO This is merely a reminder that I need to change row[2] back to row[1] when working with other files
+            cleaned_tweet = util.cleanTweets(row[2])
             blob = TextBlob(cleaned_tweet)
+            ### TODO This is merely a reminder that I need to change '%Y-%m-%d %H:%M:%S.%f' back to '%a %b %d %H:%M:%S +%f %Y' when working with other files
             timesentiment.append((util.dateFormatChanger(row[0],
-                                                         '%a %b %d %H:%M:%S +%f %Y', '%Y-%m-%d %H'), cleaned_tweet, blob.polarity))
+                                                         '%Y-%m-%d %H:%M:%S.%f', '%Y-%m-%d %H'), cleaned_tweet,
+                                  blob.polarity))
         return timesentiment
 
     def sethourlysentiment(self):
@@ -52,19 +51,32 @@ class CryptoCrawler:
         dict = {}
         # combine all sentiment scores by hour into a dictionary with key time and tuple (frequency, sum)
         for val in datesentiment:
-            if val[0] in dict:
-                dict[val[0]] = (dict[val[0]][0] + 1, dict[val[0]][1] + val[1])
-            else:
-                dict[val[0]] = (1, val[1])
+            if val[1] != 0:
+                if val[0] in dict:
+                    dict[val[0]] = (dict[val[0]][0] + 1, dict[val[0]][1] + val[1])
+                else:
+                    dict[val[0]] = (1, val[1])
 
         avgValue = []
-        for value in self.hourlyTime:
-            if value not in dict.keys():
-                avgValue.append((value, 0))
-
         for key, value in dict.items():
             avg = value[1] / value[0]
             avgValue.append((key, avg))
         avgValue = sorted(avgValue, key=lambda x: x[0], reverse=True)
-        print(avgValue)
+        ##print(avgValue)
         return avgValue
+
+    def sethourlyprice(self):
+        lst = []
+        for tim, var in self.hourlySentiment:
+            timeUnix = time.mktime(datetime.datetime.strptime(tim, '%Y-%m-%d %H').timetuple())
+
+            url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.shortName + "&tsym=USD&limit=1&toTs=" + str(timeUnix) + "&api_key=" + t
+
+            reformat = requests.get(url).json()
+            lst.append((tim, reformat['Data'][0]['open'], reformat['Data'][0]['close'],
+                         reformat['Data'][0]['high'], reformat['Data'][0]['low'], reformat['Data'][0]['volumefrom'], reformat['Data'][0]['volumeto']))
+            lst = sorted(lst, key=lambda x: x[0], reverse=True)
+        return lst
+
+    def setsp500(self):
+        return

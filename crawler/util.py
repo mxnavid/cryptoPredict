@@ -3,7 +3,8 @@ import urllib.request, json
 import re
 import datetime
 
-### changes format from YYYYYMMDD to YYYYY-MM-DD
+
+### changes format from X to Y ex) YYYYmmdd HH:MM to YYYYMMDD
 def dateFormatChanger(date, format1, format2):
     date = datetime.datetime.strptime(date, format1).strftime(format2)
     return date
@@ -43,8 +44,17 @@ def writeSentimentCSV(cryptoCrawler, outputFileName):
 def writeHourlyCSV(cryptoCrawler, outputFileName):
     with open(outputFileName, 'w') as csvfile:
         fileWriter = csv.writer(csvfile)
-        fileWriter.writerow(["hour", "price", "volume", "sentiment"])
-        listsMerged = zip(cryptoCrawler.hourlyTime, cryptoCrawler.hourlyPrice, cryptoCrawler.hourlyVolume, [x[1] for x in cryptoCrawler.hourlySentiment])
+        fileWriter.writerow(["hour", "open", "close", "high", "low", "volumeCoin", "volumeUSD", "sentiment"])
+        listsMerged = zip(cryptoCrawler.hourlyTime, cryptoCrawler.hourlyOpen, cryptoCrawler.hourlyClose, cryptoCrawler.hourlyHigh,
+                          cryptoCrawler.hourlyLow, cryptoCrawler.hourlyVolumeCoin, cryptoCrawler.hourlyVolumeUSD, [x[1] for x in cryptoCrawler.hourlySentiment])
         for value in listsMerged:
             fileWriter.writerow(value)
     return
+
+def writeHourlyJson(inputFileName, outputFileName):
+    with open(inputFileName) as f:
+        reader = csv.reader(f, skipinitialspace=True)
+        header = next(reader)
+        dictionary = [dict(zip(header, map(str, row))) for row in reader]
+    with open(outputFileName, 'w') as f:
+        json.dump(dictionary, f)
