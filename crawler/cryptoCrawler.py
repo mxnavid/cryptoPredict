@@ -77,3 +77,6 @@ class CryptoCrawler:
                          reformat['Data'][0]['high'], reformat['Data'][0]['low'], reformat['Data'][0]['volumefrom'], reformat['Data'][0]['volumeto']))
             lst = sorted(lst, key=lambda x: x[0], reverse=True)
         return lst
+
+    def setsp500(self):
+        return
