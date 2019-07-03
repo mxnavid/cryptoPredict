@@ -16,7 +16,6 @@ def readerCSV(fileName):
 def readerJson(link):
     with urllib.request.urlopen(link) as url:
         data = json.loads(url.read().decode())
-        #print(data)
         return data
 
 def cleanTweets(tweet):
@@ -25,31 +24,8 @@ def cleanTweets(tweet):
     cleanTweet = re.sub(r',', '', cleanTweet)
     return cleanTweet
 
-def writeDictCSV(dict, outputFileName):
-    with open(outputFileName, 'w') as csvfile:
-        fileWriter = csv.writer(csvfile)
-        for key, value in dict.items():
-            fileWriter.writerow([key, value])
-    return
-
-def writeSentimentCSV(cryptoCrawler, outputFileName):
-    with open(outputFileName, 'w') as csvfile:
-        fileWriter = csv.writer(csvfile)
-        fileWriter.writerow(["date/time", "tweet", "sentiment value"])
-        listsMerged = zip(cryptoCrawler.dates, cryptoCrawler.tweets, cryptoCrawler.sentiment)
-        for value in listsMerged:
-            fileWriter.writerow(value)
-    return
-
-def writeHourlyCSV(cryptoCrawler, outputFileName):
-    with open(outputFileName, 'w') as csvfile:
-        fileWriter = csv.writer(csvfile)
-        fileWriter.writerow(["hour", "open", "close", "high", "low", "volumeCoin", "volumeUSD", "sentiment"])
-        listsMerged = zip(cryptoCrawler.hourlyTime, cryptoCrawler.hourlyOpen, cryptoCrawler.hourlyClose, cryptoCrawler.hourlyHigh,
-                          cryptoCrawler.hourlyLow, cryptoCrawler.hourlyVolumeCoin, cryptoCrawler.hourlyVolumeUSD, [x[1] for x in cryptoCrawler.hourlySentiment])
-        for value in listsMerged:
-            fileWriter.writerow(value)
-    return
+def writeDFtoCSV(df, outputFileName):
+    df.to_csv(outputFileName, encoding='utf-8', index=False)
 
 def writeHourlyJson(inputFileName, outputFileName):
     with open(inputFileName) as f:
