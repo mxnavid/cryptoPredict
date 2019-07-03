@@ -19,11 +19,11 @@ class CryptoCrawler:
         #print(self.dict['tweets'])
 
         self.dict['hourly'] = self.sethourlyprice()
-        print(self.dict['hourly'])
+        #print(self.dict['hourly'])
         self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False)
-        print(self.dict['hourly'])
+        #print(self.dict['hourly'])
 
-        self.dict['daily'] = pd.DataFrame(data=self.setwiki(), columns=['Time', 'Views'])
+        self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
         print(self.dict['daily'])
 
         ### pull data from crawler/ csv file for rest based on coin and times in tweets
@@ -33,18 +33,16 @@ class CryptoCrawler:
 
     ### Get a json based on link and return the values as a dictionary
     def setwiki(self):
-        print(self.dict['hourly'].min().Time)
-        print(self.dict['hourly'].max().Time)
         startDate = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y%m%d')
         endDate = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y%m%d')
 
-
-        link = "https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/" \
-               + self.dict['name'] + "/daily/" + startDate + "00/" + endDate + "00"
+        link = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/' \
+               + self.dict['name'] + '/daily/' + startDate + '00/' + endDate + '00'
         value = util.readerJson(link)
         viewCount = {}
         for item in value['items']:
             viewCount[util.dateFormatChanger(item['timestamp'][0:8], '%Y%m%d', '%Y-%m-%d')] = item['views']
+        print(viewCount)
         return viewCount
 
     ### Gets the sentiment value of every tweet - date, text
