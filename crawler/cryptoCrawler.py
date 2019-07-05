@@ -9,6 +9,7 @@ from crawler.token import t
 
 class CryptoCrawler:
 
+    ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
     def __init__(self, cryptoName, cryptoShortName, fileName):
         self.dict = {}
         self.dict['name'] = cryptoName
@@ -16,18 +17,11 @@ class CryptoCrawler:
 
         self.dict['tweets'] = pd.DataFrame(data=self.setsentiment(util.readerCSV(fileName)),
                                            columns=['Time', 'Tweet', 'Sentiment'])
-        #print(self.dict['tweets'])
 
         self.dict['hourly'] = self.sethourlyprice()
-        #print(self.dict['hourly'])
         self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False)
-        #print(self.dict['hourly'])
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
-        print(self.dict['daily'])
-
-        ### pull data from crawler/ csv file for rest based on coin and times in tweets
-        ### call crawler methods
 
     ### Web crawler details
 
@@ -42,7 +36,6 @@ class CryptoCrawler:
         viewCount = {}
         for item in value['items']:
             viewCount[util.dateFormatChanger(item['timestamp'][0:8], '%Y%m%d', '%Y-%m-%d')] = item['views']
-        print(viewCount)
         return viewCount
 
     ### Gets the sentiment value of every tweet - date, text
@@ -79,7 +72,7 @@ class CryptoCrawler:
 
     def sethourlyprice(self):
         lst = []
-        df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'Volume Coin', 'Volume USD'])
+        df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
         for index, rows in self.dict['tweets'].iterrows():
             lst.append(rows['Time'])
         lst = list(dict.fromkeys(lst))
@@ -95,8 +88,8 @@ class CryptoCrawler:
                 'Close': reformat['Data'][0]['close'],
                 'High': reformat['Data'][0]['high'],
                 'Low': reformat['Data'][0]['low'],
-                'Volume Coin': reformat['Data'][0]['volumefrom'],
-                'Volume USD': reformat['Data'][0]['volumeto']
+                'VolumeCoin': reformat['Data'][0]['volumefrom'],
+                'VolumeUSD': reformat['Data'][0]['volumeto']
             }
             df = df.append(dic, ignore_index=True)
         return df

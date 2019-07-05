@@ -2,6 +2,8 @@ import csv
 import urllib.request, json
 import re
 import datetime
+import csvmapper
+import pandas as pd
 
 
 ### changes format from X to Y ex) YYYYmmdd HH:MM to YYYYMMDD
@@ -28,9 +30,7 @@ def writeDFtoCSV(df, outputFileName):
     df.to_csv(outputFileName, encoding='utf-8', index=False)
 
 def writeHourlyJson(inputFileName, outputFileName):
-    with open(inputFileName) as f:
-        reader = csv.reader(f, skipinitialspace=True)
-        header = next(reader)
-        dictionary = [dict(zip(header, map(str, row))) for row in reader]
+    val = pd.read_csv(inputFileName, header=0)
     with open(outputFileName, 'w') as f:
-        json.dump(dictionary, f)
+        f.write(val.to_json(orient='split'))
+
