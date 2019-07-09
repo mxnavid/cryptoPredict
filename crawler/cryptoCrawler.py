@@ -18,11 +18,11 @@ class CryptoCrawler:
                                            columns=['Time', 'Tweet', 'Polarity', 'Subjectivity'])
 
         self.dict['hourly'] = self.sethourlyprice()
-        self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False)
+        self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False, how='outer')
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
-        self.dict['daily'] = pd.merge(self.dict['daily'],self.setUSDEuroRate(), on='Time', sort=False)
-        self.dict['daily'] = pd.merge(self.dict['daily'], self.setsp500(), on='Time', sort=False)
+        self.dict['daily'] = pd.merge(self.dict['daily'],self.setUSDEuroRate(), on='Time', sort=False, how='outer')
+        self.dict['daily'] = pd.merge(self.dict['daily'], self.setsp500(), on='Time', sort=False, how='outer')
 
     ### Web crawler details
 
@@ -72,7 +72,7 @@ class CryptoCrawler:
 
         df = pd.DataFrame(data=list(avgValue), columns=['Time', 'Polarity'])
         dl = pd.DataFrame(data=list(avgSubj), columns=['Time', 'Subjectivity'])
-        df = pd.merge(df, dl, on='Time', sort=False)
+        df = pd.merge(df, dl, on='Time', sort=False, how='outer')
 
         return df
 
