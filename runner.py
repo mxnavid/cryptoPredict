@@ -11,3 +11,4 @@ util.writeDFtoCSV(bitcoin.dict['daily'],'data/output/'+bitcoin.dict['name']+'_da
 print('Wrote daily values to CSV')
 
 util.writeHourlyJson('data/output/bitcoin_hourly_output.csv','data/output/bitcoin_hourly_output.json')
+util.writeHourlyJson('data/output/bitcoin_daily_output.csv','data/output/bitcoin_daily_output.json')

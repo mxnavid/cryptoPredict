@@ -22,6 +22,7 @@ class CryptoCrawler:
         self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False)
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
+        self.dict['daily'] = pd.merge(self.dict['daily'],self.setUSDEuroRate(), on='Time', sort=False)
 
     ### Web crawler details
 
@@ -102,3 +103,16 @@ class CryptoCrawler:
     # To be implemented if time permits
     def setsp500(self):
         return
+
+    def setUSDEuroRate(self):
+        startDate = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
+        endDate = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y-%m-%d')
+
+        link = 'https://api.exchangeratesapi.io/history?start_at='+startDate+'&end_at='+endDate+'&symbols=USD'
+        value = util.readerJson(link)
+        print(value)
+        rate = {}
+        for item in value['rates']:
+            rate[str(item)] = value['rates'][item]['USD']
+        panda = pd.DataFrame(data=rate.items(), columns=['Time', 'USDEuroRate'])
+        return panda
