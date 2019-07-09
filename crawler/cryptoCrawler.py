@@ -4,8 +4,7 @@ import datetime
 import time
 import requests
 import pandas as pd
-from crawler.token import t
-
+from crawler.token import t, t2
 
 class CryptoCrawler:
 
@@ -23,6 +22,7 @@ class CryptoCrawler:
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
         self.dict['daily'] = pd.merge(self.dict['daily'],self.setUSDEuroRate(), on='Time', sort=False)
+        self.dict['daily'] = pd.merge(self.dict['daily'], self.setsp500(), on='Time', sort=False)
 
     ### Web crawler details
 
@@ -102,7 +102,20 @@ class CryptoCrawler:
 
     # To be implemented if time permits
     def setsp500(self):
-        return
+        start_date = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
+        end_date = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y-%m-%d')
+
+        link = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY' \
+               '&symbol=^GSPC&outputsize=full&apikey=' + t2
+        value = util.readerJson(link)
+        val = {}
+        for item in value['Time Series (Daily)']:
+            if ((str(item) >= start_date) & (str(item) <= end_date)):
+                val[str(item)] = value['Time Series (Daily)'][item]['4. close']
+        print(value)
+        panda = pd.DataFrame(data=val.items(), columns=['Time', 'S&P500 Close'])
+        print(panda)
+        return panda
 
     def setUSDEuroRate(self):
         startDate = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
@@ -110,9 +123,10 @@ class CryptoCrawler:
 
         link = 'https://api.exchangeratesapi.io/history?start_at='+startDate+'&end_at='+endDate+'&symbols=USD'
         value = util.readerJson(link)
-        print(value)
+        #print(value)
         rate = {}
         for item in value['rates']:
             rate[str(item)] = value['rates'][item]['USD']
         panda = pd.DataFrame(data=rate.items(), columns=['Time', 'USDEuroRate'])
         return panda
+
