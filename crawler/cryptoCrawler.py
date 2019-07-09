@@ -16,7 +16,7 @@ class CryptoCrawler:
         self.dict['shortName'] = cryptoShortName
 
         self.dict['tweets'] = pd.DataFrame(data=self.setsentiment(util.readerCSV(fileName)),
-                                           columns=['Time', 'Tweet', 'Sentiment'])
+                                           columns=['Time', 'Tweet', 'Polarity', 'Subjectivity'])
 
         self.dict['hourly'] = self.sethourlyprice()
         self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False)
@@ -48,7 +48,7 @@ class CryptoCrawler:
             ### TODO This is merely a reminder that I need to change '%Y-%m-%d %H:%M:%S.%f' back to '%a %b %d %H:%M:%S +%f %Y' when working with other files
             timesentiment.append((util.dateFormatChanger(row[0],
                                                          '%Y-%m-%d %H:%M:%S.%f', '%Y-%m-%d %H'), cleaned_tweet,
-                                  blob.polarity))
+                                  blob.polarity, blob.subjectivity))
         return timesentiment
 
     def sethourlysentiment(self):
@@ -57,16 +57,21 @@ class CryptoCrawler:
         #print(self.dict['tweets'])
         for index, row in self.dict['tweets'].iterrows():
             if row['Time'] in dict:
-                dict[row['Time']] = (dict[row['Time']][0] + 1, (dict[row['Time']][1] + row['Sentiment']))
+                dict[row['Time']] = (dict[row['Time']][0] + 1, (dict[row['Time']][1] + row['Polarity']), (dict[row['Time']][2] + row['Subjectivity']))
             else:
-                dict[row['Time']] = (1, row['Sentiment'])
+                dict[row['Time']] = (1, row['Polarity'], row['Subjectivity'])
 
         avgValue = []
+        avgSubj = []
         for key, value in dict.items():
             avg = value[1] / value[0]
+            avgSub = value[2] / value[0]
             avgValue.append((key, avg))
+            avgSubj.append((key, avgSub))
 
-        df = pd.DataFrame(data=list(avgValue), columns=['Time', 'Sentiment'])
+        df = pd.DataFrame(data=list(avgValue), columns=['Time', 'Polarity'])
+        dl = pd.DataFrame(data=list(avgSubj), columns=['Time', 'Subjectivity'])
+        df = pd.merge(df, dl, on='Time', sort=False)
 
         return df
 
@@ -94,5 +99,6 @@ class CryptoCrawler:
             df = df.append(dic, ignore_index=True)
         return df
 
+    # To be implemented if time permits
     def setsp500(self):
         return
