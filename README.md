@@ -8,5 +8,5 @@
 * pip install textblob
 
 ## Running the UI
-* cd cryptowatch
+* cd ui
 * npm start
