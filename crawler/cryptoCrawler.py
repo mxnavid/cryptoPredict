@@ -9,27 +9,37 @@ from crawler.token import t, t2
 class CryptoCrawler:
 
     ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
-    def __init__(self, cryptoName, cryptoShortName, fileName):
+    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews):
         self.dict = {}
         self.dict['name'] = cryptoName
         self.dict['shortName'] = cryptoShortName
 
-        self.dict['tweets'] = pd.DataFrame(data=self.setsentiment(util.readerCSV(fileName)),
+        self.dict['tweets'] = pd.DataFrame(data=self.setsentiment(util.readerCSV(fileNameTweet)),
                                            columns=['Time', 'Tweet', 'Polarity', 'Subjectivity'])
 
+        self.dict['news'] = pd.DataFrame(data=self.setnewsSentiment(util.readerCSV(fileNameNews)),
+                                           columns=['Time', 'Article', 'Polarity', 'Subjectivity'])
+
         self.dict['hourly'] = self.sethourlyprice()
+
+        self.dict['startDate'] = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
+        self.dict['endDate'] = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y-%m-%d')
+
         self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False, how='outer')
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
+        self.dict['daily'] = pd.merge(self.dict['daily'], self.setdailynews(), on='Time', sort=False, how='outer')
         self.dict['daily'] = pd.merge(self.dict['daily'],self.setUSDEuroRate(), on='Time', sort=False, how='outer')
         self.dict['daily'] = pd.merge(self.dict['daily'], self.setsp500(), on='Time', sort=False, how='outer')
+
+        self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
 
     ### Web crawler details
 
     ### Get a json based on link and return the values as a dictionary
     def setwiki(self):
-        startDate = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y%m%d')
-        endDate = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y%m%d')
+        startDate = util.dateFormatChanger(str(self.dict['startDate']), '%Y-%m-%d', '%Y%m%d')
+        endDate = util.dateFormatChanger(str(self.dict['endDate']), '%Y-%m-%d', '%Y%m%d')
 
         link = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/' \
                + self.dict['name'] + '/daily/' + startDate + '00/' + endDate + '00'
@@ -55,7 +65,6 @@ class CryptoCrawler:
     def sethourlysentiment(self):
         dict = {}
         # combine all sentiment scores by hour into a dictionary with key time and tuple (frequency, sum)
-        #print(self.dict['tweets'])
         for index, row in self.dict['tweets'].iterrows():
             if row['Time'] in dict:
                 dict[row['Time']] = (dict[row['Time']][0] + 1, (dict[row['Time']][1] + row['Polarity']), (dict[row['Time']][2] + row['Subjectivity']))
@@ -100,33 +109,57 @@ class CryptoCrawler:
             df = df.append(dic, ignore_index=True)
         return df
 
-    # To be implemented if time permits
     def setsp500(self):
-        start_date = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
-        end_date = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y-%m-%d')
 
         link = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY' \
                '&symbol=^GSPC&outputsize=full&apikey=' + t2
         value = util.readerJson(link)
         val = {}
         for item in value['Time Series (Daily)']:
-            if ((str(item) >= start_date) & (str(item) <= end_date)):
+            if ((str(item) >= self.dict['startDate']) & (str(item) <= self.dict['endDate'])):
                 val[str(item)] = value['Time Series (Daily)'][item]['4. close']
-        print(value)
         panda = pd.DataFrame(data=val.items(), columns=['Time', 'S&P500 Close'])
-        print(panda)
         return panda
 
     def setUSDEuroRate(self):
-        startDate = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
-        endDate = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y-%m-%d')
 
-        link = 'https://api.exchangeratesapi.io/history?start_at='+startDate+'&end_at='+endDate+'&symbols=USD'
+        link = 'https://api.exchangeratesapi.io/history?start_at='+self.dict['startDate']+'&end_at='+self.dict['endDate']+'&symbols=USD'
         value = util.readerJson(link)
-        #print(value)
         rate = {}
         for item in value['rates']:
             rate[str(item)] = value['rates'][item]['USD']
         panda = pd.DataFrame(data=rate.items(), columns=['Time', 'USDEuroRate'])
         return panda
 
+    def setnewsSentiment(self, file_reader_input):
+        timesentiment = []
+        for row in file_reader_input:
+            blob = TextBlob(row[2]+row[3])
+            timesentiment.append((util.dateFormatChanger(row[0],
+                                                         '%Y-%m-%dT%H:%M:%SZ', '%Y-%m-%d'), row[2]+row[3],
+                                  blob.polarity, blob.subjectivity))
+        return timesentiment
+
+    def setdailynews(self):
+        dict = {}
+        # combine all sentiment scores by day into a dictionary with key time and tuple (frequency, sum)
+        for index, row in self.dict['news'].iterrows():
+            if ((row['Time'] < self.dict['endDate']) & (row['Time'] > self.dict['startDate'])):
+                if row['Time'] in dict:
+                    dict[row['Time']] = (dict[row['Time']][0] + 1, (dict[row['Time']][1] + row['Polarity']), (dict[row['Time']][2] + row['Subjectivity']))
+                else:
+                    dict[row['Time']] = (1, row['Polarity'], row['Subjectivity'])
+
+        avgValue = []
+        avgSubj = []
+        for key, value in dict.items():
+            avg = value[1] / value[0]
+            avgSub = value[2] / value[0]
+            avgValue.append((key, avg))
+            avgSubj.append((key, avgSub))
+
+        df = pd.DataFrame(data=list(avgValue), columns=['Time', 'Polarity'])
+        dl = pd.DataFrame(data=list(avgSubj), columns=['Time', 'Subjectivity'])
+        df = pd.merge(df, dl, on='Time', sort=False, how='outer')
+
+        return df
