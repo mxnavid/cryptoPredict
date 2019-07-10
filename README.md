@@ -6,3 +6,7 @@
 
 ## To install other dependencies:
 * pip install textblob
+
+## Running the UI
+* cd cryptowatch
+* npm start
