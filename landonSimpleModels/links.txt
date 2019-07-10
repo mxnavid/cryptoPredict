@@ -1,1 +1,10 @@
 https://pdfs.semanticscholar.org/05f3/7fcb95488402bb9e4d0d5a291e1338de41a6.pdf
+
+Here are some github projects with some incredible models and/or trading of btc
+https://github.com/cbyn/bitpredict : bitpredict -- btc prediction with Gradient Boosting Model
+
+https://github.com/bukosabino/btctrading : btctrading -- btc prediction simple regression and multiclass classification (buy/sell/hold)
+
+https://github.com/AdeelMufti/CryptoBot : crytpobot -- automated btc trading based on bitpredict AI
+
+https://github.com/owocki/pytrader : pytrader -- complete package btc trader and analysis (profitable other than fees)
