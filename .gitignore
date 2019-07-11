@@ -107,3 +107,6 @@ venv.bak/
 .DS_Store
 .idea/
 output/
+
+# node_modules
+./ui/node_modules
