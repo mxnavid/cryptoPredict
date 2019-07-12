@@ -19,7 +19,16 @@ import SearchIcon from "@material-ui/icons/Search";
 import InputBase from "@material-ui/core/InputBase";
 import { IconButton } from "@material-ui/core";
 
-import Grid from '@material-ui/core/Grid';
+
+import { MemoryRouter as Router } from 'react-router';
+import { Link as RouterLink } from 'react-router-dom';
+import Link from '@material-ui/core/Link';
+
+// import { Dashboard } from "./components/Dashboard";
+// import { Portfolio } from "./components/Portfolio";
+// import { Bitcoin } from "./components/Bitcoin";
+
+import Grid from "@material-ui/core/Grid";
 
 import LineEx from './LineEx'
 
@@ -94,77 +103,76 @@ function App() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
+    <Router>
+      <div className={classes.root}>
+        <CssBaseline />
 
-      <AppBar position="fixed" className={classes.appBar}>
-        <Toolbar>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Cryptowatch
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+        <AppBar position="fixed" className={classes.appBar}>
+          <Toolbar>
+            <Typography className={classes.title} variant="h6" noWrap>
+              Cryptowatch
+            </Typography>
+            <div className={classes.search}>
+              <div className={classes.searchIcon}>
+                <SearchIcon />
+              </div>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput
+                }}
+                inputProps={{ "aria-label": "Search" }}
+              />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ "aria-label": "Search" }}
-            />
-          </div>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        className={classes.drawer}
-        variant="permanent"
-        classes={{
-          paper: classes.drawerPaper
-        }}
-      >
-        <div className={classes.toolbar} />
-        <List
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Views
-            </ListSubheader>
-          }
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          className={classes.drawer}
+          variant="permanent"
+          classes={{
+            paper: classes.drawerPaper
+          }}
         >
-          {["Dashboard", "Portfolio"].map(
-            (text, index) => (
+          <div className={classes.toolbar} />
+          <List
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Views
+              </ListSubheader>
+            }
+          >
+            {["Dashboard", "Portfolio"].map((text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
-            )
-          )}
-        </List>
+            ))}
+          </List>
 
-        <Divider />
+          <Divider />
 
-        <List
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Cryptocurrencies
-            </ListSubheader>
-          }
-          Î
-        >
-          {["Bitcoin", "Litecoin", "Ethereum"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
+          <List
+            subheader={
+              <ListSubheader component="div" id="nested-list-subheader">
+                Cryptocurrencies
+              </ListSubheader>
+            }
+            Î
+          >
+            {["Bitcoin", "Litecoin", "Ethereum"].map((text, index) => (
+              <ListItem button key={text}>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
 
-        <Divider />
+          <Divider />
 
         <List
           subheader={
@@ -197,9 +205,9 @@ function App() {
           <Grid item xs={4}>
             <LineEx name="Ethereum" label="Sentiment" x="v.Time" y="v.Polarity"/>
           </Grid>
-        </Grid>
-      </main>
-    </div>
+        </main>
+      </div>
+    </Router>
   );
 }
 
