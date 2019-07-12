@@ -21,6 +21,8 @@ import { IconButton } from "@material-ui/core";
 
 import Grid from '@material-ui/core/Grid';
 
+import LineEx from './LineEx'
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -170,7 +172,7 @@ function App() {
               Tools
             </ListSubheader>
           }
-          
+
         >
           {["Sentiment Analysis", "Charts Galore", "Playground (To Be Removed)", "Settings"].map((text, index) => (
             <ListItem button key={text}>
@@ -186,11 +188,14 @@ function App() {
       <main className={classes.content}>
         <div className={classes.toolbar} />
         <Grid container spacing={3}>
-          <Grid item xs={6}>
-            <p>Hello</p>
+          <Grid item xs={4}>
+            <LineEx name="Bitcoin" label="Price" x="Time" y="Open"/>
           </Grid>
-          <Grid item xs={6}>
-            <p>there</p>
+          <Grid item xs={4}>
+            <LineEx name="Litecoin" label="Price" x="Time" y="Open"/>
+          </Grid>
+          <Grid item xs={4}>
+            <LineEx name="Ethereum" label="Price" x="Time" y="Open"/>
           </Grid>
         </Grid>
       </main>
