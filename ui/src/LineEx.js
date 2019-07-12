@@ -2,16 +2,21 @@ import React from 'react';
 import {Line} from 'react-chartjs-2';
 import Box from '@material-ui/core/Box';
 
-//console.log(d);
-//console.log(x);
-
 class App extends React.Component {
   constructor(props) {
     super(props)
-    var {hourly_data} = require('./Bitcoin_hourly_output');
+    if (props.name == 'Litecoin') {
+      var {hourly_data} = require("./Litecoin_hourly_output.js");
+    }
+    else if (props.name == 'Ethereum') {
+      var {hourly_data} = require("./Ethereum_hourly_output.js");
+    }
+    else {
+      var {hourly_data} = require("./Bitcoin_hourly_output.js");
+    }
 
-    const x = hourly_data.map(v => (v.Time));
-    const y = hourly_data.map(v => (v.Open));
+    const x = hourly_data.map(v => (eval(props.x)));
+    const y = hourly_data.map(v => (eval(props.y)));
 
     this.data = {
       labels: x,
