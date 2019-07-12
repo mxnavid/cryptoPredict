@@ -197,15 +197,20 @@ function App() {
         <div className={classes.toolbar} />
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <LineEx name="Bitcoin" label="Price" x="Time" y="Open"/>
+            <LineEx name="Bitcoin" label="Price" x="v.Time" y="v.Open"/>
           </Grid>
           <Grid item xs={4}>
-            <LineEx name="Litecoin" label="Price" x="Time" y="Open"/>
+            <LineEx name="Litecoin" label="Volume"  x="v.Time" y="v.VolumeUSD"/>
           </Grid>
           <Grid item xs={4}>
+<<<<<<< HEAD
             <LineEx name="Ethereum" label="Price" x="Time" y="Open"/>
           </Grid>
+=======
+            <LineEx name="Ethereum" label="Sentiment" x="v.Time" y="v.Polarity"/>
+>>>>>>> b51ea4c10c0ebd8e7e39bd5536c979cedf64a7c5
           </Grid>
+        </Grid>
         </main>
       </div>
     </Router>
