@@ -30,6 +30,8 @@ import Link from '@material-ui/core/Link';
 
 import Grid from "@material-ui/core/Grid";
 
+import LineEx from './LineEx'
+
 const drawerWidth = 240;
 
 const useStyles = makeStyles(theme => ({
@@ -172,6 +174,7 @@ function App() {
 
           <Divider />
 
+<<<<<<< HEAD
           <List
             subheader={
               <ListSubheader component="div" id="nested-list-subheader">
@@ -208,6 +211,38 @@ function App() {
             <Grid item xs={6}>
               <p>there</p>
             </Grid>
+=======
+        <List
+          subheader={
+            <ListSubheader component="div" id="nested-list-subheader">
+              Tools
+            </ListSubheader>
+          }
+
+        >
+          {["Sentiment Analysis", "Charts Galore", "Playground (To Be Removed)", "Settings"].map((text, index) => (
+            <ListItem button key={text}>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItem>
+          ))}
+        </List>
+
+      </Drawer>
+      <main className={classes.content}>
+        <div className={classes.toolbar} />
+        <Grid container spacing={3}>
+          <Grid item xs={4}>
+            <LineEx name="Bitcoin" label="Price" x="Time" y="Open"/>
+          </Grid>
+          <Grid item xs={4}>
+            <LineEx name="Litecoin" label="Price" x="Time" y="Open"/>
+          </Grid>
+          <Grid item xs={4}>
+            <LineEx name="Ethereum" label="Price" x="Time" y="Open"/>
+>>>>>>> 1dff9e45d317b861a9436b4165d6d5e5a940f964
           </Grid>
         </main>
       </div>
