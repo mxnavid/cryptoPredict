@@ -30,7 +30,7 @@ import Link from '@material-ui/core/Link';
 
 import Grid from "@material-ui/core/Grid";
 
-import LineEx from './LineEx'
+import LineEx from './components/LineEx/LineEx'
 
 const drawerWidth = 240;
 
@@ -203,12 +203,7 @@ function App() {
             <LineEx name="Litecoin" label="Volume"  x="v.Time" y="v.VolumeUSD"/>
           </Grid>
           <Grid item xs={4}>
-<<<<<<< HEAD
-            <LineEx name="Ethereum" label="Price" x="Time" y="Open"/>
-          </Grid>
-=======
             <LineEx name="Ethereum" label="Sentiment" x="v.Time" y="v.Polarity"/>
->>>>>>> b51ea4c10c0ebd8e7e39bd5536c979cedf64a7c5
           </Grid>
         </Grid>
         </main>

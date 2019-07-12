@@ -2,17 +2,17 @@ import React from 'react';
 import {Line} from 'react-chartjs-2';
 import Box from '@material-ui/core/Box';
 
-class App extends React.Component {
+class LineEx extends React.Component {
   constructor(props) {
     super(props)
     if (props.name == 'Litecoin') {
-      var {hourly_data} = require("./Litecoin_hourly_output.js");
+      var {hourly_data} = require("../../Litecoin_hourly_output.js");
     }
     else if (props.name == 'Ethereum') {
-      var {hourly_data} = require("./Ethereum_hourly_output.js");
+      var {hourly_data} = require("../../Ethereum_hourly_output.js");
     }
     else {
-      var {hourly_data} = require("./Bitcoin_hourly_output.js");
+      var {hourly_data} = require("../../Bitcoin_hourly_output.js");
     }
 
     const x = hourly_data.map(v => (eval(props.x)));
@@ -58,4 +58,4 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default LineEx;
