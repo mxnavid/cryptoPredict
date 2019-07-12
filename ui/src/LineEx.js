@@ -1,8 +1,17 @@
 import React from 'react';
 import {Line} from 'react-chartjs-2';
+import Box from '@material-ui/core/Box';
+
+var {hourly_data} = require('./Bitcoin_hourly_output');
+
+const x = hourly_data.map(v => (v.Time));
+const y = hourly_data.map(v => (v.Open ));
+
+//console.log(d);
+console.log(x);
 
 const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  labels: x,
   datasets: [
     {
       label: 'Price',
@@ -10,7 +19,6 @@ const data = {
       lineTension: 0.1,
       backgroundColor: 'rgba(75,192,192,0.4)',
       borderColor: 'rgba(75,192,192,1)',
-      borderCapStyle: 'butt',
       borderDash: [],
       borderDashOffset: 0.0,
       borderJoinStyle: 'miter',
@@ -22,20 +30,22 @@ const data = {
       pointHoverBorderColor: 'rgba(220,220,220,1)',
       pointHoverBorderWidth: 2,
       pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: y
     }
   ]
 };
 
-
 class App extends React.Component {
   render() {
     return (
-      <div>
-      <h2>Bitcoin</h2>
-      <Line data={data} />
-      </div>
+      <Box border={1}>
+        <Line data={data}/>
+        <div>
+          <h4>Bitcoin</h4>
+          <p>Future values.</p>
+          <a href="#">More Info</a>
+        </div>
+      </Box>
     )
   }
 }
