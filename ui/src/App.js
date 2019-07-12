@@ -174,44 +174,6 @@ function App() {
 
           <Divider />
 
-<<<<<<< HEAD
-          <List
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Tools
-              </ListSubheader>
-            }
-          >
-            {[
-              "Sentiment Analysis",
-              "Charts Galore",
-              "Playground (To Be Removed)",
-              "Settings"
-            ].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-
-          {/* <Route path="/" exact component={Index} />
-          <Route path="/about/" component={About} />
-          <Route path="/users/" component={Users} /> */}
- 
-        </Drawer>
-        <main className={classes.content}>
-          <div className={classes.toolbar} />
-          <Grid container spacing={3}>
-            <Grid item xs={6}>
-              <p>Hello</p>
-            </Grid>
-            <Grid item xs={6}>
-              <p>there</p>
-            </Grid>
-=======
         <List
           subheader={
             <ListSubheader component="div" id="nested-list-subheader">
@@ -242,7 +204,7 @@ function App() {
           </Grid>
           <Grid item xs={4}>
             <LineEx name="Ethereum" label="Price" x="Time" y="Open"/>
->>>>>>> 1dff9e45d317b861a9436b4165d6d5e5a940f964
+          </Grid>
           </Grid>
         </main>
       </div>
