@@ -189,13 +189,13 @@ function App() {
         <div className={classes.toolbar} />
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <LineEx name="Bitcoin" label="Price" x="Time" y="Open"/>
+            <LineEx name="Bitcoin" label="Price" x="v.Time" y="v.Open"/>
           </Grid>
           <Grid item xs={4}>
-            <LineEx name="Litecoin" label="Price" x="Time" y="Open"/>
+            <LineEx name="Litecoin" label="Volume"  x="v.Time" y="v.VolumeUSD"/>
           </Grid>
           <Grid item xs={4}>
-            <LineEx name="Ethereum" label="Price" x="Time" y="Open"/>
+            <LineEx name="Ethereum" label="Sentiment" x="v.Time" y="v.Polarity"/>
           </Grid>
         </Grid>
       </main>
