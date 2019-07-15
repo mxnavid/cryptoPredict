@@ -4,8 +4,11 @@ import json
 import csv
 import re
 import time
+from textblob import TextBlob, Word, Blobber
+import logging
+import datetime
 
-sleepTime = 4
+sleepTime = 5
 api = twitter.Api(CONSUMER_KEY,
                   CONSUMER_SECRET,
                   ACCESS_TOKEN_KEY,
@@ -15,6 +18,14 @@ api = twitter.Api(CONSUMER_KEY,
 
 def demojify(text):
     return text.encode('ascii', 'ignore').decode('ascii')
+
+
+def polaritySubjectivityScore(tweetText):
+    blob = TextBlob(tweetText)
+    polarity = blob.polarity
+    sentiment = blob.sentiment.subjectivity
+    polaritySentiment = str(polarity) + "," + str(sentiment)
+    return polaritySentiment
 
 
 def cleanTweets(tweet):
@@ -36,7 +47,7 @@ def bitcoin(previousDate):
         publishDate = y["created_at"]
         publishDate = str(publishDate)
         if publishDate == previousDate:
-            print("Same Date Ignoring It")
+            logging.info("BITCOIN - Same Date Ignoring It")
             return 0
         else:
             previousDate = publishDate
@@ -47,9 +58,10 @@ def bitcoin(previousDate):
             accountID = y["id"]
 
             accountID = "" + str(accountID) + ""
+            sentiment = polaritySubjectivityScore(tweetText)
             writer.write(publishDate + "," + tweetText + "," + accountID +
-                         "\n")
-            print("bitcoin executed")
+                         "," + sentiment + "\n")
+            logging.info("Bitcoin Executed")
             return publishDate
 
 
@@ -63,7 +75,7 @@ def ethereum(previousDate):
         publishDate = str(publishDate)
 
         if publishDate == previousDate:
-            print("Same Date Ignoring It")
+            logging.info("ETH - Same Date Ignoring It")
             return 0
         else:
             previousDate = publishDate
@@ -71,12 +83,12 @@ def ethereum(previousDate):
             tweetText = str(tweetText)
             tweetText = cleanTweets(tweetText)
             accountID = y["id"]
-
             accountID = "" + str(accountID) + ""
+            sentiment = polaritySubjectivityScore(tweetText)
             writer.write(publishDate + "," + tweetText + "," + accountID +
-                         "\n")
+                         "," + sentiment + "\n")
             return publishDate
-        print("ethereum got executed")
+            logging.info("ETH Executed")
 
 
 def litecoin(previousDate):
@@ -89,7 +101,7 @@ def litecoin(previousDate):
         publishDate = str(publishDate)
 
         if publishDate == previousDate:
-            print("Same Date Ignoring It")
+            logging.info("Litecoin - Same Date Ignoring It")
             return 0
         else:
             previousDate = publishDate
@@ -99,17 +111,28 @@ def litecoin(previousDate):
             accountID = y["id"]
 
             accountID = "" + str(accountID) + ""
+            sentiment = polaritySubjectivityScore(tweetText)
             writer.write(publishDate + "," + tweetText + "," + accountID +
-                         "\n")
-        print("litecoin got executed")
+                         "," + sentiment + "\n")
+            logging.info("LTC Executed")
         return publishDate
 
 
 def get_tweets(api):
+    logging.basicConfig(
+        filename="hastag.log",
+        filemode='a',
+        format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+        datefmt='%H:%M:%S',
+        level=logging.INFO)
+
     previousDateBTC = ""
     previousDateETH = ""
     previousDateLTC = ""
     i = 0
+    timeNOW = datetime.datetime.now()
+    msgStart = "Time Started " + str(timeNOW)
+    logging.critical(msgStart)
     while True:
         if i % 3 == 0:
             retrieveBTC = bitcoin(previousDateBTC)
@@ -121,6 +144,8 @@ def get_tweets(api):
             retrieveLTC = litecoin(previousDateLTC)
             previousDateLTC = retrieveLTC
         i += 1
+    msgEnd = "Faild at " + str(timeNOW)
+    logging.critical(msgEnd)
 
 
 get_tweets(api)
