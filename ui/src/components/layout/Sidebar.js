@@ -52,7 +52,7 @@ const Sidebar = () => {
               <a>Charts Galore</a>
             </li>
             <li>
-              <a>Playground (To Be Removed)</a>
+              <Link to="/tools/playground">Playground (to be removed)</Link>
             </li>
             <li>
               <a>Settings</a>

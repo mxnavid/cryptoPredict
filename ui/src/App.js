@@ -7,6 +7,7 @@ import Sidebar from "./components/layout/Sidebar";
 import Dashboard from './components/dashboard/Dashboard';
 import Portfolio from "./components/portfolio/Portfolio";
 import Cryptocurrency from './components/cryptocurrency/Cryptocurrency';
+import Playground from "./components/tools/Playground";
 
 const App = () => {
   return (
@@ -23,6 +24,7 @@ const App = () => {
               <Route exact path="/dashboard" component={Dashboard} />
               <Route exact path="/portfolio" component={Portfolio} />
               <Route exact path="/cryptocurrency/:coin" component={Cryptocurrency} />
+              <Route exact path="/tools/playground" component={Playground} />
             </Switch>
           </div>
         </div>
