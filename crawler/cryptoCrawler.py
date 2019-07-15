@@ -5,6 +5,7 @@ import time
 import requests
 import pandas as pd
 from crawler.token import t, t2
+from datetime import date
 
 class CryptoCrawler:
 
@@ -40,9 +41,16 @@ class CryptoCrawler:
     def setwiki(self):
         startDate = util.dateFormatChanger(str(self.dict['startDate']), '%Y-%m-%d', '%Y%m%d')
         endDate = util.dateFormatChanger(str(self.dict['endDate']), '%Y-%m-%d', '%Y%m%d')
+        today = date.today().strftime("%Y%m%d")
+
+        if (startDate == today):
+            startDate = str(int(startDate) - 1)
+        if (endDate == today):
+            endDate = str(int(endDate) - 1)
 
         link = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/' \
                + self.dict['name'] + '/daily/' + startDate + '00/' + endDate + '00'
+        print(link)
         value = util.readerJson(link)
         viewCount = {}
         for item in value['items']:
@@ -53,12 +61,12 @@ class CryptoCrawler:
     def setsentiment(self, file_reader_input):
         timesentiment = []
         for row in file_reader_input:
-            ### TODO This is merely a reminder that I need to change row[2] back to row[1] when working with other files
-            cleaned_tweet = util.cleanTweets(row[2])
-            blob = TextBlob(cleaned_tweet)
-            ### TODO This is merely a reminder that I need to change '%Y-%m-%d %H:%M:%S.%f' back to '%a %b %d %H:%M:%S +%f %Y' when working with other files
+            clean_tweets = util.cleanTweets(row[1])
+            ### This is merely a reminder that I need to change row[2] back to row[1] when working with other files
+            blob = TextBlob(row[1])
+            ### This is merely a reminder that I need to change '%Y-%m-%d %H:%M:%S.%f' back to '%a %b %d %H:%M:%S +%f %Y' when working with other files
             timesentiment.append((util.dateFormatChanger(row[0],
-                                                         '%Y-%m-%d %H:%M:%S.%f', '%Y-%m-%d %H'), cleaned_tweet,
+                                                         '%a %b %d %H:%M:%S +%f %Y', '%Y-%m-%d %H'), clean_tweets,
                                   blob.polarity, blob.subjectivity))
         return timesentiment
 

@@ -2,6 +2,7 @@ import csv
 import urllib.request, json
 import re
 import datetime
+from datetime import timedelta
 import pandas as pd
 import os
 
@@ -39,3 +40,28 @@ def writeJs(inputFileName):
         f.write("}")
         #f.write(val.to_json())
 
+def convertTimeFile(inputFileName):
+    pre, ext = os.path.splitext(inputFileName)
+    df = pd.read_csv(inputFileName, header=None)
+    outputFileName = pre + '1.csv'
+    print(df)
+    for index, row in df.iterrows():
+        date = datetime.datetime.strptime(row[0], '%a %b %d %H:%M:%S +%f %Y')
+        date += timedelta(hours = 4)
+        df.iat[index, 0] = date.strftime('%a %b %d %H:%M:%S +%f %Y')
+    print(df)
+    df.to_csv(outputFileName, encoding='utf-8', header=None, index=False)
+
+def writeFiles(coin, path):
+    writeDFtoCSV(coin.dict['tweets'],
+                 os.path.join(path, 'data/output/'+coin.dict['name']+'_tweet_output.csv'))
+    print('Wrote ' + coin.dict['name'] +' tweet values to CSV')
+    writeDFtoCSV(coin.dict['news'],
+                 os.path.join(path, 'data/output/'+coin.dict['name']+'_news_output.csv'))
+    print('Wrote ' + coin.dict['name'] +' news values to CSV')
+    writeDFtoCSV(coin.dict['hourly'],
+                 os.path.join(path, 'data/output/'+coin.dict['name']+'_hourly_output.csv'))
+    print('Wrote ' + coin.dict['name'] +' hourly value to CSV')
+    writeDFtoCSV(coin.dict['daily'],
+                 os.path.join(path, 'data/output/'+coin.dict['name']+'_daily_output.csv'))
+    print('Wrote ' + coin.dict['name'] +' daily values to CSV')
