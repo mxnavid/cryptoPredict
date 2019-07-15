@@ -50,7 +50,7 @@ class CryptoCrawler:
 
         link = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/' \
                + self.dict['name'] + '/daily/' + startDate + '00/' + endDate + '00'
-        print(link)
+
         value = util.readerJson(link)
         viewCount = {}
         for item in value['items']:

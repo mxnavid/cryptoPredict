@@ -31,6 +31,7 @@ import Link from '@material-ui/core/Link';
 import Grid from "@material-ui/core/Grid";
 
 import LineEx from './components/LineEx/LineEx'
+import MultiLineEx from './components/LineEx/MultiLineEx'
 
 const drawerWidth = 240;
 
@@ -197,13 +198,21 @@ function App() {
         <div className={classes.toolbar} />
         <Grid container spacing={3}>
           <Grid item xs={4}>
-            <LineEx name="Bitcoin" label="Price" x="v.Time" y="v.Open"/>
+            <LineEx name="Bitcoin" label="Price" x="v.Time" y="v.Open" color="rgba(20,120,20,1)"/>
           </Grid>
           <Grid item xs={4}>
-            <LineEx name="Litecoin" label="Volume"  x="v.Time" y="v.VolumeUSD"/>
+            <LineEx name="Litecoin" label="Price"  x="v.Time" y="v.Open" color="rgba(120,20,20,1)"/>
           </Grid>
           <Grid item xs={4}>
-            <LineEx name="Ethereum" label="Sentiment" x="v.Time" y="v.Polarity"/>
+            <LineEx name="Ethereum" label="Price" x="v.Time" y="v.Open" color="rgba(20,20,120,1)"/>
+          </Grid>
+        </Grid>
+        <Grid container spacing={2}>
+          <Grid item xs={6}>
+            <MultiLineEx name="Price" x="v.Time" y="v.Open"/>
+          </Grid>
+          <Grid item xs={6}>
+            <MultiLineEx name="Sentiment" x="v.Time" y="v.Polarity"/>
           </Grid>
         </Grid>
         </main>

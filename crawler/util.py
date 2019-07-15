@@ -36,7 +36,7 @@ def writeJs(inputFileName):
     outputFileName = pre + '.js'
     with open(outputFileName, 'w') as f:
         f.write("module.exports = { hourly_data : ")
-        f.write(val.to_json(orient='split'))
+        f.write(val.to_json(orient='records'))
         f.write("}")
         #f.write(val.to_json())
 
@@ -44,12 +44,10 @@ def convertTimeFile(inputFileName):
     pre, ext = os.path.splitext(inputFileName)
     df = pd.read_csv(inputFileName, header=None)
     outputFileName = pre + '1.csv'
-    print(df)
     for index, row in df.iterrows():
         date = datetime.datetime.strptime(row[0], '%a %b %d %H:%M:%S +%f %Y')
         date += timedelta(hours = 4)
         df.iat[index, 0] = date.strftime('%a %b %d %H:%M:%S +%f %Y')
-    print(df)
     df.to_csv(outputFileName, encoding='utf-8', header=None, index=False)
 
 def writeFiles(coin, path):
