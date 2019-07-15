@@ -1,5 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
+import { Link } from "react-router-dom"
 
 class LineEx extends React.Component {
   constructor(props) {
@@ -48,7 +49,7 @@ class LineEx extends React.Component {
         <div>
           <h4>{this.props.name}</h4>
           <p>Future values.</p>
-          <a href={this.props.name}>More Info</a>
+          <Link to={"/cryptocurrency/" + this.props.name.toLowerCase()} >More Info</Link>
         </div>
       </div>
     );
