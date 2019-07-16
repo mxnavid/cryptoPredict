@@ -12,7 +12,7 @@ import Playground from "./components/tools/Playground";
 const App = () => {
   return (
     <Router>
-      <div className="app">
+      <div className="app" style={{backgroundColor: '#f5f5f5', height: '100vh'}}>
         <Header />
 
         <div className="columns is-fullheight ">

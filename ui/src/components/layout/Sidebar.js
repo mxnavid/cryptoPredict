@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   return (
-    <div>
+    <div style={{backgroundColor: 'white', height: '100vh'}}>
       <div
         className="column is-narrow is-sidebar-menu"
         style={{ padding: "40px" }}
@@ -33,13 +33,13 @@ const Sidebar = () => {
           <p className="menu-label">Cryptocurrencies</p>
           <ul className="menu-list">
             <li>
-              <Link to="/cryptocurrency/bitcoin">Bitcoin</Link>
+              <Link to="/cryptocurrency/Bitcoin">Bitcoin</Link>
             </li>
             <li>
-              <Link to="/cryptocurrency/ethereum">Ethereum</Link>
+              <Link to="/cryptocurrency/Ethereum">Ethereum</Link>
             </li>
             <li>
-              <Link to="/cryptocurrency/litecoin">Litecoin</Link>
+              <Link to="/cryptocurrency/Litecoin">Litecoin</Link>
             </li>
           </ul>
 

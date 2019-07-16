@@ -46,11 +46,13 @@ class LineEx extends React.Component {
     return (
       <div>
         <Line data={this.data} />
-        <div>
+        {this.props.show === true ? (<div>
           <h4>{this.props.name}</h4>
           <p>Future values.</p>
           <Link to={"/cryptocurrency/" + this.props.name.toLowerCase()} >More Info</Link>
-        </div>
+        </div>) : null
+        }
+        
       </div>
     );
   }
