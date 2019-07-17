@@ -10,14 +10,27 @@ export default function Card(props) {
           <div className="content">
             <LineEx
               name={props.title}
-              label="Price"
+              label="Sentiment"
               x="v.Time"
-              y="v.Open"
+              y="v.Polarity"
               color="rgba(120,20,20,1)"
               className="column"
               show="false"
             />
+
           </div>
+          {/* <div className="content">
+            <LineEx
+              name={props.title}
+              label="Sentiment"
+              x="v.Time"
+              y="v.Close"
+              color="rgba(120,20,20,1)"
+              className="column"
+              show="false"
+            />
+
+          </div> */}
         </div>
         <div class="card-content">
           <div class="media">
@@ -47,9 +60,7 @@ export default function Card(props) {
           </p>
           <p class="card-footer-item">
             <span>
-              <Link to={"/cryptocurrency/" + props.title}>
-                More Info
-              </Link>
+              <Link to={"/cryptocurrency/" + props.title}>More Info</Link>
             </span>
           </p>
         </footer>
