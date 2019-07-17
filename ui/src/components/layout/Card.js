@@ -12,8 +12,8 @@ export default function Card(props) {
               name={props.title}
               label="Sentiment"
               x="v.Time"
-              y="v.Polarity"
-              color="rgba(120,20,20,1)"
+              y="v.Open"
+              color={props.color}
               className="column"
               show="false"
             />
