@@ -13,7 +13,7 @@ export default function Card(props) {
               label="Price"
               x="v.Time"
               y="v.Open"
-              color="rgba(120,20,20,1)"
+              color={props.color}
               className="column"
               show="false"
             />

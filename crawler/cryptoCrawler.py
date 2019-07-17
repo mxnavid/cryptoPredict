@@ -102,11 +102,11 @@ class CryptoCrawler:
         index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='60min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
 
-        i = 0
+        i = 2000
         for val in index:
             timeUnix = time.mktime(val.timetuple())
             if ((i >=  2000) | (i == 0)):
-                i = 0
+                i = 2000
                 url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
                     'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
                 #print(url)
@@ -125,7 +125,7 @@ class CryptoCrawler:
                     'VolumeCoin': inas['volumefrom'],
                     'VolumeUSD': inas['volumeto']
             }
-            i += 1
+            i -= 1
 
             df = df.append(dic, ignore_index=True)
         return df
