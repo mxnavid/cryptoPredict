@@ -12,7 +12,7 @@ export default function Card(props) {
               name={props.title}
               label="Sentiment"
               x="v.Time"
-              y="v.Open"
+              y="v.Polarity"
               color={props.color}
               className="column"
               show="false"
