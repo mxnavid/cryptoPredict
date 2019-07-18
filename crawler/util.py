@@ -57,9 +57,11 @@ def writeFiles(coin, path):
     writeDFtoCSV(coin.dict['news'],
                  os.path.join(path, 'data/output/'+coin.dict['name']+'_news_output.csv'))
     print('Wrote ' + coin.dict['name'] +' news values to CSV')
-    writeDFtoCSV(coin.dict['hourly'],
-                 os.path.join(path, 'data/output/'+coin.dict['name']+'_hourly_output.csv'))
-    print('Wrote ' + coin.dict['name'] +' hourly value to CSV')
+
+    writeDFtoCSV(coin.dict['5min'],
+                 os.path.join(path, 'data/output/'+coin.dict['name']+'_5min_output.csv'))
+    print('Wrote ' + coin.dict['name'] +' 5 min value to CSV')
+
     writeDFtoCSV(coin.dict['daily'],
                  os.path.join(path, 'data/output/'+coin.dict['name']+'_daily_output.csv'))
     print('Wrote ' + coin.dict['name'] +' daily values to CSV')
