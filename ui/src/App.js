@@ -1,215 +1,36 @@
 import React from "react";
-import { makeStyles, useTheme, fade } from "@material-ui/core/styles";
-import clsx from "clsx";
-import Drawer from "@material-ui/core/Drawer";
-import AppBar from "@material-ui/core/AppBar";
-import CssBaseline from "@material-ui/core/CssBaseline";
-import Toolbar from "@material-ui/core/Toolbar";
-import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
-import Typography from "@material-ui/core/Typography";
-import Divider from "@material-ui/core/Divider";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MenuIcon from "@material-ui/icons/Menu";
-import MailIcon from "@material-ui/icons/Mail";
-import SearchIcon from "@material-ui/icons/Search";
-import InputBase from "@material-ui/core/InputBase";
-import { IconButton } from "@material-ui/core";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Header from "./components/layout/Header";
+import "bulma/css/bulma.css";
 
+import Dashboard from './components/dashboard/Dashboard';
+import Portfolio from "./components/portfolio/Portfolio";
+import Cryptocurrency from './components/cryptocurrency/Cryptocurrency';
+import Playground from "./components/tools/Playground";
+import Sentiment from "./components/sentiment/Sentiment";
 
-import { MemoryRouter as Router } from 'react-router';
-import { Link as RouterLink } from 'react-router-dom';
-import Link from '@material-ui/core/Link';
-
-// import { Dashboard } from "./components/Dashboard";
-// import { Portfolio } from "./components/Portfolio";
-// import { Bitcoin } from "./components/Bitcoin";
-
-import Grid from "@material-ui/core/Grid";
-
-import LineEx from './components/LineEx/LineEx'
-
-const drawerWidth = 240;
-
-const useStyles = makeStyles(theme => ({
-  root: {
-    display: "flex"
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1
-  },
-  drawer: {
-    width: drawerWidth,
-    flexShrink: 0
-  },
-  drawerPaper: {
-    width: drawerWidth
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3)
-  },
-  search: {
-    position: "relative",
-    borderRadius: theme.shape.borderRadius,
-    backgroundColor: fade(theme.palette.common.white, 0.15),
-    "&:hover": {
-      backgroundColor: fade(theme.palette.common.white, 0.25)
-    },
-    marginLeft: 0,
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      marginLeft: theme.spacing(1),
-      width: "auto"
-    }
-  },
-  searchIcon: {
-    width: theme.spacing(7),
-    height: "100%",
-    position: "absolute",
-    pointerEvents: "none",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  title: {
-    flexGrow: 1,
-    display: "none",
-    [theme.breakpoints.up("sm")]: {
-      display: "block"
-    }
-  },
-  inputRoot: {
-    color: "inherit"
-  },
-  inputInput: {
-    padding: theme.spacing(1, 1, 1, 7),
-    transition: theme.transitions.create("width"),
-    width: "100%",
-    [theme.breakpoints.up("sm")]: {
-      width: 120,
-      "&:focus": {
-        width: 200
-      }
-    }
-  },
-  toolbar: theme.mixins.toolbar
-}));
-
-function App() {
-  const classes = useStyles();
-
+const App = () => {
   return (
     <Router>
-      <div className={classes.root}>
-        <CssBaseline />
+      <div style={{ height: '100vh', backgroundColor: '#151E29'}}>
+        <Header />
 
-        <AppBar position="fixed" className={classes.appBar}>
-          <Toolbar>
-            <Typography className={classes.title} variant="h6" noWrap>
-              Cryptowatch
-            </Typography>
-            <div className={classes.search}>
-              <div className={classes.searchIcon}>
-                <SearchIcon />
-              </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-                inputProps={{ "aria-label": "Search" }}
-              />
-            </div>
-          </Toolbar>
-        </AppBar>
-        <Drawer
-          className={classes.drawer}
-          variant="permanent"
-          classes={{
-            paper: classes.drawerPaper
-          }}
-        >
-          <div className={classes.toolbar} />
-          <List
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Views
-              </ListSubheader>
-            }
-          >
-            {["Dashboard", "Portfolio"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
+        <div className="columns is-fullheight ">
 
-          <Divider />
-
-          <List
-            subheader={
-              <ListSubheader component="div" id="nested-list-subheader">
-                Cryptocurrencies
-              </ListSubheader>
-            }
-            Î
-          >
-            {["Bitcoin", "Litecoin", "Ethereum"].map((text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-
-          <Divider />
-
-        <List
-          subheader={
-            <ListSubheader component="div" id="nested-list-subheader">
-              Tools
-            </ListSubheader>
-          }
-
-        >
-          {["Sentiment Analysis", "Charts Galore", "Playground (To Be Removed)", "Settings"].map((text, index) => (
-            <ListItem button key={text}>
-              <ListItemIcon>
-                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-              </ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-
-      </Drawer>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Grid container spacing={3}>
-          <Grid item xs={4}>
-            <LineEx name="Bitcoin" label="Price" x="v.Time" y="v.Open"/>
-          </Grid>
-          <Grid item xs={4}>
-            <LineEx name="Litecoin" label="Volume"  x="v.Time" y="v.VolumeUSD"/>
-          </Grid>
-          <Grid item xs={4}>
-            <LineEx name="Ethereum" label="Sentiment" x="v.Time" y="v.Polarity"/>
-          </Grid>
-        </Grid>
-        </main>
+          <div className="column is-main-content">
+            <Switch>
+              <Route exact path="/" component={Dashboard} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/portfolio" component={Portfolio} />
+              <Route exact path="/cryptocurrency/:coin" component={Cryptocurrency} />
+              <Route exact path="/tools/playground" component={Playground} />
+              <Route exact path="/sentiment" component={Sentiment} />
+            </Switch>
+          </div>
+        </div>
       </div>
     </Router>
   );
-}
+};
 
 export default App;

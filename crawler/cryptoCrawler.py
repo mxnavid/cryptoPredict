@@ -21,17 +21,30 @@ class CryptoCrawler:
         self.dict['news'] = pd.DataFrame(data=self.setnewsSentiment(util.readerCSV(fileNameNews)),
                                            columns=['Time', 'Article', 'Polarity', 'Subjectivity'])
 
-        self.dict['hourly'] = self.sethourlyprice()
+        self.dict['startDate'] = str(self.dict['tweets'].min().Time)
+        self.dict['endDate'] = str(self.dict['tweets'].max().Time)
 
-        self.dict['startDate'] = util.dateFormatChanger(str(self.dict['hourly'].min().Time), '%Y-%m-%d %H', '%Y-%m-%d')
-        self.dict['endDate'] = util.dateFormatChanger(str(self.dict['hourly'].max().Time), '%Y-%m-%d %H', '%Y-%m-%d')
-
-        self.dict['hourly'] = pd.merge(self.dict['hourly'],self.sethourlysentiment(), on='Time', sort=False, how='outer')
+        self.dict['5min'] = self.sethourlysentiment()
+        self.dict['5min'] = pd.merge(self.dict['5min'], self.sethourlyprice(), on='Time', sort=False, how='outer')
+        self.dict['5min'] = pd.merge(self.dict['5min'], self.setsp500(), on='Time', sort=False, how='outer')
+        self.dict['5min'] = pd.merge(self.dict['5min'], self.setUSDEuroRate(), on='Time', sort=False, how='outer')
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
         self.dict['daily'] = pd.merge(self.dict['daily'], self.setdailynews(), on='Time', sort=False, how='outer')
-        self.dict['daily'] = pd.merge(self.dict['daily'],self.setUSDEuroRate(), on='Time', sort=False, how='outer')
-        self.dict['daily'] = pd.merge(self.dict['daily'], self.setsp500(), on='Time', sort=False, how='outer')
+
+        self.dict['5min'] = self.dict['5min'].sort_values(self.dict['5min'].columns[0], ascending=True)
+
+
+        for index, rows in self.dict['5min'].iterrows():
+            if pd.isnull(self.dict['5min'].ix[index, 'S&P500 Close']):
+                self.dict['5min'].ix[index, 'S&P500 Close'] = self.dict['5min'].ix[index-1, 'S&P500 Close']
+            if pd.isnull(self.dict['5min'].ix[index, 'S&P500 Volume']):
+                self.dict['5min'].ix[index, 'S&P500 Volume'] = self.dict['5min'].ix[index-1, 'S&P500 Volume']
+            if pd.isnull(self.dict['5min'].ix[index, 'Polarity']):
+                self.dict['5min'].ix[index, 'Polarity'] = self.dict['5min'].ix[index-1, 'Polarity']
+            if pd.isnull(self.dict['5min'].ix[index, 'Subjectivity']):
+                self.dict['5min'].ix[index, 'Subjectivity'] = self.dict['5min'].ix[index-1, 'Subjectivity']
+
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
 
@@ -39,8 +52,8 @@ class CryptoCrawler:
 
     ### Get a json based on link and return the values as a dictionary
     def setwiki(self):
-        startDate = util.dateFormatChanger(str(self.dict['startDate']), '%Y-%m-%d', '%Y%m%d')
-        endDate = util.dateFormatChanger(str(self.dict['endDate']), '%Y-%m-%d', '%Y%m%d')
+        startDate = util.dateFormatChanger(str(self.dict['startDate']), '%Y-%m-%d %H:%M', '%Y%m%d')
+        endDate = util.dateFormatChanger(str(self.dict['endDate']), '%Y-%m-%d %H:%M', '%Y%m%d')
         today = date.today().strftime("%Y%m%d")
 
         if (startDate == today):
@@ -50,7 +63,7 @@ class CryptoCrawler:
 
         link = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/' \
                + self.dict['name'] + '/daily/' + startDate + '00/' + endDate + '00'
-        print(link)
+
         value = util.readerJson(link)
         viewCount = {}
         for item in value['items']:
@@ -61,12 +74,14 @@ class CryptoCrawler:
     def setsentiment(self, file_reader_input):
         timesentiment = []
         for row in file_reader_input:
-            clean_tweets = util.cleanTweets(row[1])
-            ### This is merely a reminder that I need to change row[2] back to row[1] when working with other files
             blob = TextBlob(row[1])
-            ### This is merely a reminder that I need to change '%Y-%m-%d %H:%M:%S.%f' back to '%a %b %d %H:%M:%S +%f %Y' when working with other files
-            timesentiment.append((util.dateFormatChanger(row[0],
-                                                         '%a %b %d %H:%M:%S +%f %Y', '%Y-%m-%d %H'), clean_tweets,
+            timeRound = util.dateFormatChanger(row[0], '%a %b %d %H:%M:%S +%f %Y', '%Y-%m-%d %H:%M')
+            timeRound = datetime.datetime.strptime(timeRound, '%Y-%m-%d %H:%M')
+            val = (((timeRound.minute+1) // 5 * 5) % 60)
+            val2 = (((timeRound.minute+1) // 5 * 5) // 60)
+            timeRound = timeRound.replace(hour=timeRound.hour + val2, minute=val)
+            timeRound = util.dateFormatChanger(str(timeRound), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+            timesentiment.append((timeRound, row[1],
                                   blob.polarity, blob.subjectivity))
         return timesentiment
 
@@ -94,49 +109,75 @@ class CryptoCrawler:
         return df
 
     def sethourlyprice(self):
-        lst = []
+        index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
-        for index, rows in self.dict['tweets'].iterrows():
-            lst.append(rows['Time'])
-        lst = list(dict.fromkeys(lst))
 
-        for val in lst:
-            timeUnix = time.mktime(datetime.datetime.strptime(val, '%Y-%m-%d %H').timetuple())
-            url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict['shortName'] + "&tsym=USD&limit=1&toTs=" + str(timeUnix) + "&api_key=" + t
+        i = 2000
+        for val in index:
+            timeUnix = time.mktime(val.timetuple())
+            if ((i >=  2000) | (i == 0)):
+                i = 2000
+                url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
+                    'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+                #print(url)
+                reformat = requests.get(url).json()
+            inas = reformat['Data'][i]
+            for spot in reformat['Data']:
+                if timeUnix == spot['time']:
+                    inas = spot
 
-            reformat = requests.get(url).json()
+            rounded = util.dateFormatChanger(str(val), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+            rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
+            va = (((rounded.minute+1) // 5 * 5) % 60)
+            rounded = rounded.replace(hour=rounded.hour, minute=va)
             dic = {
-                'Time': val,
-                'Open': reformat['Data'][0]['open'],
-                'Close': reformat['Data'][0]['close'],
-                'High': reformat['Data'][0]['high'],
-                'Low': reformat['Data'][0]['low'],
-                'VolumeCoin': reformat['Data'][0]['volumefrom'],
-                'VolumeUSD': reformat['Data'][0]['volumeto']
+                    'Time': util.dateFormatChanger(str(rounded), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M'),
+                    'Open': inas['open'],
+                    'Close': inas['close'],
+                    'High': inas['high'],
+                    'Low': inas['low'],
+                    'VolumeCoin': inas['volumefrom'],
+                    'VolumeUSD': inas['volumeto']
             }
+            i -= 1
+
             df = df.append(dic, ignore_index=True)
         return df
 
     def setsp500(self):
 
-        link = 'https://www.alphavantage.co/query?function=TIME_SERIES_DAILY' \
-               '&symbol=^GSPC&outputsize=full&apikey=' + t2
+        link = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY' \
+               '&symbol=.INX&interval=5min&outputsize=full&apikey=' + t2
+        #print(link)
         value = util.readerJson(link)
         val = {}
-        for item in value['Time Series (Daily)']:
-            if ((str(item) >= self.dict['startDate']) & (str(item) <= self.dict['endDate'])):
-                val[str(item)] = value['Time Series (Daily)'][item]['4. close']
+        val2 = {}
+        for item in value['Time Series (5min)']:
+            item2 = util.dateFormatChanger(str(item), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+            item3 = datetime.datetime.strptime(item2, '%Y-%m-%d %H:%M')
+            va = (((item3.minute+1) // 5 * 5) % 60)
+            item3.replace(hour=item3.hour, minute=va)
+            item3 = util.dateFormatChanger(str(item3), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+            if ((item2 >= str(self.dict['startDate'])) & (item2 <= str(self.dict['endDate']))):
+                val[item3] = value['Time Series (5min)'][item]['4. close']
+                val2[item3] = value['Time Series (5min)'][item]['5. volume']
         panda = pd.DataFrame(data=val.items(), columns=['Time', 'S&P500 Close'])
-        return panda
+        panda2 = pd.DataFrame(data=val2.items(), columns=['Time', 'S&P500 Volume'])
+        df = pd.merge(panda, panda2, on='Time', sort=False, how='outer')
+
+        return df
 
     def setUSDEuroRate(self):
 
-        link = 'https://api.exchangeratesapi.io/history?start_at='+self.dict['startDate']+'&end_at='+self.dict['endDate']+'&symbols=USD'
+        link = 'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&outputsize=full&apikey=' + t2
+        #print(link)
         value = util.readerJson(link)
-        rate = {}
-        for item in value['rates']:
-            rate[str(item)] = value['rates'][item]['USD']
-        panda = pd.DataFrame(data=rate.items(), columns=['Time', 'USDEuroRate'])
+        val = {}
+        for item in value['Time Series FX (5min)']:
+            item2 = util.dateFormatChanger(str(item), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+            if ((str(item2) >= self.dict['startDate']) & (str(item2) <= self.dict['endDate'])):
+                val[str(item2)] = value['Time Series FX (5min)'][item]['4. close']
+        panda = pd.DataFrame(data=val.items(), columns=['Time', 'USDEuro'])
         return panda
 
     def setnewsSentiment(self, file_reader_input):
