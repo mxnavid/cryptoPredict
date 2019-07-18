@@ -1,0 +1,4 @@
+{
+    "python.pythonPath": "twitterCrawler/bin/python",
+    "python.formatting.provider": "yapf"
+}
