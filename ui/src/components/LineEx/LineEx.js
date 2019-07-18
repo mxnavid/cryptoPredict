@@ -1,7 +1,6 @@
 import React from "react";
 import { Line } from "react-chartjs-2";
-import { Link } from "react-router-dom"
-
+import { Link } from "react-router-dom";
 
 class LineEx extends React.Component {
   constructor(props) {
@@ -31,48 +30,72 @@ class LineEx extends React.Component {
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: this.props.color,
+          pointBorderColor: "#fff",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
-          pointHoverRadius: 5,
+          pointHoverRadius: 7,
           pointHoverBackgroundColor: this.props.color,
           pointHoverBorderColor: this.props.color,
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
+          pointHoverBorderWidth: 1,
+          pointRadius: 4.5,
           data: y
         }
       ]
     };
 
     this.options = {
+      legend: {
+        labels: {
+          fontColor: "#fff",
+          fontSize: 16
+        }
+      },
       scales: {
-        yAxes:[{
-          ticks: {
-            min: -0.3,
-            max: 0.3,
+        yAxes: [
+          {
+            ticks: {
+              fontColor: "#fff",
+              min: -0.3,
+              max: 0.3
+            },
+            gridLines: {
+              color: "#696969",
+              zeroLineColor: "#696969",
+              zeroLineWidth: 2
+            }
           }
-        }]
+        ],
+        xAxes: [
+          {
+            ticks: {
+              fontColor: "#fff"
+            },
+            gridLines: {
+              display: false,
+              color: "#696969"
+            }
+          }
+        ]
       }
-    }
+    };
   }
 
   render() {
     return (
       <div>
-
-        <Line data={this.data} options ={this.options} />
-        {this.props.show === true ? (<div>
-          <h4>{this.props.name}</h4>
-          <p>Future values.</p>
-          <Link to={"/cryptocurrency/" + this.props.name.toLowerCase()} >More Info</Link>
-        </div>) : null
-        }
-
+        <Line data={this.data} options={this.options} />
+        {this.props.show === true ? (
+          <div>
+            <h4>{this.props.name}</h4>
+            <p>Future values.</p>
+            <Link to={"/cryptocurrency/" + this.props.name.toLowerCase()}>
+              More Info
+            </Link>
+          </div>
+        ) : null}
       </div>
     );
   }
 }
-
-
 
 export default LineEx;

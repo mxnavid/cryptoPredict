@@ -5,7 +5,7 @@ import LineEx from "../LineEx/LineEx";
 export default function Card(props) {
   return (
     <div className="column is-one-third">
-      <div className="card">
+      <div className="card" style={{ backgroundColor: "#1B2737"}}>
         <div className="card-content">
           <div className="content">
             <LineEx

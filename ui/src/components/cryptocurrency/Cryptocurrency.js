@@ -5,7 +5,7 @@ import Card from "../layout/Card";
 const Cryptocurrency = props => {
    const { coin } = props.match.params;
   return (
-    <div className="section has-background-light ">
+    <div className="section " style={{backgroundColor: 'transparent'}}>
       <div className="columns">
         <h1 className="title column" style={{ fontSize: "48px" }}>
           {coin}
@@ -18,7 +18,7 @@ const Cryptocurrency = props => {
          <Card2 />
       </div>
       <div className="columns is-mobile is-multiline">
-         <Card title={coin} imageUrl={"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAA1BMVEX///+nxBvIAAAASElEQVR4nO3BgQAAAADDoPlTX+AIVQEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADwDcaiAAFXD1ujAAAAAElFTkSuQmCC"}/>
+         <Card title={coin} imageUrl={""} color={'#fff'}/>
       </div>
     </div>
   );

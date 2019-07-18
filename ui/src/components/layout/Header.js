@@ -3,14 +3,12 @@ import { Link } from "react-router-dom";
 
 const Header = () => {
   return (
-    <nav
-      className="navbar"
-      style={{ backgroundColor: "#141d26", height: "70px" }}
+    <nav class="navbar"
+      style={{ backgroundColor: "#1B2737", height: "70px" }}
     >
       <div className="navbar-brand">
-        <Link to="/" className="navbar-item">
+        <Link to="/" className="navbar-item-mine" id="idk">
           <p
-            className="has-text-white"
             style={{
               textTransform: "uppercase",
               fontSize: "24px",
@@ -23,19 +21,20 @@ const Header = () => {
       </div>
       <div className="navbar-menu">
         <div class="navbar-start">
-          {/* <a class="navbar-item">Dashboard</a> */}
+          {/* <a class="navbar-item-mine">Dashboard</a> */}
 
-          <Link
-            to="/dashboard"
-            className="navbar-item has-text-white"
-          >
+          <Link to="/dashboard" className="navbar-item-mine">
             Dashboard
           </Link>
           <Link
             to="/portfolio"
-            className="navbar-item has-text-white"
+            className="navbar-item-mine"
+            
           >
             Portfolio
+          </Link>
+          <Link to="/sentiment" className="navbar-item-mine">
+            Sentiment
           </Link>
 
           {/* <a class="navbar-item">Portfolio</a> */}
@@ -43,10 +42,10 @@ const Header = () => {
         <div class="navbar-end">
           <div class="navbar-item">
             <div class="buttons">
-              <a class="button is-primary">
+              {/* <a class="button is-primary">
                 <strong>Sign up</strong>
-              </a>
-              <a class="button is-light">Log in</a>
+              </a> */}
+              {/* <a class="button is-light">Dark Mode</a> */}
             </div>
           </div>
         </div>
