@@ -2,9 +2,12 @@ import React from "react";
 import { Line } from "react-chartjs-2";
 import { Link } from "react-router-dom"
 
+
 class LineEx extends React.Component {
   constructor(props) {
     super(props);
+
+    console.log(props.name);
     if (props.name == "Litecoin") {
       var { hourly_data } = require("../../Litecoin_hourly_output.js");
     } else if (props.name == "Ethereum") {
@@ -40,12 +43,24 @@ class LineEx extends React.Component {
         }
       ]
     };
+
+    this.options = {
+      scales: {
+        yAxes:[{
+          ticks: {
+            min: -0.3,
+            max: 0.3,
+          }
+        }]
+      }
+    }
   }
 
   render() {
     return (
       <div>
-        <Line data={this.data} />
+
+        <Line data={this.data} options ={this.options} />
         {this.props.show === true ? (<div>
           <h4>{this.props.name}</h4>
           <p>Future values.</p>
@@ -57,5 +72,7 @@ class LineEx extends React.Component {
     );
   }
 }
+
+
 
 export default LineEx;

@@ -16,7 +16,7 @@ const App = () => {
         <Header />
 
         <div className="columns is-fullheight ">
-          <Sidebar />
+          {/* <Sidebar textColor="#1DA1F2" /> */}
 
           <div className="column is-main-content">
             <Switch>

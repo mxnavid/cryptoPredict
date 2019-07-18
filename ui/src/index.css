@@ -1,8 +1,18 @@
 body {
   box-sizing: border-box;
+  margin: 0;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
+
+.menu-list a:hover {
+  background-color: #243447	!important;
+}
+
+.cool {
+  color: #1DA1F2 !important;
+}
+
