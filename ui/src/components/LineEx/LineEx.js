@@ -8,15 +8,15 @@ class LineEx extends React.Component {
 
     console.log(props.name);
     if (props.name == "Litecoin") {
-      var { hourly_data } = require("../../Litecoin_hourly_output.js");
+      var { hourly_data } = require("../../Litecoin_5min_output.js");
     } else if (props.name == "Ethereum") {
-      var { hourly_data } = require("../../Ethereum_hourly_output.js");
+      var { hourly_data } = require("../../Ethereum_5min_output.js");
     } else {
-      var { hourly_data } = require("../../Bitcoin_hourly_output.js");
+      var { hourly_data } = require("../../Bitcoin_5min_output.js");
     }
 
-    const x = hourly_data.map(v => eval(props.x));
-    const y = hourly_data.map(v => eval(props.y));
+    const x = hourly_data.slice(-12).map(v => eval(props.x));
+    const y = hourly_data.slice(-12).map(v => eval(props.y));
 
     this.data = {
       labels: x,
@@ -55,8 +55,8 @@ class LineEx extends React.Component {
           {
             ticks: {
               fontColor: "#fff",
-              min: -0.3,
-              max: 0.3
+              min: -0.6,
+              max: 0.6
             },
             gridLines: {
               color: "#696969",
@@ -78,6 +78,12 @@ class LineEx extends React.Component {
         ]
       }
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState()
+    }, 1000)
   }
 
   render() {

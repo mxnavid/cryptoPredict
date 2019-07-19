@@ -4,14 +4,15 @@ import datetime
 import time
 import requests
 import pandas as pd
-from crawler.token import t, t2
+from crawler.tok import t
 from datetime import date
 
 class CryptoCrawler:
 
     ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
-    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews):
+    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews, token):
         self.dict = {}
+        self.dict['token'] = token
         self.dict['name'] = cryptoName
         self.dict['shortName'] = cryptoShortName
 
@@ -147,7 +148,7 @@ class CryptoCrawler:
     def setsp500(self):
 
         link = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY' \
-               '&symbol=.INX&interval=5min&outputsize=full&apikey=' + t2
+               '&symbol=.INX&interval=5min&outputsize=full&apikey=' + self.dict['token']
         #print(link)
         value = util.readerJson(link)
         val = {}
@@ -169,7 +170,7 @@ class CryptoCrawler:
 
     def setUSDEuroRate(self):
 
-        link = 'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&outputsize=full&apikey=' + t2
+        link = 'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&outputsize=full&apikey=' + self.dict['token']
         #print(link)
         value = util.readerJson(link)
         val = {}

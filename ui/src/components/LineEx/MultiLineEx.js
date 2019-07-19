@@ -4,11 +4,11 @@ import {Line} from 'react-chartjs-2';
 class MultiLineEx extends React.Component {
   constructor(props) {
     super(props)
-    var {hourly_data} = require("../../Bitcoin_hourly_output.js");
+    var {hourly_data} = require("../../Bitcoin_5min_output.js");
     var bitcoin_data = hourly_data
-    var {hourly_data} = require("../../Litecoin_hourly_output.js");
+    var {hourly_data} = require("../../Litecoin_5min_output.js");
     var litecoin_data = hourly_data
-    var {hourly_data} = require("../../Ethereum_hourly_output.js");
+    var {hourly_data} = require("../../Ethereum_5min_output.js");
     var ethereum_data = hourly_data
 
     const x = bitcoin_data.map(v => (eval(props.x)));

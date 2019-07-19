@@ -30,15 +30,12 @@ def cleanTweets(tweet):
 def writeDFtoCSV(df, outputFileName):
     df.to_csv(outputFileName, encoding='utf-8', index=False)
 
-def writeJs(inputFileName):
-    pre, ext = os.path.splitext(inputFileName)
+def writeJs(inputFileName, outputFileName):
     val = pd.read_csv(inputFileName, header=0)
-    outputFileName = pre + '.js'
     with open(outputFileName, 'w') as f:
         f.write("module.exports = { hourly_data : ")
         f.write(val.to_json(orient='records'))
         f.write("}")
-        #f.write(val.to_json())
 
 def convertTimeFile(inputFileName):
     pre, ext = os.path.splitext(inputFileName)
