@@ -49,6 +49,7 @@ class CryptoCrawler:
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
 
+
     ### Web crawler details
 
     ### Get a json based on link and return the values as a dictionary
@@ -112,20 +113,25 @@ class CryptoCrawler:
     def sethourlyprice(self):
         index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
-
-        i = 2000
+        print(index.__len__())
+        i = index.__len__() - 2
+        timeUnix = time.mktime(index[min(i+1, 2000)].timetuple())
+        tot = 0
+        url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
+            'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+        #print(url)
+        reformat = requests.get(url).json()
+        i = max(2000 - index.__len__() - 2, 0)
         for val in index:
-            timeUnix = time.mktime(val.timetuple())
-            if ((i >=  2000) | (i == 0)):
-                i = 2000
+            if (i == 2000):
+                tot += 1
+                i = 0
+                timeUnix = time.mktime(index[min(i+1, 2000*(tot+1))].timetuple())
                 url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
                     'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
-                #print(url)
+                print(url)
                 reformat = requests.get(url).json()
             inas = reformat['Data'][i]
-            for spot in reformat['Data']:
-                if timeUnix == spot['time']:
-                    inas = spot
 
             rounded = util.dateFormatChanger(str(val), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
             rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
@@ -140,9 +146,11 @@ class CryptoCrawler:
                     'VolumeCoin': inas['volumefrom'],
                     'VolumeUSD': inas['volumeto']
             }
-            i -= 1
+            i += 1
 
             df = df.append(dic, ignore_index=True)
+        df.sort_values(df.columns[0], ascending=True)
+        #print(df)
         return df
 
     def setsp500(self):

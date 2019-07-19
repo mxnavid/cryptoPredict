@@ -16,8 +16,8 @@ class LineEx extends React.Component {
       var { hourly_data } = require("../../Bitcoin_5min_output.js");
     }
 
-    const x = hourly_data.slice(-12*24).map(v => eval(props.x));
-    const y = hourly_data.slice(-12*24).map(v => eval(props.y));
+    const x = hourly_data.slice(-12*3).map(v => eval(props.x));
+    const y = hourly_data.slice(-12*3).map(v => eval(props.y));
 
     this.data = {
       labels: x,

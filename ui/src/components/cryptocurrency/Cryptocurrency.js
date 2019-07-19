@@ -1,6 +1,8 @@
 import React from "react";
 import Card2 from "../layout/Card2";
 import Card from "../layout/Card";
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+
 // {props.match.params.coin}
 const Cryptocurrency = props => {
    const { coin } = props.match.params;

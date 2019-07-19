@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LineEx from "../LineEx/LineEx";
+import LineExNoScale from "../LineEx/LineExNoScale";
 
 export default function Card(props) {
   return (
@@ -8,11 +9,11 @@ export default function Card(props) {
       <div className="card" style={{ backgroundColor: "#1B2737"}}>
         <div className="card-content">
           <div className="content">
-            <LineEx
+            <LineExNoScale
               name={props.title}
-              label="Sentiment"
+              label="Price"
               x="v.Time"
-              y="v.Polarity"
+              y="v.Open"
               color={props.color}
               className="column"
               show="false"
