@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LineEx from "../LineEx/LineEx";
+import MultiLineEx from "../LineEx/MultiLineEx";
 
 export default function Card(props) {
   return (
@@ -8,35 +9,36 @@ export default function Card(props) {
       <div className="card" style={{ backgroundColor: "#1B2737"}}>
         <div className="card-content">
           <div className="content">
+          {!props.multiLine ?
             <LineEx
               name={props.title}
-              label="Sentiment"
+              label={props.label}
               x="v.Time"
-              y="v.Polarity"
+              y={"v." + props.label}
               color={props.color}
               className="column"
               show="false"
+              yMin={props.yMin}
+              yMax={props.yMax}
+            />: 
+            <MultiLineEx
+              name={props.label}
+              label={props.label}
+              x="v.Time"
+              y={"v." + props.label}
+              yMin={props.yMin}
+              yMax={props.yMax}
+              className="column"
             />
+          }
 
           </div>
-          {/* <div className="content">
-            <LineEx
-              name={props.title}
-              label="Sentiment"
-              x="v.Time"
-              y="v.Close"
-              color="rgba(120,20,20,1)"
-              className="column"
-              show="false"
-            />
-
-          </div> */}
         </div>
         <div class="card-content">
           <div class="media">
             <div class="media-left">
               <figure class="image is-48x48">
-                <img src={"" + props.imageUrl + ""} alt="Placeholder image" />
+                <img src={"" + props.imageUrl + ""} alt="Thing" />
               </figure>
             </div>
             <div class="media-content">

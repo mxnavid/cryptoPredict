@@ -71,6 +71,10 @@ code {
 }
 
 
+.navbar a:active {
+  color: #c51f5d !important;
+
+}
 
 .navbar-item-mine:hover {
   color: #c51f5d !important;
