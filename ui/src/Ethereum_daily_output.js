@@ -1,1 +1,0 @@
-module.exports = { hourly_data : [{"Time":"2019-07-15","Views":1839,"Polarity":null,"Subjectivity":null},{"Time":"2019-07-16","Views":1895,"Polarity":null,"Subjectivity":null},{"Time":"2019-07-17","Views":1744,"Polarity":null,"Subjectivity":null},{"Time":"2019-07-18","Views":1699,"Polarity":null,"Subjectivity":null}]}

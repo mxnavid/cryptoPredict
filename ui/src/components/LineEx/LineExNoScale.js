@@ -4,20 +4,23 @@ import { Link } from "react-router-dom"
 
 
 class LineEx extends React.Component {
+
+  
+
   constructor(props) {
     super(props);
 
     console.log(props.name);
     if (props.name == "Litecoin") {
-      var { hourly_data } = require("../../Litecoin_5min_output.js");
+      var { hourly_data } = require("../../scraped/litecoin/Litecoin_5min_output.js");
     } else if (props.name == "Ethereum") {
-      var { hourly_data } = require("../../Ethereum_5min_output.js");
+      var { hourly_data } = require("../../scraped/ethereum/Ethereum_5min_output.js");
     } else {
-      var { hourly_data } = require("../../Bitcoin_5min_output.js");
+      var { hourly_data } = require("../../scraped/bitcoin/Bitcoin_5min_output.js");
     }
 
-    const x = hourly_data.slice(-12*3).map(v => eval(props.x));
-    const y = hourly_data.slice(-12*3).map(v => eval(props.y));
+    const x = hourly_data.slice(-12*props.time).map(v => eval(props.x));
+    const y = hourly_data.slice(-12*props.time).map(v => eval(props.y));
 
     this.data = {
       labels: x,

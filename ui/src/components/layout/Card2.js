@@ -4,7 +4,7 @@ import LineEx from "../LineEx/LineEx";
 
 export default function Card2(props) {
   return (
-    <div className="column is-one-quarter">
+    <div className="column">
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">{props.title}</p>
@@ -23,3 +23,4 @@ export default function Card2(props) {
     </div>
   );
 }
+
