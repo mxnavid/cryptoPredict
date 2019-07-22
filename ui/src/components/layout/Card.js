@@ -1,7 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import LineEx from "../LineEx/LineEx";
+<<<<<<< HEAD
 import MultiLineEx from "../LineEx/MultiLineEx";
+=======
+import LineExNoScale from "../LineEx/LineExNoScale";
+>>>>>>> 23693343b01e5631637d467e8c4c6e8aa2ba3151
 
 export default function Card(props) {
   return (
@@ -9,12 +13,20 @@ export default function Card(props) {
       <div className="card" style={{ backgroundColor: "#1B2737"}}>
         <div className="card-content">
           <div className="content">
+<<<<<<< HEAD
           {!props.multiLine ?
             <LineEx
               name={props.title}
               label={props.label}
               x="v.Time"
               y={"v." + props.label}
+=======
+            <LineExNoScale
+              name={props.title}
+              label="Price"
+              x="v.Time"
+              y="v.Open"
+>>>>>>> 23693343b01e5631637d467e8c4c6e8aa2ba3151
               color={props.color}
               className="column"
               show="false"

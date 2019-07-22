@@ -1,10 +1,15 @@
 import React from "react";
 import Card2 from "../layout/Card2";
 import Card from "../layout/Card";
+<<<<<<< HEAD
 
 import bitcoindata from "../../scraped/bitcoin/Bitcoin_hourly_output";
 import ethereumdata from "../../scraped/ethereum/Ethereum_hourly_output";
 import litecoindata from "../../scraped/litecoin/Litecoin_hourly_output";
+=======
+import { TwitterTimelineEmbed, TwitterShareButton, TwitterFollowButton, TwitterHashtagButton, TwitterMentionButton, TwitterTweetEmbed, TwitterMomentShare, TwitterDMButton, TwitterVideoEmbed, TwitterOnAirButton } from 'react-twitter-embed';
+
+>>>>>>> 23693343b01e5631637d467e8c4c6e8aa2ba3151
 // {props.match.params.coin}
 const Cryptocurrency = props => {
    const { coin } = props.match.params;

@@ -8,15 +8,23 @@ class LineEx extends React.Component {
 
     console.log(props.name);
     if (props.name == "Litecoin") {
+<<<<<<< HEAD
       var { hourly_data } = require("../../scraped/litecoin/Litecoin_hourly_output.js");
     } else if (props.name == "Ethereum") {
       var { hourly_data } = require("../../scraped/ethereum/Ethereum_hourly_output.js");
     } else {
       var { hourly_data } = require("../../scraped/bitcoin/Bitcoin_hourly_output.js");
+=======
+      var { hourly_data } = require("../../Litecoin_5min_output.js");
+    } else if (props.name == "Ethereum") {
+      var { hourly_data } = require("../../Ethereum_5min_output.js");
+    } else {
+      var { hourly_data } = require("../../Bitcoin_5min_output.js");
+>>>>>>> 23693343b01e5631637d467e8c4c6e8aa2ba3151
     }
 
-    const x = hourly_data.map(v => eval(props.x));
-    const y = hourly_data.map(v => eval(props.y));
+    const x = hourly_data.slice(-12).map(v => eval(props.x));
+    const y = hourly_data.slice(-12).map(v => eval(props.y));
 
     this.data = {
       labels: x,
@@ -55,8 +63,13 @@ class LineEx extends React.Component {
           {
             ticks: {
               fontColor: "#fff",
+<<<<<<< HEAD
               min: this.props.yMin,
               max: this.props.yMax
+=======
+              min: -0.6,
+              max: 0.6
+>>>>>>> 23693343b01e5631637d467e8c4c6e8aa2ba3151
             },
             gridLines: {
               color: "#696969",
@@ -78,6 +91,12 @@ class LineEx extends React.Component {
         ]
       }
     };
+  }
+
+  componentDidMount() {
+    setInterval(() => {
+      this.setState()
+    }, 1000)
   }
 
   render() {
