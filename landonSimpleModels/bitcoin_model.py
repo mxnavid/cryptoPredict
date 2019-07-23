@@ -129,4 +129,5 @@ future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
 print(future_price)
 print(df['strategy_cu_return'][-1:])
 print(df['market_cu_return'][-1:])
-
+print(df)
+print(df) #people look at this, see what kind of data you want to play with here
