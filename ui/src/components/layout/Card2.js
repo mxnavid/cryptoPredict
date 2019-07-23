@@ -8,11 +8,11 @@ export default function Card2(props) {
       <div class="card">
         <header class="card-header">
           <p class="card-header-title">{props.title}</p>
-          <a href="#" class="card-header-icon" aria-label="more options">
+          {/* <a href="#" class="card-header-icon" aria-label="more options">
             <span class="icon">
               <i class="fas fa-angle-down" aria-hidden="true" />
             </span>
-          </a>
+          </a> */}
         </header>
         <div class="card-content">
           <div class="content">

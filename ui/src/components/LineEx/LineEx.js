@@ -6,7 +6,7 @@ class LineEx extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props.name);
+    // console.log(props.name);
     if (props.name == "Litecoin") {
       var { hourly_data } = require("../../scraped/litecoin/Litecoin_5min_output.js");
     } else if (props.name == "Ethereum") {
@@ -30,8 +30,8 @@ class LineEx extends React.Component {
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: "#fff",
-          pointBackgroundColor: "#fff",
+          pointBorderColor: "#000",
+          pointBackgroundColor: "#000",
           pointBorderWidth: 1,
           pointHoverRadius: 7,
           pointHoverBackgroundColor: this.props.color,
@@ -46,7 +46,7 @@ class LineEx extends React.Component {
     this.options = {
       legend: {
         labels: {
-          fontColor: "#fff",
+          fontColor: "#000",
           fontSize: 16
         }
       },
@@ -54,9 +54,9 @@ class LineEx extends React.Component {
         yAxes: [
           {
             ticks: {
-              fontColor: "#fff",
-              min: -0.6,
-              max: 0.6
+              fontColor: "#000",
+              min: this.props.yMin,
+              max: this.props.yMax
             },
             gridLines: {
               color: "#696969",
@@ -68,7 +68,7 @@ class LineEx extends React.Component {
         xAxes: [
           {
             ticks: {
-              fontColor: "#fff"
+              fontColor: "#000"
             },
             gridLines: {
               display: false,
