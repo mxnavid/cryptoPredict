@@ -119,7 +119,6 @@ class CryptoCrawler:
         tot = 0
         url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
             'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
-        print(url)
         #print(timeUnix)
         #print(url)
         reformat = requests.get(url).json()
@@ -132,7 +131,6 @@ class CryptoCrawler:
                 #print(i)
                 url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
                     'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
-                print(url)
                 reformat = requests.get(url).json()
             inas = reformat['Data'][i]
 
