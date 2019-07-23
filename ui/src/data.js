@@ -2,7 +2,7 @@ export const data = [
   {
     name: "Bitcoin",
     logoUrl: "https://en.bitcoin.it/w/images/en/2/29/BC_Logo_.png",
-    color: "	#ffe700"
+    color: "#ffe700"
   },
   {
     name: "Ethereum",

@@ -30,15 +30,12 @@ def cleanTweets(tweet):
 def writeDFtoCSV(df, outputFileName):
     df.to_csv(outputFileName, encoding='utf-8', index=False)
 
-def writeJs(inputFileName):
-    pre, ext = os.path.splitext(inputFileName)
+def writeJs(inputFileName, outputFileName):
     val = pd.read_csv(inputFileName, header=0)
-    outputFileName = pre + '.js'
     with open(outputFileName, 'w') as f:
         f.write("module.exports = { hourly_data : ")
         f.write(val.to_json(orient='records'))
         f.write("}")
-        #f.write(val.to_json())
 
 def convertTimeFile(inputFileName):
     pre, ext = os.path.splitext(inputFileName)
@@ -53,15 +50,15 @@ def convertTimeFile(inputFileName):
 def writeFiles(coin, path):
     writeDFtoCSV(coin.dict['tweets'],
                  os.path.join(path, 'data/output/'+coin.dict['name']+'_tweet_output.csv'))
-    print('Wrote ' + coin.dict['name'] +' tweet values to CSV')
+    #print('Wrote ' + coin.dict['name'] +' tweet values to CSV')
     writeDFtoCSV(coin.dict['news'],
                  os.path.join(path, 'data/output/'+coin.dict['name']+'_news_output.csv'))
-    print('Wrote ' + coin.dict['name'] +' news values to CSV')
+    #print('Wrote ' + coin.dict['name'] +' news values to CSV')
 
     writeDFtoCSV(coin.dict['5min'],
                  os.path.join(path, 'data/output/'+coin.dict['name']+'_5min_output.csv'))
-    print('Wrote ' + coin.dict['name'] +' 5 min value to CSV')
+    #print('Wrote ' + coin.dict['name'] +' 5 min value to CSV')
 
     writeDFtoCSV(coin.dict['daily'],
                  os.path.join(path, 'data/output/'+coin.dict['name']+'_daily_output.csv'))
-    print('Wrote ' + coin.dict['name'] +' daily values to CSV')
+    #print('Wrote ' + coin.dict['name'] +' daily values to CSV')

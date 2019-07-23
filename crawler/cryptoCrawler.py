@@ -4,14 +4,15 @@ import datetime
 import time
 import requests
 import pandas as pd
-from crawler.token import t, t2
+from crawler.tok import t
 from datetime import date
 
 class CryptoCrawler:
 
     ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
-    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews):
+    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews, token):
         self.dict = {}
+        self.dict['token'] = token
         self.dict['name'] = cryptoName
         self.dict['shortName'] = cryptoShortName
 
@@ -47,6 +48,7 @@ class CryptoCrawler:
 
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
+
 
     ### Web crawler details
 
@@ -107,24 +109,32 @@ class CryptoCrawler:
         df = pd.merge(df, dl, on='Time', sort=False, how='outer')
 
         return df
-
+    #TODO CHANGE API CALL
     def sethourlyprice(self):
         index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
-
-        i = 2000
+        #print(index.__len__())
+        i = index.__len__() - 1
+        timeUnix = time.mktime(index[min(i, 2000)].timetuple())
+        tot = 0
+        url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
+            'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+        print(url)
+        #print(timeUnix)
+        #print(url)
+        reformat = requests.get(url).json()
+        i = max(400*tot - index.__len__() - 1, 0)
         for val in index:
-            timeUnix = time.mktime(val.timetuple())
-            if ((i >=  2000) | (i == 0)):
-                i = 2000
-                url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
-                    'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
-                #print(url)
+            if (i == 400):
+                tot += 1
+                timeUnix = time.mktime(index[min(index.__len__() - 1, 400*(tot+1))].timetuple())
+                i = max(400*(tot+1) - index.__len__() - 2, 0)
+                #print(i)
+                url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
+                    'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+                print(url)
                 reformat = requests.get(url).json()
             inas = reformat['Data'][i]
-            for spot in reformat['Data']:
-                if timeUnix == spot['time']:
-                    inas = spot
 
             rounded = util.dateFormatChanger(str(val), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
             rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
@@ -139,15 +149,17 @@ class CryptoCrawler:
                     'VolumeCoin': inas['volumefrom'],
                     'VolumeUSD': inas['volumeto']
             }
-            i -= 1
+            i += 1
 
             df = df.append(dic, ignore_index=True)
+        df.sort_values(df.columns[0], ascending=True)
+        #print(df)
         return df
 
     def setsp500(self):
 
         link = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY' \
-               '&symbol=.INX&interval=5min&outputsize=full&apikey=' + t2
+               '&symbol=.INX&interval=5min&outputsize=full&apikey=' + self.dict['token']
         #print(link)
         value = util.readerJson(link)
         val = {}
@@ -169,7 +181,7 @@ class CryptoCrawler:
 
     def setUSDEuroRate(self):
 
-        link = 'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&outputsize=full&apikey=' + t2
+        link = 'https://www.alphavantage.co/query?function=FX_INTRADAY&from_symbol=EUR&to_symbol=USD&interval=5min&outputsize=full&apikey=' + self.dict['token']
         #print(link)
         value = util.readerJson(link)
         val = {}
