@@ -47,7 +47,7 @@ export default class Card extends Component {
 
   render() {
     return (
-      <div className="column is-one-third">
+      <div className="column ">
         <div className={"card" + " card" + this.props.num}>
           <div class="card-content">
             <div class="media">

@@ -43,8 +43,8 @@ class Cryptocurrency extends Component {
   return (
     <div>
       <section class="hero has-background-link	">
-        <div class="hero-body columns is-mobile">
-          <div className="column is-one-quarter" style={{ padding: " 27px 90px" }}>
+        <div class="hero-body columns">
+          <div className="column is-one-quarter" >
             <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
               {coin}
             </h1>
@@ -62,7 +62,7 @@ class Cryptocurrency extends Component {
         </div>
       </section>
       <section className="section">
-        <div className="columns is-mobile is-multiline">
+        <div className="columns">
           <Card
             title={coin}
             imageUrl={""}
