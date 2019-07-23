@@ -27,7 +27,7 @@ while True:
     if (datetime.datetime.now() > prevTime + timedelta(minutes=5)):
         prevTime = datetime.datetime.now()
         print(datetime.datetime.now())
-        p = subprocess.Popen(['scp', 'root@45.32.212.127:/root/cryptoPredict/twitterCrawler/{bitcoin.csv,litecoin.csv,ethereum.csv}',
+        p = subprocess.Popen(['scp', 'root@45.32.212.127:/root/cryptoPredict/tCrawler/{bitcoin.csv,litecoin.csv,ethereum.csv}',
                               os.path.join(THIS_FOLDER, 'data/')])
 
         sts = os.waitpid(p.pid, 0)

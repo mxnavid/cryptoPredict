@@ -37,14 +37,14 @@ class CryptoCrawler:
 
 
         for index, rows in self.dict['5min'].iterrows():
-            if pd.isnull(self.dict['5min'].ix[index, 'S&P500 Close']):
-                self.dict['5min'].ix[index, 'S&P500 Close'] = self.dict['5min'].ix[index-1, 'S&P500 Close']
-            if pd.isnull(self.dict['5min'].ix[index, 'S&P500 Volume']):
-                self.dict['5min'].ix[index, 'S&P500 Volume'] = self.dict['5min'].ix[index-1, 'S&P500 Volume']
-            if pd.isnull(self.dict['5min'].ix[index, 'Polarity']):
-                self.dict['5min'].ix[index, 'Polarity'] = self.dict['5min'].ix[index-1, 'Polarity']
-            if pd.isnull(self.dict['5min'].ix[index, 'Subjectivity']):
-                self.dict['5min'].ix[index, 'Subjectivity'] = self.dict['5min'].ix[index-1, 'Subjectivity']
+            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Close']):
+                self.dict['5min'].loc[index, 'S&P500 Close'] = self.dict['5min'].loc[index-1, 'S&P500 Close']
+            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Volume']):
+                self.dict['5min'].loc[index, 'S&P500 Volume'] = self.dict['5min'].loc[index-1, 'S&P500 Volume']
+            if pd.isnull(self.dict['5min'].loc[index, 'Polarity']):
+                self.dict['5min'].loc[index, 'Polarity'] = self.dict['5min'].loc[index-1, 'Polarity']
+            if pd.isnull(self.dict['5min'].loc[index, 'Subjectivity']):
+                self.dict['5min'].loc[index, 'Subjectivity'] = self.dict['5min'].loc[index-1, 'Subjectivity']
 
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
@@ -79,8 +79,8 @@ class CryptoCrawler:
             blob = TextBlob(row[1])
             timeRound = util.dateFormatChanger(row[0], '%a %b %d %H:%M:%S +%f %Y', '%Y-%m-%d %H:%M')
             timeRound = datetime.datetime.strptime(timeRound, '%Y-%m-%d %H:%M')
-            val = (((timeRound.minute+1) // 5 * 5) % 60)
-            val2 = (((timeRound.minute+1) // 5 * 5) // 60)
+            val = (((timeRound.minute) // 5 * 5) % 60)
+            val2 = (((timeRound.minute) // 5 * 5) // 60)
             timeRound = timeRound.replace(hour=timeRound.hour + val2, minute=val)
             timeRound = util.dateFormatChanger(str(timeRound), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
             timesentiment.append((timeRound, row[1],
@@ -109,7 +109,7 @@ class CryptoCrawler:
         df = pd.merge(df, dl, on='Time', sort=False, how='outer')
 
         return df
-    #TODO CHANGE API CALL
+
     def sethourlyprice(self):
         index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
@@ -165,7 +165,7 @@ class CryptoCrawler:
         for item in value['Time Series (5min)']:
             item2 = util.dateFormatChanger(str(item), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
             item3 = datetime.datetime.strptime(item2, '%Y-%m-%d %H:%M')
-            va = (((item3.minute+1) // 5 * 5) % 60)
+            va = (((item3.minute) // 5 * 5) % 60)
             item3.replace(hour=item3.hour, minute=va)
             item3 = util.dateFormatChanger(str(item3), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
             if ((item2 >= str(self.dict['startDate'])) & (item2 <= str(self.dict['endDate']))):
