@@ -75,7 +75,7 @@ export default class Card extends Component {
                 ? (<div>
                     <div className="columns">
                       <div className="column">
-                        <p onClick={() => this.setState({showSentiment: !this.state.showSentiment})}>
+                        <p onClick={() => this.setState({showSentiment: !this.state.showSentiment})} style={{cursor: 'pointer'}}>
                           Sentiment: <i class="far fa-frown" />
                         </p>
                       </div>
@@ -94,7 +94,7 @@ export default class Card extends Component {
                 {this.state.showSentiment ? 
               <LineEx 
               name={this.props.title}
-              label="Price"
+              label="Sentiment"
               x="v.Time"
               y="v.Polarity"
               color={this.props.color}
