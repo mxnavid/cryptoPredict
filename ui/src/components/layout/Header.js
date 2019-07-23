@@ -26,8 +26,14 @@ class Header extends Component {
     const h = today.getHours();
     const m = today.getMinutes();
     const s = today.getSeconds();
+    let m2 = "";
+    if (m < 10) m2 = "0" + m
+    else m2 = m
+    let s2 = "";
+    if (s < 10) s2 = "0" + s
+    else s2 = s
     // add a zero in front of numbers<10
-    time.innerHTML = h + ":" + m + ":" +  s;
+    time.innerHTML = h + ":" + m2 + ":" +  s2;
   }
 
   render() {
