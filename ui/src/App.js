@@ -8,6 +8,7 @@ import MyRouter from "./components/layout/MyRouter";
 const App = () => {
   return (
     <Router>
+
       <Header />
       <MyRouter />
     </Router>
