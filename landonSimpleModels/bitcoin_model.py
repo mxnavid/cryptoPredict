@@ -6,7 +6,8 @@ import matplotlib.pyplot as plt
 import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-
+from crawler import util
+import os
 
 pd.set_option('display.expand_frame_repr', False)
 df = pd.read_csv("Bitcoin_5min_output.csv")
@@ -131,3 +132,5 @@ print(df['strategy_cu_return'][-1:])
 print(df['market_cu_return'][-1:])
 print(df)
 #people look at this, see what kind of data you want to play with here
+path = os.path.dirname(os.path.abspath(__file__))
+util.writeDFtoCSV(df, os.path.join(path, 'Bitcoin_model_output.csv'))
