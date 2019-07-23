@@ -34,14 +34,16 @@ class CryptoCrawler3(CryptoCrawler):
 
 
         for index, rows in self.dict['5min'].iterrows():
-            if pd.isnull(self.dict['5min'].ix[index, 'S&P500 Close']):
-                self.dict['5min'].ix[index, 'S&P500 Close'] = self.dict['5min'].ix[index-1, 'S&P500 Close']
-            if pd.isnull(self.dict['5min'].ix[index, 'S&P500 Volume']):
-                self.dict['5min'].ix[index, 'S&P500 Volume'] = self.dict['5min'].ix[index-1, 'S&P500 Volume']
-            if pd.isnull(self.dict['5min'].ix[index, 'Polarity']):
-                self.dict['5min'].ix[index, 'Polarity'] = self.dict['5min'].ix[index-1, 'Polarity']
-            if pd.isnull(self.dict['5min'].ix[index, 'Subjectivity']):
-                self.dict['5min'].ix[index, 'Subjectivity'] = self.dict['5min'].ix[index-1, 'Subjectivity']
+            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Close']):
+                self.dict['5min'].loc[index, 'S&P500 Close'] = self.dict['5min'].loc[index-1, 'S&P500 Close']
+            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Volume']):
+                self.dict['5min'].loc[index, 'S&P500 Volume'] = self.dict['5min'].loc[index-1, 'S&P500 Volume']
+            if pd.isnull(self.dict['5min'].loc[index, 'Polarity']):
+                self.dict['5min'].loc[index, 'Polarity'] = self.dict['5min'].loc[index-1, 'Polarity']
+            if pd.isnull(self.dict['5min'].loc[index, 'Subjectivity']):
+                self.dict['5min'].loc[index, 'Subjectivity'] = self.dict['5min'].loc[index-1, 'Subjectivity']
+
+
 
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
