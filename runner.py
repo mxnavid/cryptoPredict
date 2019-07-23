@@ -2,7 +2,6 @@ from crawler.cryptoCrawler import CryptoCrawler
 from crawler.cryptoCrawler3 import CryptoCrawler3
 from crawler import util
 import os
-import time
 import datetime
 from datetime import timedelta
 import subprocess
@@ -12,13 +11,13 @@ def writingFiles(coin, THIS_FOLDER):
     util.writeFiles(coin, THIS_FOLDER)
 
     util.writeJs(os.path.join(THIS_FOLDER, 'data/output/' + coin.dict['name'] + '_daily_output.csv'),
-                 os.path.join(THIS_FOLDER, 'ui/src/' + coin.dict['name'] + '_daily_output.js'))
+                 os.path.join(THIS_FOLDER, 'ui/src/scraped/' + coin.dict['name'].lower() +'/'+ coin.dict['name'] + '_daily_output.js'))
 
     util.writeJs(os.path.join(THIS_FOLDER, 'data/output/' + coin.dict['name'] + '_5min_output.csv'),
-                 os.path.join(THIS_FOLDER, 'ui/src/' + coin.dict['name'] + '_5min_output.js'))
+                 os.path.join(THIS_FOLDER, 'ui/src/scraped/' + coin.dict['name'].lower() +'/'+ coin.dict['name'] + '_5min_output.js'))
 
     util.writeJs(os.path.join(THIS_FOLDER, 'data/' + coin.dict['name'] + '.csv'),
-                 os.path.join(THIS_FOLDER, 'ui/src/' + coin.dict['name'] + '_tweet_output.js'))
+                 os.path.join(THIS_FOLDER, 'ui/src/scraped/' + coin.dict['name'].lower() +'/'+ coin.dict['name'] + '_tweet_output.js'))
 
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 

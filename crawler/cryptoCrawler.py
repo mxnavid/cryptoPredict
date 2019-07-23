@@ -109,27 +109,28 @@ class CryptoCrawler:
         df = pd.merge(df, dl, on='Time', sort=False, how='outer')
 
         return df
-
+    #TODO CHANGE API CALL
     def sethourlyprice(self):
         index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
-        print(index.__len__())
-        i = index.__len__() - 2
-        timeUnix = time.mktime(index[min(i+1, 2000)].timetuple())
+        #print(index.__len__())
+        i = index.__len__() - 1
+        timeUnix = time.mktime(index[min(i, 2000)].timetuple())
         tot = 0
-        url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
-            'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+        url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
+            'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+        #print(timeUnix)
         #print(url)
         reformat = requests.get(url).json()
-        i = max(2000 - index.__len__() - 2, 0)
+        i = max(400*tot - index.__len__() - 1, 0)
         for val in index:
-            if (i == 2000):
+            if (i == 400):
                 tot += 1
-                i = 0
-                timeUnix = time.mktime(index[min(i+1, 2000*(tot+1))].timetuple())
-                url = "https://min-api.cryptocompare.com/data/histohour?fsym=" + self.dict[
-                    'shortName'] + "&tsym=USD&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
-                print(url)
+                timeUnix = time.mktime(index[min(index.__len__() - 1, 400*(tot+1))].timetuple())
+                i = max(400*(tot+1) - index.__len__() - 2, 0)
+                #print(i)
+                url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
+                    'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
                 reformat = requests.get(url).json()
             inas = reformat['Data'][i]
 
