@@ -10,10 +10,10 @@ export default class Dashboard extends Component {
           <div class="hero-body columns is-mobile">
             <div className="column" style={{ padding: " 27px 90px" }}>
               <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
-                Dashboard
+                Cryptocurrently
               </h1>
               <h2 class="subtitle has-text-white" style={{ fontSize: "28px" }}>
-                Cryptocurrently
+                Dashboard
               </h2>
             </div>
           </div>
@@ -37,8 +37,9 @@ export default class Dashboard extends Component {
                   color={crypto.color}
                   yMin={-0.3}
                   yMax={0.3}
-                  label="Polarity"
+                  label="Open"
                   multiLine={false}
+                  showStuff={true}
                 />
               );
             })}

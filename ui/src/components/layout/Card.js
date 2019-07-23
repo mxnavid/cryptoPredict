@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import LineEx from "../LineEx/LineEx";
 import LineExNoScale from "../LineEx/LineExNoScale";
-import MultiLineEx from "../LineEx/MultiLineEx";
+// import MultiLineEx from "../LineEx/MultiLineEx";
 
 export default class Card extends Component {
   state = {
-    hours: 1
+    hours: 1,
+    showSentiment: false,
   };
 
   handleClick = (e, num) => {
@@ -18,24 +19,28 @@ export default class Card extends Component {
 
     const newGraph = e.target.innerHTML;
 
-    let graph = document
-    .querySelector(".card" + this.props.num + " .active-chart");
-    graph
-      .classList.remove("active-chart");
+    let graph = document.querySelector(
+      ".card" + this.props.num + " .active-chart"
+    );
+    graph.classList.remove("active-chart");
 
     if (newGraph === "Past Hour") {
-      document.querySelector(".card" + this.props.num + " .first-chart").classList.add("active-chart");
+      document
+        .querySelector(".card" + this.props.num + " .first-chart")
+        .classList.add("active-chart");
+    } else if (newGraph === "Past 6 Hours") {
+      document
+        .querySelector(".card" + this.props.num + " .second-chart")
+        .classList.add("active-chart");
+    } else if (newGraph === "Past Day") {
+      document
+        .querySelector(".card" + this.props.num + " .third-chart")
+        .classList.add("active-chart");
+    } else if (newGraph === "Past 3 Days") {
+      document
+        .querySelector(".card" + this.props.num + " .fourth-chart")
+        .classList.add("active-chart");
     }
-    else if (newGraph === "Past 6 Hours") {
-      document.querySelector(".card" + this.props.num + " .second-chart").classList.add("active-chart");
-    }
-    else if (newGraph === "Past Day") {
-      document.querySelector(".card" + this.props.num + " .third-chart").classList.add("active-chart");
-    }
-    else if (newGraph === "Past 3 Days") {
-      document.querySelector(".card" + this.props.num + " .fourth-chart").classList.add("active-chart");
-    }
-    
 
     // console.log(e.target);
   };
@@ -66,6 +71,40 @@ export default class Card extends Component {
 
           <div className="card-content">
             <div className="content">
+              {this.props.showStuff
+                ? (<div>
+                    <div className="columns">
+                      <div className="column">
+                        <p onClick={() => this.setState({showSentiment: !this.state.showSentiment})}>
+                          Sentiment: <i class="far fa-frown" />
+                        </p>
+                      </div>
+                      <div className="column">
+                        <p>Price: $free.99</p>
+                      </div>
+                      <div className="column">
+                        <p>
+                          Prediction: <i class="fas fa-angle-double-up" />
+                        </p>
+                      </div>
+                    </div>
+                    </div>
+                  )
+                : null}
+                {this.state.showSentiment ? 
+              <LineEx 
+              name={this.props.title}
+              label="Price"
+              x="v.Time"
+              y="v.Polarity"
+              color={this.props.color}
+              className="column"
+              show="false"
+              yMin={this.props.yMin}
+              yMax={this.props.yMax}
+            /> : null}
+              
+
               <div class="tabs is-centered is-fullwidth">
                 <ul>
                   <li onClick={e => this.handleClick(e, 1)}>
@@ -91,7 +130,7 @@ export default class Card extends Component {
                   name={this.props.title}
                   label="Price"
                   x="v.Time"
-                  y="v.Open"
+                  y={"v." + this.props.label}
                   color={this.props.color}
                   className="column"
                   show="false"
@@ -106,7 +145,7 @@ export default class Card extends Component {
                   name={this.props.title}
                   label="Price"
                   x="v.Time"
-                  y="v.Open"
+                  y={"v." + this.props.label}
                   color={this.props.color}
                   className="column"
                   show="false"
@@ -121,7 +160,7 @@ export default class Card extends Component {
                   name={this.props.title}
                   label="Price"
                   x="v.Time"
-                  y="v.Open"
+                  y={"v." + this.props.label}
                   color={this.props.color}
                   className="column"
                   show="false"
@@ -136,7 +175,7 @@ export default class Card extends Component {
                   name={this.props.title}
                   label="Price"
                   x="v.Time"
-                  y="v.Open"
+                  y={"v." + this.props.label}
                   color={this.props.color}
                   className="column"
                   show="false"
