@@ -2,7 +2,6 @@ from crawler.cryptoCrawler import CryptoCrawler
 from crawler.cryptoCrawler3 import CryptoCrawler3
 from crawler import util
 import os
-import time
 import datetime
 from datetime import timedelta
 import subprocess
