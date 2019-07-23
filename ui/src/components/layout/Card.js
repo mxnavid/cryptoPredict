@@ -84,7 +84,7 @@ export default class Card extends Component {
                       </div>
                       <div className="column">
                         <p>
-                          Prediction: <i class="fas fa-angle-double-up" />
+                          Prediction: <i class="fas fa-angle-double-down" />
                         </p>
                       </div>
                     </div>
