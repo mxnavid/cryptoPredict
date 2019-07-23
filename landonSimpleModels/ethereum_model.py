@@ -21,7 +21,7 @@ df = df.drop(['VolumeUSD'],1)
 #df = df.drop(['S&P500 Close'],1)
 #df = df.drop(['S&P500 Volume'],1)
 df = df.drop(['USDEuro'],1)
-print(df)
+#print(df)
 
 
 n = 10
@@ -121,16 +121,22 @@ plt.figtext(0.14, 0.9, s='Sharpe ratio: %.2f' % Sharpe)
 plt.legend(loc='best')
 plt.show()
 
-print(cls.score(X,y))
-print(cls.predict(X[-1:]))
+#print(cls.score(X,y))
+#print(cls.predict(X[-1:]))
 sign = (cls.predict(X[-1:]))
 
 percent = df['Open'][-1]/df['Open'][-2:-1]
 future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
-print(future_price)
-print(df['strategy_cu_return'][-1:])
-print(df['market_cu_return'][-1:])
-print(df)
+#print(future_price)
+#print(df['strategy_cu_return'][-1:])
+#print(df['market_cu_return'][-1:])
+#print(df)
 #people look at this, see what kind of data you want to play with here
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'Ethereum_model_output.csv'))
+
+outputFileName = '../ui/src/scraped/ethereum/Ethereum_model_output.js'
+with open(outputFileName, 'w') as f:
+    f.write("module.exports = { model_data : ")
+    f.write(df.to_json(orient='records'))
+    f.write("}")
