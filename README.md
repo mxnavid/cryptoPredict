@@ -13,4 +13,8 @@
 
 ## Running the UI
 * cd ui
+* npm install
+* npm install react-router-dom
+* npm install bulma
+* npm install react-twitter-embed
 * npm start
