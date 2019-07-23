@@ -7,13 +7,13 @@ export default class Dashboard extends Component {
     return (
       <div>
         <section class="hero has-background-link	">
-          <div class="hero-body columns is-mobile">
-            <div className="column" style={{ padding: " 27px 90px" }}>
+          <div class="hero-body columns">
+            <div className="column" >
               <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
-                Cryptocurrently
+                Dashboard
               </h1>
               <h2 class="subtitle has-text-white" style={{ fontSize: "28px" }}>
-                Dashboard
+                Cryptocurrently
               </h2>
             </div>
           </div>
@@ -25,7 +25,7 @@ export default class Dashboard extends Component {
               Dashboard
             </p>
           </div> */}
-          <div className="columns is-multiline is-mobile">
+          <div className="columns ">
             {data.map((crypto, num) => {
               console.log(num);
               return (
