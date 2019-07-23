@@ -71,11 +71,11 @@ fig = sns.FacetGrid(data=Regime_split, hue='Regime', hue_order=order, aspect=10,
 fig.map(plt.scatter, 'Time', 'market_cu_return', s=3).add_legend()
 plt.show()
 
-for i in order:
-    print('Mean for regime %i: ' % i, unsup.means_[i][0])
-    print('Co-Variance for regime %i: ' % i, (unsup.covariances_[i]))
+#for i in order:
+    #print('Mean for regime %i: ' % i, unsup.means_[i][0])
+    #print('Co-Variance for regime %i: ' % i, (unsup.covariances_[i]))
 
-print(Regime_split.head())
+#print(Regime_split.head())
 
 ss1 = StandardScaler()
 columns = Regime_split.columns.drop(['Regime', 'Time'])
@@ -130,4 +130,4 @@ print(future_price)
 print(df['strategy_cu_return'][-1:])
 print(df['market_cu_return'][-1:])
 print(df)
-print(df) #people look at this, see what kind of data you want to play with here
+#people look at this, see what kind of data you want to play with here

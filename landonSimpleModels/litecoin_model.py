@@ -9,7 +9,7 @@ from sklearn.svm import SVC
 
 
 pd.set_option('display.expand_frame_repr', False)
-df = pd.read_csv("Bitcoin_5min_output.csv")
+df = pd.read_csv("Litecoin_5min_output.csv")
 df['Time'] = pd.to_datetime(df["Time"])
 df.set_index('Time', inplace=True)
 target = df['Open']
