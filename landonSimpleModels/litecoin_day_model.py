@@ -7,6 +7,8 @@ import matplotlib.pyplot as plt
 import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
+from crawler import util
+import os
 
 
 df = web.get_data_yahoo('LTC-USD', start="2010-07-12", end="2019-7-23")
@@ -110,3 +112,5 @@ plt.legend(loc='best')
 plt.show()
 
 print(cls.score(X,y))
+path = os.path.dirname(os.path.abspath(__file__))
+util.writeDFtoCSV(df, os.path.join(path, 'DAILYLitecoin_model_output.csv'))
