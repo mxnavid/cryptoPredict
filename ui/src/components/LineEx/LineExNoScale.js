@@ -54,6 +54,8 @@ class LineEx extends React.Component {
         xAxes: [
           {
             ticks: {
+              // autoSkip: true,
+              maxTicksLimit: 12,
               // userCallback: function(item, index) {
               //   if (index % 4) return "";
               //   return item;

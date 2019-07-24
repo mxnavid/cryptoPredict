@@ -68,6 +68,8 @@ class LineEx extends React.Component {
         xAxes: [
           {
             ticks: {
+              // autoSkip: true,
+              maxTicksLimit: 10,
               fontColor: "#000"
             },
             gridLines: {
