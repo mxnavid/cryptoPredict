@@ -62,15 +62,7 @@ class Header extends Component {
             >
               Dashboard
             </Link>
-            <Link
-              to="/portfolio"
-              className="navbar-item"
-              onClick={e => {
-                handleClick(e);
-              }}
-            >
-              Portfolio
-            </Link>
+            
             <Link
               to="/sentiment"
               className="navbar-item"
