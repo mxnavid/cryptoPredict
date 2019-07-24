@@ -1,7 +1,7 @@
 from crawler.cryptoCrawler import CryptoCrawler
 from crawler import util
 import pandas as pd
-import os
+import numpy as np
 
 class CryptoCrawler3(CryptoCrawler):
     pass
@@ -32,18 +32,7 @@ class CryptoCrawler3(CryptoCrawler):
 
         self.dict['5min'] = self.dict['5min'].sort_values(self.dict['5min'].columns[0], ascending=True)
 
-
-        for index, rows in self.dict['5min'].iterrows():
-            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Close']):
-                self.dict['5min'].loc[index, 'S&P500 Close'] = self.dict['5min'].loc[index-1, 'S&P500 Close']
-            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Volume']):
-                self.dict['5min'].loc[index, 'S&P500 Volume'] = self.dict['5min'].loc[index-1, 'S&P500 Volume']
-            if pd.isnull(self.dict['5min'].loc[index, 'Polarity']):
-                self.dict['5min'].loc[index, 'Polarity'] = self.dict['5min'].loc[index-1, 'Polarity']
-            if pd.isnull(self.dict['5min'].loc[index, 'Subjectivity']):
-                self.dict['5min'].loc[index, 'Subjectivity'] = self.dict['5min'].loc[index-1, 'Subjectivity']
-
-
-
+        self.dict['5min'].replace('', np.nan, inplace=True)
+        self.dict['5min'] = self.dict['5min'].fillna(method='ffill')
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)

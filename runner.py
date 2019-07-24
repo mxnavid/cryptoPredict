@@ -48,3 +48,4 @@ while True:
         writingFiles(litecoin, THIS_FOLDER)
 
         print('finished update')
+        print(datetime.datetime.now())
