@@ -43,7 +43,7 @@ export default class Sentiment extends Component {
                </div>
             </div>
          </div>
-         
+
       )
    }
 }

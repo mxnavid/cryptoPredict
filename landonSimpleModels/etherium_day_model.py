@@ -114,5 +114,12 @@ plt.legend(loc='best')
 plt.show()
 
 print(cls.score(X,y))
+df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'DAILYEthereum_model_output.csv'))
+
+outputFileName = '../ui/src/scraped/ethereum/DAILYEthereum_model_output.js'
+with open(outputFileName, 'w') as f:
+    f.write("module.exports = { model_data : ")
+    f.write(df.to_json(orient='records'))
+    f.write("}")

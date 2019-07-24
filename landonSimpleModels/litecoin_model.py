@@ -132,5 +132,12 @@ print(df['strategy_cu_return'][-1:])
 print(df['market_cu_return'][-1:])
 print(df)
 #people look at this, see what kind of data you want to play with here
+df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'Litecoin_model_output.csv'))
+
+outputFileName = '../ui/src/scraped/litecoin/Litecoin_model_output.js'
+with open(outputFileName, 'w') as f:
+    f.write("module.exports = { model_data : ")
+    f.write(df.to_json(orient='records'))
+    f.write("}")
