@@ -116,5 +116,6 @@ plt.legend(loc='best')
 plt.show()
 
 print(cls.score(X,y))
+df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'DAILYBitcoin_model_output.csv'))
