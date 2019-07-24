@@ -17,8 +17,6 @@ const handleClick2 = e => {
 };
 
 class Header extends Component {
-
-
   componentDidMount() {
     let time = document.querySelector("#refresh_time");
 
@@ -27,13 +25,13 @@ class Header extends Component {
     const m = today.getMinutes();
     const s = today.getSeconds();
     let m2 = "";
-    if (m < 10) m2 = "0" + m
-    else m2 = m
+    if (m < 10) m2 = "0" + m;
+    else m2 = m;
     let s2 = "";
-    if (s < 10) s2 = "0" + s
-    else s2 = s
+    if (s < 10) s2 = "0" + s;
+    else s2 = s;
     // add a zero in front of numbers<10
-    time.innerHTML = h + ":" + m2 + ":" +  s2;
+    time.innerHTML = h + ":" + m2 + ":" + s2;
   }
 
   render() {
@@ -85,11 +83,10 @@ class Header extends Component {
           </div>
           <div className="navbar-end">
             <div className="navbar-item">
-              <div class="loader">Loading...</div>
+              {/* <div class="loader">Loading...</div> */}
               <a href="#" className="has-text-white">
-                {/* <i class="fas fa-sync" /> */}
-                &nbsp;&nbsp; Last refreshed at{" "}
-                <span id="refresh_time">12</span>
+                <i class="fas fa-sync" />
+                &nbsp;&nbsp; Last refreshed at <span id="refresh_time">12</span>
               </a>
             </div>
           </div>
