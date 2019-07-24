@@ -21,15 +21,6 @@ export default class Sentiment extends Component {
       });
   }
 
-<<<<<<< HEAD
-  render() {
-    return (
-      <div>
-        <p>Sentiment Yo</p>
-      </div>
-    );
-  }
-=======
    render() {
       return (
          <div>
@@ -55,5 +46,4 @@ export default class Sentiment extends Component {
          
       )
    }
->>>>>>> 14feabe05af1820760729c95909a2094e3acefac
 }
