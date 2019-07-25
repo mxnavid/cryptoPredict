@@ -104,6 +104,8 @@ class CryptoCrawler:
         return df
 
     def sethourlyprice(self):
+        timeNow = time.mktime(datetime.datetime.now().timetuple())
+        print(timeNow)
         end7date = datetime.datetime.strptime(self.dict['endDate'], '%Y-%m-%d %H:%M')
         end7date += timedelta(days=-7)
         index = pd.date_range(end7date, self.dict['endDate'], freq='5min')

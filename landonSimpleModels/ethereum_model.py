@@ -133,6 +133,10 @@ future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
 #print(df)
 #people look at this, see what kind of data you want to play with here
 df.reset_index(level=0, inplace=True)
+my_score=cls.score(X,y)
+df.insert(17, 'Score', my_score)
+df.insert(18, 'Sharpe', Sharpe)
+
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'Ethereum_model_output.csv'))
 
