@@ -104,31 +104,37 @@ class CryptoCrawler:
         return df
 
     def sethourlyprice(self):
+        timeNow = time.mktime(datetime.datetime.now().timetuple())
+        print(timeNow)
         end7date = datetime.datetime.strptime(self.dict['endDate'], '%Y-%m-%d %H:%M')
         end7date += timedelta(days=-7)
         index = pd.date_range(end7date, self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
         timeUnix = time.mktime(index[index.__len__()-1].timetuple())
+        #print(timeUnix)
         url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
             'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+        #print(url)
         reformat = requests.get(url).json()
         i = len(reformat['Data'])-1
-        k = 1
+        k = len(reformat['Data'])-1
         for _ in index:
             if i == 0:
-                k += len(reformat['Data'])-1
                 timeUnix = time.mktime(index[index.__len__()-1-k].timetuple())
+                #print(timeUnix)
                 url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
                     'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+                #print(url)
                 reformat = requests.get(url).json()
+                k += len(reformat['Data'])-1
                 i = len(reformat['Data'])-1
-            inas = reformat['Data'][i]
-
-            rounded = util.dateFormatChanger(str(index[k-i]), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
-            rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
-            va = (((rounded.minute+1) // 5 * 5) % 60)
-            rounded = rounded.replace(hour=rounded.hour, minute=va)
-            dic = {
+            if (len(reformat['Data']) > 0):
+                inas = reformat['Data'][i]
+                rounded = util.dateFormatChanger(str(index[index.__len__()-1-k+i]), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+                rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
+                va = (((rounded.minute + 1) // 5 * 5) % 60)
+                rounded = rounded.replace(hour=rounded.hour, minute=va)
+                dic = {
                     'Time': util.dateFormatChanger(str(rounded), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M'),
                     'Open': inas['open'],
                     'Close': inas['close'],
@@ -136,10 +142,9 @@ class CryptoCrawler:
                     'Low': inas['low'],
                     'VolumeCoin': inas['volumefrom'],
                     'VolumeUSD': inas['volumeto']
-            }
-            i -= 1
-
-            df = df.append(dic, ignore_index=True)
+                }
+                i -= 1
+                df = df.append(dic, ignore_index=True)
         df.sort_values(df.columns[0], ascending=True)
         #print(df)
         return df
