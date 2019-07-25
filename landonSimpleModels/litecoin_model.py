@@ -88,7 +88,7 @@ Regime_split['return'] = Regime_split['Return'].shift(1)
 Regime_split = Regime_split.dropna()
 
 cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-          decision_function_shape='ovo', degree=4, gamma='auto', kernel='poly',
+          decision_function_shape='ovo', degree=3, gamma='auto', kernel='poly',
           max_iter=-1, probability=False, random_state=0, shrinking=True,
           tol=0.001, verbose=True)
 

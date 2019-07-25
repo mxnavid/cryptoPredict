@@ -41,22 +41,26 @@ class Header extends Component {
 
   render() {
     return (
-      <nav className="navbar is-link" style={{ height: "60px" }}>
+      <nav className="navbar is-link" style={{ height: "60px", backgroundColor: "#0018A8"}}>
         <div className="navbar-brand">
           <Link
             to="/"
             className="navbar-item"
             onClick={e => handleClick(e)}
             id="Dashboard"
+            style={{
+              textTransform: "uppercase",
+              fontSize: "24px"
+            }}
           >
-            <p
+            {/* <p
               style={{
                 textTransform: "uppercase",
                 fontSize: "24px"
               }}
-            >
+            > */}
               Cryptowatch
-            </p>
+            {/* </p> */}
           </Link>
         </div>
 

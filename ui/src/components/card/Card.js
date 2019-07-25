@@ -13,24 +13,11 @@ export default class Card extends Component {
   constructor(props) {
     super(props);
 
-    if (this.props.cardTitle === "Bitcoin") {
-      let {
-        model_data
-      } = require("../../scraped/bitcoin/Bitcoin_model_output");
-      this.state.model_data = model_data;
-    }
-    if (this.props.cardTitle === "Ethereum") {
-      let {
-        model_data
-      } = require("../../scraped/ethereum/Ethereum_model_output");
-      this.state.model_data = model_data;
-    }
-    if (this.props.cardTitle === "Litecoin") {
-      let {
-        model_data
-      } = require("../../scraped/litecoin/Litecoin_model_output");
-      this.state.model_data = model_data;
-    }
+    const {
+      model_data
+    } = require("../../scraped/" + props.cardTitle.toLowerCase() + "/" + props.cardTitle + "_model_output.js");
+
+    this.state.model_data = model_data;
   }
 
   handleClick = (e, num) => {
