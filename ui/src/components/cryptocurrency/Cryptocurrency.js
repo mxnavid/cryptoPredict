@@ -47,13 +47,13 @@ class Cryptocurrency extends Component {
               coin={coin}
               cardTitle="Previous Predictions From Model"
               graphTitle="Pred_Signal"
-              lineGraph={false}
+              table={true}
             />
             <CustomCard
               coin={coin}
               cardTitle="Market Return vs Model Return (WIP)"
               graphTitle="strategy_cu_return"
-              lineGraph={true}
+              multiLine={true}
             />
           </div>
           {/* </section>

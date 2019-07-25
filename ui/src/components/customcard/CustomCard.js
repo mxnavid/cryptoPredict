@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import LineExNoScale from "../LineEx/LineExNoScale";
+import MultiLineEx from "../LineEx/MultiLineEx";
 
 export default class CustomCard extends Component {
   constructor(props) {
@@ -35,7 +36,8 @@ export default class CustomCard extends Component {
                   // className="column"
                   show="false"
                 />
-              ) : (
+              ) : null}
+              {this.props.table ? (
                 this.state.recents.map(newData => {
                   return (
 
@@ -47,7 +49,10 @@ export default class CustomCard extends Component {
 
                   );
                 })
-              )}
+              ) : null}
+              {this.props.multiLine ? 
+                <MultiLineEx />
+                : null}
             </div>
           </div>
         </div>
