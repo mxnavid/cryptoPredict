@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from crawler import util
 import os
+from datetime import datetime
 
 pd.set_option('display.expand_frame_repr', False)
 df = pd.read_csv("Bitcoin_5min_output.csv")
@@ -21,7 +22,7 @@ df = df.drop(['VolumeUSD'],1)
 #df = df.drop(['S&P500 Close'],1)
 #df = df.drop(['S&P500 Volume'],1)
 df = df.drop(['USDEuro'],1)
-print(df)
+#print(df)
 
 
 n = 10
@@ -70,7 +71,7 @@ Regime_split = pd.DataFrame(regime, columns=['Regime'], index=df[split:].index) 
 order = [0, 1, 2, 3]
 fig = sns.FacetGrid(data=Regime_split, hue='Regime', hue_order=order, aspect=10, size=4)
 fig.map(plt.scatter, 'Time', 'market_cu_return', s=3).add_legend()
-plt.show()
+#plt.show()
 
 #for i in order:
     #print('Mean for regime %i: ' % i, unsup.means_[i][0])
@@ -119,22 +120,25 @@ plt.plot(df['strategy_cu_return'][-p_data:], color='g', label='Strategy Returns'
 plt.plot(df['market_cu_return'][-p_data:], color='r', label='Market Returns')
 plt.figtext(0.14, 0.9, s='Sharpe ratio: %.2f' % Sharpe)
 plt.legend(loc='best')
-plt.show()
+#plt.show()
 
-print(cls.score(X,y))
-print(cls.predict(X[-1:]))
+#print(cls.score(X,y))
+#print(cls.predict(X[-1:]))
 sign = (cls.predict(X[-1:]))
 
 percent = df['Open'][-1]/df['Open'][-2:-1]
 future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
-print(future_price)
-print(df['strategy_cu_return'][-1:])
-print(df['market_cu_return'][-1:])
-print(df)
+#print(future_price)
+#print(df['strategy_cu_return'][-1:])
+#print(df['market_cu_return'][-1:])
+#print(df)
 #people look at this, see what kind of data you want to play with here
 df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'Bitcoin_model_output.csv'))
+
+df['Time'] = df['Time'].values.astype(str)
+df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
 
 outputFileName = '../ui/src/scraped/bitcoin/Bitcoin_model_output.js'
 with open(outputFileName, 'w') as f:
