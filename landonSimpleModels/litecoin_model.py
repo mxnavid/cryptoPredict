@@ -133,6 +133,9 @@ print(df['market_cu_return'][-1:])
 print(df)
 #people look at this, see what kind of data you want to play with here
 df.reset_index(level=0, inplace=True)
+my_score=cls.score(X,y)
+df.insert(18, 'Score', my_score)
+df.insert(19, 'Sharpe', Sharpe)
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'Litecoin_model_output.csv'))
 
