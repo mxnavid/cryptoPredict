@@ -42,10 +42,9 @@ export default class CustomCard extends Component {
 
                     <div>
                       <p>{newData.Pred_Signal}</p>
-                      <p>hello lmao</p>
                     </div>
 
-                    
+
                   );
                 })
               )}

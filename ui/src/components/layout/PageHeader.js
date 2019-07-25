@@ -19,7 +19,7 @@ export default function PageHeader(props) {
         {props.showPriceInfo ? (
           <div className="column columns">
             <Card2 title={props.title} label="Price" graphLabel="Open" />
-            <Card2 title={props.title} label="Close" graphLabel="high" />
+            <Card2 title={props.title} label="Anticipated Price Range" graphLabel="high" />
             <Card2 title={props.title} label="Pred_Signal" graphLabel="Pred_Signal" />
           </div>
         ) : null}
