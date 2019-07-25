@@ -125,15 +125,16 @@ print(cls.predict(X[-1:]))
 sign = (cls.predict(X[-1:]))
 
 percent = abs(df['Open'][-1]-df['Open'][-5:-4])/4
+bob = 0
 future_price= (percent*sign) + df['Open'][-1]
-
+bob += future_price
 
 #people look at this, see what kind of data you want to play with here
 df.reset_index(level=0, inplace=True)
 my_score=cls.score(X,y)
 df.insert(1, 'Score', my_score)
 df.insert(1, 'Sharpe', Sharpe)
-df.insert(1, 'FuturePrice', future_price)
+df.insert(1, 'FuturePrice', float(bob))
 
 path = os.path.dirname(os.path.abspath(__file__))
 df.to_csv(os.path.join(path, 'Litecoin_model_output.csv'),encoding = 'utf-8', index = False)
@@ -143,6 +144,3 @@ with open(outputFileName, 'w') as f:
     f.write("module.exports = { model_data : ")
     f.write(df.to_json(orient='records'))
     f.write("}")
-print(future_price)
-#predicted value
-#success rate
