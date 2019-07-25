@@ -10,6 +10,8 @@
 * pip install sklearn
 * brew install ta-lib 
 * pip install ta-lib
+* pip install python-twitter
+* pip install flask
 
 ## Running the UI
 * cd ui
