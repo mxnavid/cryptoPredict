@@ -133,6 +133,7 @@ df.reset_index(level=0, inplace=True)
 my_score=cls.score(X,y)
 df.insert(1, 'Score', my_score)
 df.insert(1, 'Sharpe', Sharpe)
+df.insert(1, 'FuturePrice', future_price)
 
 path = os.path.dirname(os.path.abspath(__file__))
 df.to_csv(os.path.join(path, 'Litecoin_model_output.csv'),encoding = 'utf-8', index = False)
