@@ -9,9 +9,17 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from crawler import util
 import os
+from datetime import datetime
+
+now = datetime.now()
+year = now.strftime("%Y")
+month = now.strftime("%m")
+
+day = now.strftime("%d")
+today = year+"-"+month+"-"+day
 
 
-df = web.get_data_yahoo('LTC-USD', start="2010-07-12", end="2019-7-23")
+df = web.get_data_yahoo('LTC-USD', start="2010-07-12", end=today)
 df = df[['Open', 'High', 'Low', 'Close']]
 
 

@@ -1,121 +1,88 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Card2 from "../layout/Card2";
-import Card from "../layout/Card";
-import {
-  TwitterTimelineEmbed,
-  TwitterShareButton,
-  TwitterFollowButton,
-  TwitterHashtagButton,
-  TwitterMentionButton,
-  TwitterTweetEmbed,
-  TwitterMomentShare,
-  TwitterDMButton,
-  TwitterVideoEmbed,
-  TwitterOnAirButton
-} from "react-twitter-embed";
-import bitcoindata from "../../scraped/bitcoin/Bitcoin_5min_output.js";
+// import Card from "../card/Card";
+import PageHeader from "../layout/PageHeader";
+import CustomCard from "../customcard/CustomCard";
 
 // {this.props.match.params.coin}
 class Cryptocurrency extends Component {
-
   constructor(props) {
     super(props);
-    
 
-      // console.log(props.name);
-      if (props.match.params.coin == "Litecoin") {
-        var { hourly_data } = require("../../scraped/litecoin/Litecoin_5min_output.js");
-      } else if (props.match.params.coin == "Ethereum") {
-        var { hourly_data } = require("../../scraped/ethereum/Ethereum_5min_output.js");
-      } else {
-        var { hourly_data } = require("../../scraped/bitcoin/Bitcoin_5min_output.js");
-      }
+    // console.log(props.name);
+    // if (props.match.params.coin === "Litecoin") {
+    //   var {
+    //     hourly_data
+    //   } = require("../../scraped/litecoin/Litecoin_model_output.js");
+    // } else if (props.match.params.coin === "Ethereum") {
+    //   var {
+    //     hourly_data
+    //   } = require("../../scraped/ethereum/Ethereum_model_output.js");
+    // } else {
+    //   var {
+    //     hourly_data
+    //   } = require("../../scraped/bitcoin/Bitcoin_model_output.js");
+    // }
 
-      this.state = {
-        hourly_data: hourly_data,
-      }
+    const {
+      model_data
+    } = require("../../scraped/" + props.match.params.coin.toLowerCase() + "/" + props.match.params.coin + "_model_output.js");
+
+
+    this.state = {
+      model_data: model_data
+    };
   }
 
-
-
   render() {
-  const { coin } = this.props.match.params;
-  return (
-    <div>
-      <section class="hero has-background-link	">
-        <div class="hero-body columns">
-          <div className="column is-one-quarter" >
-            <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
-              {coin}
-            </h1>
-            <h2 class="subtitle has-text-white" style={{ fontSize: "28px" }}>
-              Data
-            </h2>
+    const { coin } = this.props.match.params;
+    return (
+      <div key={coin}>
+        <PageHeader title={coin} hasST={false} />
+        <section className="section">
+          <div className="columns">
+            <div className="column">
+              <p className="title">Model Predictions</p>
+            </div>
           </div>
-
-          <Card2 title="Open" data={this.state.hourly_data[0].Open} />
-          <Card2 title="Close" data={this.state.hourly_data[0].Close} />
-          <Card2 title="High" data={this.state.hourly_data[0].High} />
-          <Card2 title="Low" data={this.state.hourly_data[0].Low} />
-          
-
-        </div>
-      </section>
-      <section className="section">
-        <div className="columns">
-          <Card
-            title={coin}
-            imageUrl={""}
-            color={"#3272dc"}
-            label="Polarity"
-            yMin={-0.3}
-            yMax={0.3}
-            multiLine={false}
-            showStuff={false}
-          />
-          <Card
-            title={coin}
-            imageUrl={""}
-            color={"#3272dc"}
-            label="VolumeUSD"
-            yMin={-0.3}
-            yMax={0.3}
-            multiLine={false}
-            showStuff={false}
-          />
-          <Card
-            title={coin}
-            imageUrl={""}
-            color={"#3272dc"}
-            label="VolumeCoin"
-            yMin={-0.3}
-            yMax={0.3}
-            multiLine={false}
-            showStuff={false}
-          />
-          {/* <Card
-            title={coin}
-            imageUrl={""}
-            color={"#fff"}
-            label="VolumeUSD"
-            yMin={1000000}
-            yMax={50000000}
-            multiLine={false}
-          /> */}
-          {/* <Card
-            title={coin}
-            imageUrl={""}
-            color={"#fff"}
-            label="Polarity"
-            yMin={-0.3}
-            yMax={0.3}
-            multiLine={true}
-          /> */}
-        </div>
-      </section>
-    </div>
-  );
+          <div className="columns">
+            <CustomCard coin={coin} cardTitle="Price Trend" graphTitle="Open" />
+            <CustomCard
+              coin={coin}
+              cardTitle="Previous Predictions From Model"
+              graphTitle="Pred_Signal"
+            />
+            <CustomCard
+              coin={coin}
+              cardTitle="Market Return vs Model Return (WIP)"
+              graphTitle="strategy_cu_return"
+            />
+          </div>
+          {/* </section>
+      <section className="section"> */}
+          <div className="columns">
+            <div className="column">
+              <p className="title">Additonal Info</p>
+            </div>
+          </div>
+          <div className="columns">
+            <CustomCard
+              coin={coin}
+              cardTitle="Sentiment"
+              graphTitle="Polarity"
+            />
+            <CustomCard
+              coin={coin}
+              cardTitle="Volume Coin Traded"
+              graphTitle="VolumeCoin"
+            />
+            <CustomCard coin={coin} cardTitle="RSI" graphTitle="RSI" />
+            <CustomCard coin={coin} cardTitle="SAR" graphTitle="SAR" />
+          </div>
+        </section>
+      </div>
+    );
+  }
 }
-};
 
 export default Cryptocurrency;

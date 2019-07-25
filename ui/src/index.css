@@ -100,3 +100,9 @@ code {
     transform: rotate(360deg);
   }
 }
+
+
+.is-active {
+  background-color: #0018A8 !important;
+  border-bottom: 1px solid white;
+}

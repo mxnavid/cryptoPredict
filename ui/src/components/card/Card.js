@@ -10,6 +10,16 @@ export default class Card extends Component {
     showSentiment: false
   };
 
+  constructor(props) {
+    super(props);
+
+    const {
+      model_data
+    } = require("../../scraped/" + props.cardTitle.toLowerCase() + "/" + props.cardTitle + "_model_output.js");
+
+    this.state.model_data = model_data;
+  }
+
   handleClick = (e, num) => {
     this.setState({ hours: num });
     document
@@ -41,8 +51,6 @@ export default class Card extends Component {
         .querySelector(".card" + this.props.num + " .fourth-chart")
         .classList.add("active-chart");
     }
-
-    // console.log(e.target);
   };
 
   render() {
@@ -61,12 +69,6 @@ export default class Card extends Component {
                 <p className="subtitle is-6">Price</p>
               </div>
             </div>
-
-            {/* <div className="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            nec iaculis mauris. <a>@bulmaio</a>.<a href="#">#css</a>{" "}
-            <a href="#">#responsive</a>
-          </div> */}
           </div>
 
           <div className="card-content">
@@ -75,14 +77,7 @@ export default class Card extends Component {
                 <div>
                   <div className="columns">
                     <div className="column">
-                      <p
-                        onClick={() =>
-                          this.setState({
-                            showSentiment: !this.state.showSentiment
-                          })
-                        }
-                        style={{ cursor: "pointer" }}
-                      >
+                      <p>
                         Sentiment: <i className="far fa-frown" />
                       </p>
                     </div>
@@ -91,24 +86,17 @@ export default class Card extends Component {
                     </div>
                     <div className="column">
                       <p>
-                        Prediction: <i className="fas fa-angle-double-down" />
+                        Prediction:{" "}
+                        {this.state.model_data[this.state.model_data.length - 1]
+                          .Pred_Signal === -1 ? (
+                          <i className="fas fa-angle-double-down" />
+                        ) : (
+                          <i className="fas fa-angle-double-up" />
+                        )}
                       </p>
                     </div>
                   </div>
                 </div>
-              ) : null}
-              {this.state.showSentiment ? (
-                <LineEx
-                  name={this.props.title}
-                  label="Sentiment"
-                  x="v.Time"
-                  y="v.Polarity"
-                  color={this.props.color}
-                  className="column"
-                  show="false"
-                  yMin={this.props.yMin}
-                  yMax={this.props.yMax}
-                />
               ) : null}
 
               <div className="tabs is-centered is-fullwidth">
@@ -132,6 +120,7 @@ export default class Card extends Component {
               </div>
               <div className="chart active-chart first-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={1}
                   name={this.props.title}
                   label="Price"
@@ -147,6 +136,7 @@ export default class Card extends Component {
 
               <div className="chart second-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={6}
                   name={this.props.title}
                   label="Price"
@@ -162,6 +152,7 @@ export default class Card extends Component {
 
               <div className="chart third-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={24}
                   name={this.props.title}
                   label="Price"
@@ -177,6 +168,7 @@ export default class Card extends Component {
 
               <div className="chart fourth-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={24 * 3}
                   name={this.props.title}
                   label="Price"

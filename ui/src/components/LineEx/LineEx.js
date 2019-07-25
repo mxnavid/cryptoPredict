@@ -7,12 +7,12 @@ class LineEx extends React.Component {
     super(props);
 
     // console.log(props.name);
-    if (props.name == "Litecoin") {
-      var { hourly_data } = require("../../scraped/litecoin/Litecoin_5min_output.js");
-    } else if (props.name == "Ethereum") {
-      var { hourly_data } = require("../../scraped/ethereum/Ethereum_5min_output.js");
+    if (props.name === "Litecoin") {
+      var { hourly_data } = require("../../scraped/litecoin/Litecoin_model_output.js");
+    } else if (props.name === "Ethereum") {
+      var { hourly_data } = require("../../scraped/ethereum/Ethereum_model_output.js");
     } else {
-      var { hourly_data } = require("../../scraped/bitcoin/Bitcoin_5min_output.js");
+      var { hourly_data } = require("../../scraped/bitcoin/Bitcoin_model_output.js");
     }
 
     const x = hourly_data.slice(-12).map(v => eval(props.x));

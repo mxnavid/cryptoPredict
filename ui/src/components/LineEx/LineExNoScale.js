@@ -6,23 +6,26 @@ class LineEx extends React.Component {
   constructor(props) {
     super(props);
 
-    console.log(props.name);
-    if (props.name == "Litecoin") {
-      var {
-        hourly_data
-      } = require("../../scraped/litecoin/Litecoin_5min_output.js");
-    } else if (props.name == "Ethereum") {
-      var {
-        hourly_data
-      } = require("../../scraped/ethereum/Ethereum_5min_output.js");
-    } else {
-      var {
-        hourly_data
-      } = require("../../scraped/bitcoin/Bitcoin_5min_output.js");
-    }
+    const {
+      model_data
+    } = require("../../scraped/" + props.coin.toLowerCase() + "/" + props.coin + "_model_output.js");
 
-    const x = hourly_data.slice(-12 * props.time).map(v => eval(props.x));
-    const y = hourly_data.slice(-12 * props.time).map(v => eval(props.y));
+    // if (props.name === "Litecoin") {
+    //   var {
+    //     model_data
+    //   } = require("../../scraped/litecoin/Litecoin_model_output.js");
+    // } else if (props.name === "Ethereum") {
+    //   var {
+    //     model_data
+    //   } = require("../../scraped/ethereum/Ethereum_model_output.js");
+    // } else {
+    //   var {
+    //     model_data
+    //   } = require("../../scraped/bitcoin/Bitcoin_model_output.js");
+    // }
+
+    const x = model_data.slice(-12 * props.time).map(v => eval(props.x));
+    const y = model_data.slice(-12 * props.time).map(v => eval(props.y));
 
     this.data = {
       labels: x,
@@ -42,7 +45,7 @@ class LineEx extends React.Component {
           pointHoverRadius: 2,
           pointHoverBackgroundColor: this.props.color,
           pointHoverBorderColor: this.props.color,
-          pointHoverBorderWidth: 2,
+          pointHoverBorderWidth: 0,
           pointRadius: 1,
           data: y
         }
@@ -55,15 +58,18 @@ class LineEx extends React.Component {
           {
             ticks: {
               // autoSkip: true,
-              maxTicksLimit: 12,
+              display: false
               // userCallback: function(item, index) {
               //   if (index % 4) return "";
               //   return item;
               // },
               // autoSkip: false
+            },
+            gridLines: {
+              display: false
             }
           }
-        ]
+        ],
       }
     };
   }

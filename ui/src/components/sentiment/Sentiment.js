@@ -65,7 +65,7 @@ export default class Sentiment extends Component {
    render() {
       return (
          <div>
-            <section class="hero has-background-link">
+            <section class="hero" style={{backgroundColor: "#0018A8"}}>
                <div class="hero-body columns">
                   <div className="column" >
                      <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
