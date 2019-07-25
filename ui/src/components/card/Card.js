@@ -7,8 +7,31 @@ import LineExNoScale from "../LineEx/LineExNoScale";
 export default class Card extends Component {
   state = {
     hours: 1,
-    showSentiment: false,
+    showSentiment: false
   };
+
+  constructor(props) {
+    super(props);
+
+    if (this.props.cardTitle === "Bitcoin") {
+      let {
+        model_data
+      } = require("../../scraped/bitcoin/Bitcoin_model_output");
+      this.state.model_data = model_data;
+    }
+    if (this.props.cardTitle === "Ethereum") {
+      let {
+        model_data
+      } = require("../../scraped/ethereum/Ethereum_model_output");
+      this.state.model_data = model_data;
+    }
+    if (this.props.cardTitle === "Litecoin") {
+      let {
+        model_data
+      } = require("../../scraped/litecoin/Litecoin_model_output");
+      this.state.model_data = model_data;
+    }
+  }
 
   handleClick = (e, num) => {
     this.setState({ hours: num });
@@ -41,71 +64,55 @@ export default class Card extends Component {
         .querySelector(".card" + this.props.num + " .fourth-chart")
         .classList.add("active-chart");
     }
-
-    // console.log(e.target);
   };
 
   render() {
     return (
-      <div className="column ">
+      <div className="column">
         <div className={"card" + " card" + this.props.num}>
-          <div class="card-content">
-            <div class="media">
-              <div class="media-left">
-                <figure class="image is-48x48">
+          <div className="card-content">
+            <div className="media">
+              <div className="media-left">
+                <figure className="image is-48x48">
                   <img src={"" + this.props.imageUrl + ""} alt="Thing" />
                 </figure>
               </div>
-              <div class="media-content">
-                <p class="title is-4">{this.props.cardTitle}</p>
-                <p class="subtitle is-6">Price</p>
+              <div className="media-content">
+                <p className="title is-4">{this.props.cardTitle}</p>
+                <p className="subtitle is-6">Price</p>
               </div>
             </div>
-
-            {/* <div class="content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            nec iaculis mauris. <a>@bulmaio</a>.<a href="#">#css</a>{" "}
-            <a href="#">#responsive</a>
-          </div> */}
           </div>
 
           <div className="card-content">
             <div className="content">
-              {this.props.showStuff
-                ? (<div>
-                    <div className="columns">
-                      <div className="column">
-                        <p onClick={() => this.setState({showSentiment: !this.state.showSentiment})} style={{cursor: 'pointer'}}>
-                          Sentiment: <i class="far fa-frown" />
-                        </p>
-                      </div>
-                      <div className="column">
-                        <p>Price: $free.99</p>
-                      </div>
-                      <div className="column">
-                        <p>
-                          Prediction: <i class="fas fa-angle-double-down" />
-                        </p>
-                      </div>
+              {this.props.showStuff ? (
+                <div>
+                  <div className="columns">
+                    <div className="column">
+                      <p>
+                        Sentiment: <i className="far fa-frown" />
+                      </p>
                     </div>
+                    <div className="column">
+                      <p>Price: $free.99</p>
                     </div>
-                  )
-                : null}
-                {this.state.showSentiment ? 
-              <LineEx 
-              name={this.props.title}
-              label="Sentiment"
-              x="v.Time"
-              y="v.Polarity"
-              color={this.props.color}
-              className="column"
-              show="false"
-              yMin={this.props.yMin}
-              yMax={this.props.yMax}
-            /> : null}
-              
+                    <div className="column">
+                      <p>
+                        Prediction:{" "}
+                        {this.state.model_data[this.state.model_data.length - 1]
+                          .Pred_Signal === -1 ? (
+                          <i className="fas fa-angle-double-down" />
+                        ) : (
+                          <i className="fas fa-angle-double-up" />
+                        )}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
 
-              <div class="tabs is-centered is-fullwidth">
+              <div className="tabs is-centered is-fullwidth">
                 <ul>
                   <li onClick={e => this.handleClick(e, 1)}>
                     <a className="is-active-anchor">Past Hour</a>
@@ -126,6 +133,7 @@ export default class Card extends Component {
               </div>
               <div className="chart active-chart first-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={1}
                   name={this.props.title}
                   label="Price"
@@ -141,6 +149,7 @@ export default class Card extends Component {
 
               <div className="chart second-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={6}
                   name={this.props.title}
                   label="Price"
@@ -156,6 +165,7 @@ export default class Card extends Component {
 
               <div className="chart third-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={24}
                   name={this.props.title}
                   label="Price"
@@ -171,6 +181,7 @@ export default class Card extends Component {
 
               <div className="chart fourth-chart">
                 <LineExNoScale
+                  coin={this.props.cardTitle}
                   time={24 * 3}
                   name={this.props.title}
                   label="Price"
@@ -186,13 +197,13 @@ export default class Card extends Component {
             </div>
           </div>
 
-          <footer class="card-footer">
-            <p class="card-footer-item">
+          <footer className="card-footer">
+            <p className="card-footer-item">
               <span>
                 <a href="#">Expand Graph</a>
               </span>
             </p>
-            <p class="card-footer-item">
+            <p className="card-footer-item">
               <span>
                 <Link to={"/cryptocurrency/" + this.props.title}>
                   More Info
