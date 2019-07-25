@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 from crawler import util
 import os
 
-df = web.get_data_yahoo('BTC-USD', start="2010-07-12", end="2019-7-23")
+df = web.get_data_yahoo('BTC-USD', start="2010-07-12", end="2019-7-25")
 df = df[['Open', 'High', 'Low', 'Close']]
 
 

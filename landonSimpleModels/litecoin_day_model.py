@@ -11,7 +11,7 @@ from crawler import util
 import os
 
 
-df = web.get_data_yahoo('LTC-USD', start="2010-07-12", end="2019-7-23")
+df = web.get_data_yahoo('LTC-USD', start="2010-07-12", end="2019-7-25")
 df = df[['Open', 'High', 'Low', 'Close']]
 
 
