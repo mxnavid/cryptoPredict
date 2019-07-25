@@ -10,7 +10,7 @@ export default function CustomCard(props) {
       </header>
       <div className="card-content">
         <div className="content">
-         {console.log(props.coin)}
+         {/* {console.log(props.coin)} */}
           <LineExNoScale
             coin={props.coin}
             time={1}
