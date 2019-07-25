@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from crawler import util
 import os
 
 pd.set_option('display.expand_frame_repr', False)
@@ -136,7 +135,7 @@ df.insert(1, 'Score', my_score)
 df.insert(1, 'Sharpe', Sharpe)
 
 path = os.path.dirname(os.path.abspath(__file__))
-util.writeDFtoCSV(df, os.path.join(path, 'Litecoin_model_output.csv'))
+df.to_csv(os.path.join(path, 'Litecoin_model_output.csv'),encoding = 'utf-8', index = False)
 
 outputFileName = '../ui/src/scraped/litecoin/Litecoin_model_output.js'
 with open(outputFileName, 'w') as f:
