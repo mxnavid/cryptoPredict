@@ -9,9 +9,10 @@ from sklearn.svm import SVC
 from crawler import util
 import os
 from datetime import datetime
+from runner import THIS_FOLDER
 
 pd.set_option('display.expand_frame_repr', False)
-df = pd.read_csv("Bitcoin_5min_output.csv")
+df = pd.read_csv(os.path.join(THIS_FOLDER, 'landonSimpleModels/Bitcoin_5min_output.csv'))
 df['Time'] = pd.to_datetime(df["Time"])
 df.set_index('Time', inplace=True)
 target = df['Open']
@@ -140,7 +141,7 @@ util.writeDFtoCSV(df, os.path.join(path, 'Bitcoin_model_output.csv'))
 df['Time'] = df['Time'].values.astype(str)
 df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
 
-outputFileName = '../ui/src/scraped/bitcoin/Bitcoin_model_output.js'
+outputFileName = os.path.join(THIS_FOLDER,'ui/src/scraped/bitcoin/Bitcoin_model_output.js')
 with open(outputFileName, 'w') as f:
     f.write("module.exports = { model_data : ")
     f.write(df.to_json(orient='records'))
