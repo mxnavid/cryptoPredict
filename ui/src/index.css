@@ -106,3 +106,8 @@ code {
   background-color: #0018A8 !important;
   border-bottom: 1px solid white;
 }
+
+.is-vertical-center {
+  display: flex;
+  align-items: center;
+}

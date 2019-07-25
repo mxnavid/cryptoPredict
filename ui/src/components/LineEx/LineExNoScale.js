@@ -10,20 +10,6 @@ class LineEx extends React.Component {
       model_data
     } = require("../../scraped/" + props.coin.toLowerCase() + "/" + props.coin + "_model_output.js");
 
-    // if (props.name === "Litecoin") {
-    //   var {
-    //     model_data
-    //   } = require("../../scraped/litecoin/Litecoin_model_output.js");
-    // } else if (props.name === "Ethereum") {
-    //   var {
-    //     model_data
-    //   } = require("../../scraped/ethereum/Ethereum_model_output.js");
-    // } else {
-    //   var {
-    //     model_data
-    //   } = require("../../scraped/bitcoin/Bitcoin_model_output.js");
-    // }
-
     const x = model_data.slice(-12 * props.time).map(v => eval(props.x));
     const y = model_data.slice(-12 * props.time).map(v => eval(props.y));
 

@@ -136,7 +136,8 @@ future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
 #people look at this, see what kind of data you want to play with here
 df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
-util.writeDFtoCSV(df, os.path.join(path, 'Bitcoin_model_output.csv'))
+
+df.to_csv(os.path.join(path, 'Bitcoin_model_output.csv'),encoding = 'utf-8', index = False)
 
 df['Time'] = df['Time'].values.astype(str)
 df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
