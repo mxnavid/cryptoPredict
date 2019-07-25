@@ -55,7 +55,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               coin={coin}
               cardTitle="Market Return vs Model Return (WIP)"
-              graphTitle="Return"
+              graphTitle="strategy_cu_return"
             />
           </div>
           {/* </section>
