@@ -20,3 +20,8 @@
 * npm install bulma
 * npm install react-twitter-embed
 * npm start
+
+## TOKENS FOR SCRAPING
+* twitter (only on server)
+* crawler/tok.py: t=  https://www.cryptocompare.com/cryptopian/api-keys
+* crawler/tok.py: t2= https://www.alphavantage.co/support/#api-key

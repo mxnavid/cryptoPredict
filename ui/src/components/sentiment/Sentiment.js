@@ -31,11 +31,17 @@ export default class Sentiment extends Component {
    }
 
    handleSubmit = () => {
-      this.setState({
-         inputText: "idk"
-      })
+      // this.setState({
+      //    inputText: "idk"
+      // })
       alert(this.state.inputText);
    }
+
+   handleChange = (text) => {
+      this.setState({ inputText: text.target.value.substr(0, 100) });
+   }
+
+   
 //   componentDidMount() {
 //      let requestThing = {"textFromUI": "I hate trump"};
 //     fetch("http://127.0.0.1:8080/needScore", {
@@ -71,19 +77,20 @@ export default class Sentiment extends Component {
                   </div>
                </div>
             </section>
-            {/* <form onSubmit={this.handleSubmit}> */}
-               <div class="field">
-                  <div align="center">
-                     <label class="label" style={{ fontSize: "28px" }}>Enter Text for Sentiment Scoring</label>
-                     <textarea rows="10" cols="100" placeholder="Type here"></textarea>
+            <form onSubmit={this.handleSubmit}>
+                  <div class="field">
+                     <div align="center">
+                        <label class="label" style={{ fontSize: "32px" }}>Enter Text for Sentiment Scoring</label>
+                        <textarea rows="6" cols="75" style={{ fontSize: "24px" }} placeholder="Type here" value={this.state.value} onChange={this.handleChange} ></textarea>
+                     </div>
                   </div>
-               </div>
-               <div class="control">
-                  <div align="center">
-                     <input type="submit" value="Submit" onClick={this.handleSubmit} class="button is-link"/>
+                  <div class="control">
+                     <div align="center">
+                        <input type="submit" value="Submit" style={{ height: 75, marginTop: 5, width: 300, fontSize: "30px" }}  class="button is-link"/>
+                     </div>
                   </div>
-               </div>
-            {/* </form> */}
+               
+            </form>
          </div>
 
       )

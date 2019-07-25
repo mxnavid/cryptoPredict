@@ -6,13 +6,12 @@ import matplotlib.pyplot as plt
 import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from crawler import util
 import os
 from datetime import datetime
-from runner import THIS_FOLDER
+
 
 pd.set_option('display.expand_frame_repr', False)
-df = pd.read_csv(os.path.join(THIS_FOLDER, 'landonSimpleModels/Bitcoin_5min_output.csv'))
+df = pd.read_csv("Bitcoin_5min_output.csv")
 df['Time'] = pd.to_datetime(df["Time"])
 df.set_index('Time', inplace=True)
 target = df['Open']
@@ -136,12 +135,13 @@ future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
 #people look at this, see what kind of data you want to play with here
 df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
-util.writeDFtoCSV(df, os.path.join(path, 'Bitcoin_model_output.csv'))
+
+df.to_csv(os.path.join(path, 'Bitcoin_model_output.csv'),encoding = 'utf-8', index = False)
 
 df['Time'] = df['Time'].values.astype(str)
 df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
 
-outputFileName = os.path.join(THIS_FOLDER,'ui/src/scraped/bitcoin/Bitcoin_model_output.js')
+outputFileName = '../ui/src/scraped/bitcoin/Bitcoin_model_output.js'
 with open(outputFileName, 'w') as f:
     f.write("module.exports = { model_data : ")
     f.write(df.to_json(orient='records'))
