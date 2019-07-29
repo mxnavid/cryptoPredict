@@ -17,8 +17,8 @@ target = df['Open']
 #df = df.drop(['Polarity'],1)
 df = df.drop(['VolumeCoin'],1)
 df = df.drop(['VolumeUSD'],1)
-df = df.drop(['S&P500 Close'],1)
-df = df.drop(['S&P500 Volume'],1)
+#df = df.drop(['S&P500 Close'],1)
+#df = df.drop(['S&P500 Volume'],1)
 df = df.drop(['USDEuro'],1)
 #print(df)
 
@@ -148,3 +148,4 @@ with open(outputFileName, 'w') as f:
     f.write("module.exports = { model_data : ")
     f.write(df.to_json(orient='records'))
     f.write("}")
+print(df)

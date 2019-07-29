@@ -15,7 +15,7 @@ df.set_index('Time', inplace=True)
 target = df['Open']
 #df = df.drop(['Subjectivity'],1)
 #df = df.drop(['Polarity'],1)
-#df = df.drop(['VolumeCoin'],1)
+df = df.drop(['VolumeCoin'],1)
 df = df.drop(['VolumeUSD'],1)
 #df = df.drop(['S&P500 Close'],1)
 #df = df.drop(['S&P500 Volume'],1)
@@ -87,7 +87,7 @@ Regime_split['return'] = Regime_split['Return'].shift(1)
 Regime_split = Regime_split.dropna()
 
 cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-          decision_function_shape='ovo', degree=3, gamma='auto', kernel='poly',
+          decision_function_shape='ovo', degree=3, gamma='auto', kernel='linear',
           max_iter=-1, probability=False, random_state=0, shrinking=True,
           tol=0.001, verbose=True)
 
@@ -144,3 +144,4 @@ with open(outputFileName, 'w') as f:
     f.write("module.exports = { model_data : ")
     f.write(df.to_json(orient='records'))
     f.write("}")
+#comment

@@ -7,7 +7,7 @@ class CryptoCrawler3(CryptoCrawler):
     pass
 
     ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
-    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews, token, sp500, usdeuro):
+    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, token, sp500, usdeuro):
         self.dict = {}
         self.dict['token'] = token
         self.dict['name'] = cryptoName
@@ -15,9 +15,6 @@ class CryptoCrawler3(CryptoCrawler):
 
         self.dict['tweets'] = pd.DataFrame(data=self.setsentiment(util.readerCSV(fileNameTweet)),
                                            columns=['Time', 'Tweet', 'Polarity', 'Subjectivity'])
-
-        self.dict['news'] = pd.DataFrame(data=self.setnewsSentiment(util.readerCSV(fileNameNews)),
-                                           columns=['Time', 'Article', 'Polarity', 'Subjectivity'])
 
         self.dict['startDate'] = str(self.dict['tweets'].min().Time)
         self.dict['endDate'] = str(self.dict['tweets'].max().Time)
@@ -28,7 +25,6 @@ class CryptoCrawler3(CryptoCrawler):
         self.dict['5min'] = pd.merge(self.dict['5min'], usdeuro, on='Time', sort=False)
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
-        self.dict['daily'] = pd.merge(self.dict['daily'], self.setdailynews(), on='Time', sort=False, how='outer')
 
         self.dict['5min'] = self.dict['5min'].sort_values(self.dict['5min'].columns[0], ascending=True)
 
