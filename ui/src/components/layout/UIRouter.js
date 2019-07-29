@@ -13,7 +13,12 @@ export default function Content() {
           <Route exact path="/dashboard" component={Dashboard} />
           <Route
             exact
-            path="/cryptocurrency/:coin"
+            path="/cryptocurrency/:coin/"
+            component={Cryptocurrency}
+          />
+          <Route
+            exact
+            path="/cryptocurrency/:coin/:model"
             component={Cryptocurrency}
           />
           <Route exact path="/sentiment" component={Sentiment} />

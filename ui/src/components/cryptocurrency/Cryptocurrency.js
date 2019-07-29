@@ -9,16 +9,42 @@ class Cryptocurrency extends Component {
   }
 
   importOutput = () => {
-    const { model_data } = require("../../scraped/" +
+    
+    let curr_model_data;
+
+    let { model_data } = require("../../scraped/" +
       this.props.match.params.coin.toLowerCase() +
       "/" +
       this.props.match.params.coin +
       "_model_output.js");
 
+    if (this.props.match.params.model !== "daily") {
+      const { model_data } = require("../../scraped/" +
+      this.props.match.params.coin.toLowerCase() +
+      "/" +
+      this.props.match.params.coin +
+      "_model_output.js");
+      curr_model_data = model_data
+
+      console.log("not daily")
+    }
+    else {
+      console.log("daily")
+
+
+      const { model_data } = require("../../scraped/" +
+      this.props.match.params.coin.toLowerCase() +
+      "/" +
+      this.props.match.params.coin +
+      "_day_model_output.js");
+      curr_model_data = model_data
+
+    }
+
     this.state = {
-      crypto_data: model_data, // .slice(-100)
-      last_one: model_data[model_data.length - 1],
-      slice_data: model_data.slice(-12)
+      crypto_data: curr_model_data, // .slice(-100)
+      last_one: curr_model_data[curr_model_data.length - 1],
+      slice_data: curr_model_data.slice(-12)
     };
   };
 
