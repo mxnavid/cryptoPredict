@@ -12,6 +12,7 @@
 * pip install ta-lib
 * pip install python-twitter
 * pip install flask
+* pip install ray
 
 ## Running the UI
 * cd ui

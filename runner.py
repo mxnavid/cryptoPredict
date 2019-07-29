@@ -6,6 +6,9 @@ import datetime
 from datetime import timedelta
 import subprocess
 from crawler.tok import t2
+from landonSimpleModels.bitcoin_model import bitcoinModel
+from landonSimpleModels.litecoin_model import litecoinModel
+from landonSimpleModels.ethereum_model import ethereumModel
 
 def writingFiles(coin, THIS_FOLDER):
     util.writeFiles(coin, THIS_FOLDER)
@@ -48,4 +51,13 @@ while True:
         writingFiles(litecoin, THIS_FOLDER)
 
         print('finished update')
+
+        bitcoinModel(os.path.join(THIS_FOLDER, 'landonSimpleModels/Bitcoin_5min_output.csv'),
+                     os.path.join(THIS_FOLDER, 'ui/src/scraped/bitcoin/Bitcoin_model_output.js'))
+        ethereumModel(os.path.join(THIS_FOLDER, 'landonSimpleModels/Ethereum_5min_output.csv'),
+                      os.path.join(THIS_FOLDER, 'ui/src/scraped/ethereum/Ethereum_model_output.js'))
+        litecoinModel(os.path.join(THIS_FOLDER, 'landonSimpleModels/Litecoin_5min_output.csv'),
+                      os.path.join(THIS_FOLDER, 'ui/src/scraped/litecoin/Litecoin_model_output.js'))
+
+        print('update models done')
         print(datetime.datetime.now())
