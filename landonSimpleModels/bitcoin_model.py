@@ -6,8 +6,9 @@ import matplotlib.pyplot as plt
 import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from crawler import util
 import os
+from datetime import datetime
+
 
 pd.set_option('display.expand_frame_repr', False)
 df = pd.read_csv("Bitcoin_5min_output.csv")
@@ -18,10 +19,10 @@ target = df['Open']
 #df = df.drop(['Polarity'],1)
 #df = df.drop(['VolumeCoin'],1)
 df = df.drop(['VolumeUSD'],1)
-#df = df.drop(['S&P500 Close'],1)
-#df = df.drop(['S&P500 Volume'],1)
+df = df.drop(['S&P500 Close'],1)
+df = df.drop(['S&P500 Volume'],1)
 df = df.drop(['USDEuro'],1)
-print(df)
+#print(df)
 
 
 n = 10
@@ -70,7 +71,7 @@ Regime_split = pd.DataFrame(regime, columns=['Regime'], index=df[split:].index) 
 order = [0, 1, 2, 3]
 fig = sns.FacetGrid(data=Regime_split, hue='Regime', hue_order=order, aspect=10, size=4)
 fig.map(plt.scatter, 'Time', 'market_cu_return', s=3).add_legend()
-plt.show()
+#plt.show()
 
 #for i in order:
     #print('Mean for regime %i: ' % i, unsup.means_[i][0])
@@ -88,7 +89,7 @@ Regime_split['return'] = Regime_split['Return'].shift(1)
 Regime_split = Regime_split.dropna()
 
 cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-          decision_function_shape='ovo', degree=4, gamma='auto', kernel='poly',
+          decision_function_shape='ovo', degree=3, gamma='auto', kernel='linear',
           max_iter=-1, probability=False, random_state=0, shrinking=True,
           tol=0.001, verbose=True)
 
@@ -119,18 +120,31 @@ plt.plot(df['strategy_cu_return'][-p_data:], color='g', label='Strategy Returns'
 plt.plot(df['market_cu_return'][-p_data:], color='r', label='Market Returns')
 plt.figtext(0.14, 0.9, s='Sharpe ratio: %.2f' % Sharpe)
 plt.legend(loc='best')
-plt.show()
+#plt.show()
 
-print(cls.score(X,y))
-print(cls.predict(X[-1:]))
+#print(cls.score(X,y))
+#print(cls.predict(X[-1:]))
 sign = (cls.predict(X[-1:]))
 
-percent = df['Open'][-1]/df['Open'][-2:-1]
-future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
-print(future_price)
-print(df['strategy_cu_return'][-1:])
-print(df['market_cu_return'][-1:])
-print(df)
-#people look at this, see what kind of data you want to play with here
+percent = abs(df['Open'][-1]-df['Open'][-5:-4])/4
+bob = 0
+future_price= (percent*sign) + df['Open'][-1]
+bob += future_price
+
+df.reset_index(level=0, inplace=True)
+my_score=cls.score(X,y)
+df.insert(1, 'Score', my_score)
+df.insert(1, 'Sharpe', Sharpe)
+df.insert(1, 'FuturePrice', float(bob))
 path = os.path.dirname(os.path.abspath(__file__))
-util.writeDFtoCSV(df, os.path.join(path, 'Bitcoin_model_output.csv'))
+
+df.to_csv(os.path.join(path, 'Bitcoin_model_output.csv'),encoding = 'utf-8', index = False)
+
+df['Time'] = df['Time'].values.astype(str)
+df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
+
+outputFileName = '../ui/src/scraped/bitcoin/Bitcoin_model_output.js'
+with open(outputFileName, 'w') as f:
+    f.write("module.exports = { model_data : ")
+    f.write(df.to_json(orient='records'))
+    f.write("}")

@@ -4,90 +4,85 @@ import { Line } from "react-chartjs-2";
 class MultiLineEx extends React.Component {
   constructor(props) {
     super(props)
-    var {hourly_data} = require("../../scraped/bitcoin/Bitcoin_5min_output.js");
-    var bitcoin_data = hourly_data
-    var {hourly_data} = require("../../scraped/litecoin/Litecoin_5min_output.js");
-    var litecoin_data = hourly_data
-    var {hourly_data} = require("../../scraped/ethereum/Ethereum_5min_output.js");
-    var ethereum_data = hourly_data
+    // var {hourly_data} = require("../../scraped/ethereum/Ethereum_model_output.js");
+    // var ethereum_data = hourly_data
 
     // const x = bitcoin_data.map(v => (eval(props.x)));
     // const y = bitcoin_data.map(v => (eval(props.y)));
     // const y2 = litecoin_data.map(v => (eval(props.y)));
     // const y3 = ethereum_data.map(v => (eval(props.y)));
-
-    const x = bitcoin_data.map(v => eval(props.x));
-    const y = bitcoin_data.map(v => eval(props.y));
-    const y2 = litecoin_data.map(v => eval(props.y));
-    const y3 = ethereum_data.map(v => eval(props.y));
+    console.log(props.x);
+    const x = props.modelData.slice(-12).map(v => eval(props.x));
+    const y = props.modelData.slice(-12).map(v => eval(props.y));
+    const y2 = props.modelData.slice(-12).map(v => eval(props.y2));
+    // const y3 = ethereum_data.map(v => eval(props.y));
 
     this.data = {
       labels: x,
       datasets: [
         {
-          label: "Bitcoin",
+          label: "Market Return",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(20,120,20,1)",
-          borderColor: "rgba(20,120,20,1)",
+          backgroundColor: "indigo",
+          borderColor: "indigo",
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: "rgba(20,120,20,1)",
+          pointBorderColor: "indigo",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(20,120,20,1)",
-          pointHoverBorderColor: "rgba(20,120,20,1)",
+          pointHoverBackgroundColor: "indigo",
+          pointHoverBorderColor: "indigo",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           data: y
         },
         {
-          label: "Litecoin",
+          label: "Model Return",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "rgba(120,20,20,1)",
-          borderColor: "rgba(120,20,20,1)",
+          backgroundColor: "gold",
+          borderColor: "gold",
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: "rgba(120,20,20,1)",
+          pointBorderColor: "gold",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(120,20,20,1)",
-          pointHoverBorderColor: "rgba(120,20,20,1)",
+          pointHoverBackgroundColor: "gold",
+          pointHoverBorderColor: "gold",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           data: y2
         },
-        {
-          label: "Ethereum",
-          fill: false,
-          lineTension: 0.1,
-          backgroundColor: "rgba(20,20,120,1)",
-          borderColor: "rgba(20,20,120,1)",
-          borderDash: [],
-          borderDashOffset: 0.0,
-          borderJoinStyle: "miter",
-          pointBorderColor: "rgba(20,20,120,1)",
-          pointBackgroundColor: "#fff",
-          pointBorderWidth: 1,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: "rgba(20,20,120,1)",
-          pointHoverBorderColor: "rgba(20,20,120,1)",
-          pointHoverBorderWidth: 2,
-          pointRadius: 1,
-          data: y3
-        }
+        // {
+        //   label: "Ethereum",
+        //   fill: false,
+        //   lineTension: 0.1,
+        //   backgroundColor: "rgba(20,20,120,1)",
+        //   borderColor: "rgba(20,20,120,1)",
+        //   borderDash: [],
+        //   borderDashOffset: 0.0,
+        //   borderJoinStyle: "miter",
+        //   pointBorderColor: "rgba(20,20,120,1)",
+        //   pointBackgroundColor: "#fff",
+        //   pointBorderWidth: 1,
+        //   pointHoverRadius: 5,
+        //   pointHoverBackgroundColor: "rgba(20,20,120,1)",
+        //   pointHoverBorderColor: "rgba(20,20,120,1)",
+        //   pointHoverBorderWidth: 2,
+        //   pointRadius: 1,
+        //   data: y3
+        // }
       ]
     };
 
     this.options = {
       legend: {
         labels: {
-          fontColor: "#fff",
           fontSize: 16
         }
       },
@@ -95,13 +90,10 @@ class MultiLineEx extends React.Component {
         yAxes: [
           {
             ticks: {
-              fontColor: "#fff",
               min: this.props.yMin,
               max: this.props.yMax
             },
             gridLines: {
-              color: "#696969",
-              zeroLineColor: "#696969",
               zeroLineWidth: 2
             }
           }
@@ -109,11 +101,11 @@ class MultiLineEx extends React.Component {
         xAxes: [
           {
             ticks: {
+              display: false,
               fontColor: "#fff"
             },
             gridLines: {
               display: false,
-              color: "#696969"
             }
           }
         ]

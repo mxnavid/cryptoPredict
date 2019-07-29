@@ -2,21 +2,24 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 const handleClick = event => {
-  document
-    .querySelector(".navbar-start .is-active")
-    .classList.remove("is-active");
+  document.querySelector(".navbar .is-active").classList.remove("is-active");
   event.target.classList.add("is-active");
 };
 
-const handleClick2 = e => {
-  e.target.classList.remove("is-active");
-  document
-    .querySelector(".navbar-start .is-active")
-    .classList.remove("is-active");
-  document.querySelector("#dashboard").classList.add("is-active");
-};
+// const handleClick2 = e => {
+//   e.target.classList.remove("is-active");
+//   document
+//     .querySelector(".navbar-start .is-active")
+//     .classList.remove("is-active");
+//   document.querySelector("#dashboard").classList.add("is-active");
+// };
 
 class Header extends Component {
+  defaultAsIs = () => {
+    const currentPage = document.querySelector(".title").innerHTML;
+    document.querySelector("#" + currentPage).classList.add("is-active");
+  };
+
   componentDidMount() {
     let time = document.querySelector("#refresh_time");
 
@@ -32,27 +35,38 @@ class Header extends Component {
     else s2 = s;
     // add a zero in front of numbers<10
     time.innerHTML = h + ":" + m2 + ":" + s2;
+
+    this.defaultAsIs();
   }
 
   render() {
     return (
-      <nav className="navbar is-link" style={{ height: "60px" }}>
+      <nav className="navbar is-link" style={{ height: "60px", backgroundColor: "#0018A8"}}>
         <div className="navbar-brand">
-          <Link to="/" className="navbar-item" onClick={e => handleClick2(e)}>
-            <p
+          <Link
+            to="/"
+            className="navbar-item"
+            onClick={e => handleClick(e)}
+            id="Dashboard"
+            style={{
+              textTransform: "uppercase",
+              fontSize: "24px"
+            }}
+          >
+            {/* <p
               style={{
                 textTransform: "uppercase",
                 fontSize: "24px"
               }}
-            >
+            > */}
               Cryptowatch
-            </p>
+            {/* </p> */}
           </Link>
         </div>
 
         <div className="navbar-menu">
           <div className="navbar-start">
-            <Link
+            {/* <Link
               to="/dashboard"
               className="navbar-item is-active"
               id="dashboard"
@@ -61,22 +75,47 @@ class Header extends Component {
               }}
             >
               Dashboard
-            </Link>
+            </Link> */}
+
             <Link
-              to="/portfolio"
+              to="/cryptocurrency/Bitcoin"
               className="navbar-item"
               onClick={e => {
                 handleClick(e);
               }}
+              id="Bitcoin"
             >
-              Portfolio
+              Bitcoin
             </Link>
+
+            <Link
+              to="/cryptocurrency/Ethereum"
+              className="navbar-item"
+              onClick={e => {
+                handleClick(e);
+              }}
+              id="Ethereum"
+            >
+              Ethereum
+            </Link>
+            <Link
+              to="/cryptocurrency/Litecoin"
+              className="navbar-item"
+              onClick={e => {
+                handleClick(e);
+              }}
+              id="Litecoin"
+            >
+              Litecoin
+            </Link>
+
             <Link
               to="/sentiment"
               className="navbar-item"
               onClick={e => {
                 handleClick(e);
               }}
+              id="Sentiment"
             >
               Sentiment
             </Link>
@@ -84,10 +123,10 @@ class Header extends Component {
           <div className="navbar-end">
             <div className="navbar-item">
               {/* <div class="loader">Loading...</div> */}
-              <a href="#" className="has-text-white">
+              <p className="has-text-white">
                 <i class="fas fa-sync" />
                 &nbsp;&nbsp; Last refreshed at <span id="refresh_time">12</span>
-              </a>
+              </p>
             </div>
           </div>
         </div>

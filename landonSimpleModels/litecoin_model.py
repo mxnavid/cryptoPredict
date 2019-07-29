@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
-from crawler import util
 import os
 
 pd.set_option('display.expand_frame_repr', False)
@@ -88,7 +87,7 @@ Regime_split['return'] = Regime_split['Return'].shift(1)
 Regime_split = Regime_split.dropna()
 
 cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-          decision_function_shape='ovo', degree=4, gamma='auto', kernel='poly',
+          decision_function_shape='ovo', degree=3, gamma='auto', kernel='poly',
           max_iter=-1, probability=False, random_state=0, shrinking=True,
           tol=0.001, verbose=True)
 
@@ -125,12 +124,23 @@ print(cls.score(X,y))
 print(cls.predict(X[-1:]))
 sign = (cls.predict(X[-1:]))
 
-percent = df['Open'][-1]/df['Open'][-2:-1]
-future_price= ((percent/100)*sign*df['Open'][-1] + df['Open'][-1])
-print(future_price)
-print(df['strategy_cu_return'][-1:])
-print(df['market_cu_return'][-1:])
-print(df)
+percent = abs(df['Open'][-1]-df['Open'][-5:-4])/4
+bob = 0
+future_price= (percent*sign) + df['Open'][-1]
+bob += future_price
+
 #people look at this, see what kind of data you want to play with here
+df.reset_index(level=0, inplace=True)
+my_score=cls.score(X,y)
+df.insert(1, 'Score', my_score)
+df.insert(1, 'Sharpe', Sharpe)
+df.insert(1, 'FuturePrice', float(bob))
+
 path = os.path.dirname(os.path.abspath(__file__))
-util.writeDFtoCSV(df, os.path.join(path, 'Litecoin_model_output.csv'))
+df.to_csv(os.path.join(path, 'Litecoin_model_output.csv'),encoding = 'utf-8', index = False)
+
+outputFileName = '../ui/src/scraped/litecoin/Litecoin_model_output.js'
+with open(outputFileName, 'w') as f:
+    f.write("module.exports = { model_data : ")
+    f.write(df.to_json(orient='records'))
+    f.write("}")

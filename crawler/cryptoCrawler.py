@@ -4,13 +4,15 @@ import datetime
 import time
 import requests
 import pandas as pd
+import numpy as np
 from crawler.tok import t
 from datetime import date
+from datetime import timedelta
 
 class CryptoCrawler:
 
     ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
-    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, fileNameNews, token):
+    def __init__(self, cryptoName, cryptoShortName, fileNameTweet, token):
         self.dict = {}
         self.dict['token'] = token
         self.dict['name'] = cryptoName
@@ -18,9 +20,6 @@ class CryptoCrawler:
 
         self.dict['tweets'] = pd.DataFrame(data=self.setsentiment(util.readerCSV(fileNameTweet)),
                                            columns=['Time', 'Tweet', 'Polarity', 'Subjectivity'])
-
-        self.dict['news'] = pd.DataFrame(data=self.setnewsSentiment(util.readerCSV(fileNameNews)),
-                                           columns=['Time', 'Article', 'Polarity', 'Subjectivity'])
 
         self.dict['startDate'] = str(self.dict['tweets'].min().Time)
         self.dict['endDate'] = str(self.dict['tweets'].max().Time)
@@ -31,21 +30,11 @@ class CryptoCrawler:
         self.dict['5min'] = pd.merge(self.dict['5min'], self.setUSDEuroRate(), on='Time', sort=False, how='outer')
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
-        self.dict['daily'] = pd.merge(self.dict['daily'], self.setdailynews(), on='Time', sort=False, how='outer')
 
         self.dict['5min'] = self.dict['5min'].sort_values(self.dict['5min'].columns[0], ascending=True)
 
-
-        for index, rows in self.dict['5min'].iterrows():
-            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Close']):
-                self.dict['5min'].loc[index, 'S&P500 Close'] = self.dict['5min'].loc[index-1, 'S&P500 Close']
-            if pd.isnull(self.dict['5min'].loc[index, 'S&P500 Volume']):
-                self.dict['5min'].loc[index, 'S&P500 Volume'] = self.dict['5min'].loc[index-1, 'S&P500 Volume']
-            if pd.isnull(self.dict['5min'].loc[index, 'Polarity']):
-                self.dict['5min'].loc[index, 'Polarity'] = self.dict['5min'].loc[index-1, 'Polarity']
-            if pd.isnull(self.dict['5min'].loc[index, 'Subjectivity']):
-                self.dict['5min'].loc[index, 'Subjectivity'] = self.dict['5min'].loc[index-1, 'Subjectivity']
-
+        self.dict['5min'].replace('', np.nan, inplace=True)
+        self.dict['5min'] = self.dict['5min'].fillna(method='ffill')
 
         self.dict['daily'] = self.dict['daily'].sort_values(self.dict['daily'].columns[0], ascending=True)
 
@@ -111,34 +100,35 @@ class CryptoCrawler:
         return df
 
     def sethourlyprice(self):
-        index = pd.date_range(self.dict['startDate'], self.dict['endDate'], freq='5min')
+        end7date = datetime.datetime.strptime(self.dict['endDate'], '%Y-%m-%d %H:%M')
+        end7date += timedelta(days=-7)
+        index = pd.date_range(end7date, self.dict['endDate'], freq='5min')
         df = pd.DataFrame(columns=['Time', 'Open', 'Close', 'High', 'Low', 'VolumeCoin', 'VolumeUSD'])
-        #print(index.__len__())
-        i = index.__len__() - 1
-        timeUnix = time.mktime(index[min(i, 2000)].timetuple())
-        tot = 0
+        timeUnix = time.mktime(index[index.__len__()-1].timetuple())
+        #print(timeUnix)
         url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
             'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
-        #print(timeUnix)
         #print(url)
         reformat = requests.get(url).json()
-        i = max(400*tot - index.__len__() - 1, 0)
-        for val in index:
-            if (i == 400):
-                tot += 1
-                timeUnix = time.mktime(index[min(index.__len__() - 1, 400*(tot+1))].timetuple())
-                i = max(400*(tot+1) - index.__len__() - 2, 0)
-                #print(i)
+        i = len(reformat['Data'])-1
+        k = len(reformat['Data'])-1
+        for _ in index:
+            if i == 0:
+                timeUnix = time.mktime(index[index.__len__()-1-k].timetuple())
+                #print(timeUnix)
                 url = "https://min-api.cryptocompare.com/data/histominute?fsym=" + self.dict[
                     'shortName'] + "&tsym=USD&aggregate=5&limit=2000&toTs=" + str(int(timeUnix)) + "&api_key=" + t
+                #print(url)
                 reformat = requests.get(url).json()
-            inas = reformat['Data'][i]
-
-            rounded = util.dateFormatChanger(str(val), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
-            rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
-            va = (((rounded.minute+1) // 5 * 5) % 60)
-            rounded = rounded.replace(hour=rounded.hour, minute=va)
-            dic = {
+                k += len(reformat['Data'])-1
+                i = len(reformat['Data'])-1
+            if (len(reformat['Data']) > 0):
+                inas = reformat['Data'][i]
+                rounded = util.dateFormatChanger(str(index[index.__len__()-1-k+i]), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M')
+                rounded = datetime.datetime.strptime(rounded, '%Y-%m-%d %H:%M')
+                va = (((rounded.minute + 1) // 5 * 5) % 60)
+                rounded = rounded.replace(hour=rounded.hour, minute=va)
+                dic = {
                     'Time': util.dateFormatChanger(str(rounded), '%Y-%m-%d %H:%M:%S', '%Y-%m-%d %H:%M'),
                     'Open': inas['open'],
                     'Close': inas['close'],
@@ -146,10 +136,9 @@ class CryptoCrawler:
                     'Low': inas['low'],
                     'VolumeCoin': inas['volumefrom'],
                     'VolumeUSD': inas['volumeto']
-            }
-            i += 1
-
-            df = df.append(dic, ignore_index=True)
+                }
+                i -= 1
+                df = df.append(dic, ignore_index=True)
         df.sort_values(df.columns[0], ascending=True)
         #print(df)
         return df
@@ -189,36 +178,3 @@ class CryptoCrawler:
                 val[str(item2)] = value['Time Series FX (5min)'][item]['4. close']
         panda = pd.DataFrame(data=val.items(), columns=['Time', 'USDEuro'])
         return panda
-
-    def setnewsSentiment(self, file_reader_input):
-        timesentiment = []
-        for row in file_reader_input:
-            blob = TextBlob(row[2]+row[3])
-            timesentiment.append((util.dateFormatChanger(row[0],
-                                                         '%Y-%m-%dT%H:%M:%SZ', '%Y-%m-%d'), row[2]+row[3],
-                                  blob.polarity, blob.subjectivity))
-        return timesentiment
-
-    def setdailynews(self):
-        dict = {}
-        # combine all sentiment scores by day into a dictionary with key time and tuple (frequency, sum)
-        for index, row in self.dict['news'].iterrows():
-            if ((row['Time'] < self.dict['endDate']) & (row['Time'] > self.dict['startDate'])):
-                if row['Time'] in dict:
-                    dict[row['Time']] = (dict[row['Time']][0] + 1, (dict[row['Time']][1] + row['Polarity']), (dict[row['Time']][2] + row['Subjectivity']))
-                else:
-                    dict[row['Time']] = (1, row['Polarity'], row['Subjectivity'])
-
-        avgValue = []
-        avgSubj = []
-        for key, value in dict.items():
-            avg = value[1] / value[0]
-            avgSub = value[2] / value[0]
-            avgValue.append((key, avg))
-            avgSubj.append((key, avgSub))
-
-        df = pd.DataFrame(data=list(avgValue), columns=['Time', 'Polarity'])
-        dl = pd.DataFrame(data=list(avgSubj), columns=['Time', 'Subjectivity'])
-        df = pd.merge(df, dl, on='Time', sort=False, how='outer')
-
-        return df

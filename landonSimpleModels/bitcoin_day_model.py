@@ -9,8 +9,16 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from crawler import util
 import os
+from datetime import datetime
 
-df = web.get_data_yahoo('BTC-USD', start="2010-07-12", end="2019-7-23")
+now = datetime.now()
+year = now.strftime("%Y")
+month = now.strftime("%m")
+
+day = now.strftime("%d")
+today = year+"-"+month+"-"+day
+
+df = web.get_data_yahoo('BTC-USD', start="2010-07-12", end=today)
 df = df[['Open', 'High', 'Low', 'Close']]
 
 
@@ -116,5 +124,12 @@ plt.legend(loc='best')
 plt.show()
 
 print(cls.score(X,y))
+df.reset_index(level=0, inplace=True)
 path = os.path.dirname(os.path.abspath(__file__))
 util.writeDFtoCSV(df, os.path.join(path, 'DAILYBitcoin_model_output.csv'))
+
+outputFileName = '../ui/src/scraped/bitcoin/DAILYBitcoin_model_output.js'
+with open(outputFileName, 'w') as f:
+    f.write("module.exports = { model_data : ")
+    f.write(df.to_json(orient='records'))
+    f.write("}")
