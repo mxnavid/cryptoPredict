@@ -28,7 +28,6 @@ def cleanTweets(tweet):
     return cleanTweet
 
 def writeDFtoCSV(df, outputFileName):
-    df = df.tail(2000)
     df.to_csv(outputFileName, encoding='utf-8', index=False)
 
 def writeJs(inputFileName, outputFileName):
@@ -49,15 +48,7 @@ def convertTimeFile(inputFileName):
     df.to_csv(outputFileName, encoding='utf-8', header=None, index=False)
 
 def writeFiles(coin, path):
-    # writeDFtoCSV(coin.dict['tweets'],
-    #              os.path.join(path, 'landonSimpleModels/'+coin.dict['name']+'_tweet_output.csv'))
-    # writeDFtoCSV(coin.dict['news'],
-    #              os.path.join(path, 'landonSimpleModels/'+coin.dict['name']+'_news_output.csv'))
-
     writeDFtoCSV(coin.dict['5min'],
                  os.path.join(path, 'landonSimpleModels/'+coin.dict['name']+'_5min_output.csv'))
-    #print('Wrote ' + coin.dict['name'] +' 5 min value to CSV')
-
     writeDFtoCSV(coin.dict['daily'],
                  os.path.join(path, 'landonSimpleModels/'+coin.dict['name']+'_daily_output.csv'))
-    #print('Wrote ' + coin.dict['name'] +' daily values to CSV')

@@ -26,8 +26,8 @@ class CryptoCrawler:
 
         self.dict['5min'] = self.sethourlysentiment()
         self.dict['5min'] = pd.merge(self.dict['5min'], self.sethourlyprice(), on='Time', sort=False, how='outer')
-        self.dict['5min'] = pd.merge(self.dict['5min'], self.setsp500(), on='Time', sort=False, how='outer')
-        self.dict['5min'] = pd.merge(self.dict['5min'], self.setUSDEuroRate(), on='Time', sort=False, how='outer')
+        #self.dict['5min'] = pd.merge(self.dict['5min'], self.setsp500(), on='Time', sort=False, how='outer')
+        #self.dict['5min'] = pd.merge(self.dict['5min'], self.setUSDEuroRate(), on='Time', sort=False, how='outer')
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
 
