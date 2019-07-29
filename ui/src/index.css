@@ -111,3 +111,7 @@ code {
   display: flex;
   align-items: center;
 }
+
+.card {
+  height: 100%;
+}
