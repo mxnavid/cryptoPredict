@@ -43,7 +43,7 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Mins</th>
+                      <th>Mins Ago</th>
                       <th>25</th>
                       <th>20</th>
                       <th>15</th>

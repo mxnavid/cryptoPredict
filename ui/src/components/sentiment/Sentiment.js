@@ -7,34 +7,32 @@ export default class Sentiment extends Component {
    }
 
    componentDidMount() {
-      fetch('http://127.0.0.1:8080/needScore', {
-         method: 'POST',
-         mode: 'no-cors',
-         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-            //   'Access-Control-Allow-Credentials': true
-         },
-         body: JSON.stringify({
-            "textFromUI": "I hate trump",
-         })
-      })
-         .then((response) => response.json())
-         .then((responseJson) => {
-
-            console.log(responseJson)
-         })
-         .catch((error) => {
-            console.error(error);
-         });
+      
    }
 
    handleSubmit = () => {
       // this.setState({
       //    inputText: "idk"
       // })
-      alert(this.state.inputText);
+      fetch('http://a42a30b9.ngrok.io/sentimentScore', {
+         method: 'GET',
+         mode: 'no-cors',
+         headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': '*'
+            //   'Access-Control-Allow-Credentials': true
+         }
+      })
+         .then((response) => response.json())
+         .then((responseJson) => {
+
+            console.log(responseJson)
+            console.log("Hi")
+         })
+         .catch((error) => {
+            console.error(error);
+         });
    }
 
    handleChange = (text) => {
@@ -48,7 +46,7 @@ export default class Sentiment extends Component {
             <section class="hero" style={{backgroundColor: "#0018A8"}}>
                <div class="hero-body columns">
                   <div className="column" >
-                     <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
+                     <h1 class="title has-text-white" style={{ fontSize: "48px" }} onClick={this.handleSubmit}>
                         Sentiment
                   </h1>
                      <h2 class="subtitle has-text-white" style={{ fontSize: "28px" }}>
