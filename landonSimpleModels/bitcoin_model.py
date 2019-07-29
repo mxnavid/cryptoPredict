@@ -71,7 +71,7 @@ Regime_split = pd.DataFrame(regime, columns=['Regime'], index=df[split:].index) 
 order = [0, 1, 2, 3]
 fig = sns.FacetGrid(data=Regime_split, hue='Regime', hue_order=order, aspect=10, size=4)
 fig.map(plt.scatter, 'Time', 'market_cu_return', s=3).add_legend()
-#plt.show()
+plt.show()
 
 #for i in order:
     #print('Mean for regime %i: ' % i, unsup.means_[i][0])
@@ -120,7 +120,7 @@ plt.plot(df['strategy_cu_return'][-p_data:], color='g', label='Strategy Returns'
 plt.plot(df['market_cu_return'][-p_data:], color='r', label='Market Returns')
 plt.figtext(0.14, 0.9, s='Sharpe ratio: %.2f' % Sharpe)
 plt.legend(loc='best')
-#plt.show()
+plt.show()
 
 #print(cls.score(X,y))
 #print(cls.predict(X[-1:]))

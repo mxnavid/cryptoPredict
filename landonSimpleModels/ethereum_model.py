@@ -148,3 +148,4 @@ with open(outputFileName, 'w') as f:
     f.write("module.exports = { model_data : ")
     f.write(df.to_json(orient='records'))
     f.write("}")
+print(df)
