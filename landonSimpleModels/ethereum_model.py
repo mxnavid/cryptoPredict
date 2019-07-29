@@ -7,6 +7,7 @@ import talib as ta
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 import os
+from datetime import datetime
 
 pd.set_option('display.expand_frame_repr', False)
 df = pd.read_csv("Ethereum_5min_output.csv")
@@ -69,7 +70,7 @@ Regime_split = pd.DataFrame(regime, columns=['Regime'], index=df[split:].index) 
 order = [0, 1, 2, 3]
 fig = sns.FacetGrid(data=Regime_split, hue='Regime', hue_order=order, aspect=10, size=4)
 fig.map(plt.scatter, 'Time', 'market_cu_return', s=3).add_legend()
-plt.show()
+#plt.show()
 
 #for i in order:
     #print('Mean for regime %i: ' % i, unsup.means_[i][0])
@@ -118,7 +119,7 @@ plt.plot(df['strategy_cu_return'][-p_data:], color='g', label='Strategy Returns'
 plt.plot(df['market_cu_return'][-p_data:], color='r', label='Market Returns')
 plt.figtext(0.14, 0.9, s='Sharpe ratio: %.2f' % Sharpe)
 plt.legend(loc='best')
-plt.show()
+#plt.show()
 
 #print(cls.score(X,y))
 #print(cls.predict(X[-1:]))
@@ -142,6 +143,9 @@ df.insert(1, 'FuturePrice', float(bob))
 
 path = os.path.dirname(os.path.abspath(__file__))
 df.to_csv(os.path.join(path, 'Ethereum_model_output.csv'),encoding = 'utf-8', index = False)
+
+df['Time'] = df['Time'].values.astype(str)
+df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
 
 outputFileName = '../ui/src/scraped/ethereum/Ethereum_model_output.js'
 with open(outputFileName, 'w') as f:
