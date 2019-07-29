@@ -136,13 +136,17 @@ def bitcoin_dayModel(outputFileName):
     df.insert(1, 'FuturePrice', float(bob))
     path = os.path.dirname(os.path.abspath(__file__))
 
+    df.reset_index(level=0, inplace=True)
+    df['Date'] = df['Date'].values.astype(str)
+    df['Date'] = df['Date'].apply(
+        lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
+
     df.to_csv(os.path.join(path, 'DAILYBitcoin_model_output.csv'),encoding = 'utf-8', index = False)
-
-
 
     with open(outputFileName, 'w') as f:
         f.write("module.exports = { model_data : ")
         f.write(df.to_json(orient='records'))
         f.write("}")
 
+    print(df)
 bitcoin_dayModel('../ui/src/scraped/bitcoin/Bitcoin_day_model_output.js')

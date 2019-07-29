@@ -136,6 +136,11 @@ def ethereum_dayModel(outputFileName):
     df.insert(1, 'FuturePrice', float(bob))
     path = os.path.dirname(os.path.abspath(__file__))
 
+    df.reset_index(level=0, inplace=True)
+    df['Date'] = df['Date'].values.astype(str)
+    df['Date'] = df['Date'].apply(
+        lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
+
     df.to_csv(os.path.join(path, 'DAILYEthereum_model_output.csv'),encoding = 'utf-8', index = False)
 
 
@@ -145,4 +150,4 @@ def ethereum_dayModel(outputFileName):
         f.write(df.to_json(orient='records'))
         f.write("}")
 
-ethereum_dayModel('../ui/src/scraped/bitcoin/Ethereum_day_model_output.js')
+ethereum_dayModel('../ui/src/scraped/ethereum/Ethereum_day_model_output.js')
