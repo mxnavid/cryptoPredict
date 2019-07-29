@@ -10,7 +10,7 @@ from sklearn.svm import SVC
 import os
 from datetime import datetime
 
-def bitcoin_dayModel(outputFileName):
+def ethereum_dayModel(outputFileName):
     pd.set_option('display.expand_frame_repr', False)
     now = datetime.now()
     year = now.strftime("%Y")
@@ -19,7 +19,7 @@ def bitcoin_dayModel(outputFileName):
     day = now.strftime("%d")
     today = year + "-" + month + "-" + day
 
-    df = web.get_data_yahoo('BTC-USD', start="2014-07-12", end=today)
+    df = web.get_data_yahoo('ETH-USD', start="2010-07-12", end=today)
     df = df[['Open', 'High', 'Low', 'Close']]
 
 
@@ -136,7 +136,7 @@ def bitcoin_dayModel(outputFileName):
     df.insert(1, 'FuturePrice', float(bob))
     path = os.path.dirname(os.path.abspath(__file__))
 
-    df.to_csv(os.path.join(path, 'DAILYBitcoin_model_output.csv'),encoding = 'utf-8', index = False)
+    df.to_csv(os.path.join(path, 'DAILYEthereum_model_output.csv'),encoding = 'utf-8', index = False)
 
 
 
@@ -145,4 +145,4 @@ def bitcoin_dayModel(outputFileName):
         f.write(df.to_json(orient='records'))
         f.write("}")
 
-bitcoin_dayModel('../ui/src/scraped/bitcoin/Bitcoin_day_model_output.js')
+ethereum_dayModel('../ui/src/scraped/bitcoin/Ethereum_day_model_output.js')
