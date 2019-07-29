@@ -44,6 +44,8 @@ class Cryptocurrency extends Component {
                   {/* <p>5 minutes ago</p> */}
                 </div>
 
+
+
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">Future Price &nbsp;&nbsp;<i class="fas fa-coins"></i> </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
@@ -70,6 +72,13 @@ class Cryptocurrency extends Component {
                   )}
 
                 </div>
+
+                <div className="column has-text-white">
+                  <div className="subtitle has-text-white">Trend Confidence &nbsp;&nbsp;<i class="fas fa-donate"></i> </div>
+                  <div className="title has-text-info has-text-weight-bold">
+                    {this.state.last_one.Score.toFixed(4) * 100}%
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -87,6 +96,7 @@ class Cryptocurrency extends Component {
               coin={coin}
               cardTitle="Price Trend"
               graphTitle="Open"
+              // multiPrice={true}
               lineGraph={true}
             />
             <CustomCard

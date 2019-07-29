@@ -78,7 +78,7 @@ export default class Card extends Component {
                   <div className="columns">
                     <div className="column">
                       <p>
-                        Sentiment: <i className="far fa-frown" />
+              Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown" /> : <i className="far fa-smile" /> }
                       </p>
                     </div>
                     <div className="column">

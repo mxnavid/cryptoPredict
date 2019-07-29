@@ -134,13 +134,23 @@ export default class CustomCard extends Component {
                     </tr>
                     <tr>
                       <td>
-                        <strong>Result</strong>
+                        <strong>Current</strong>
                       </td>
+                      <td>${this.state.recents[0].Open.toFixed(2)}</td>
                       <td>${this.state.recents[1].Open.toFixed(2)}</td>
                       <td>${this.state.recents[2].Open.toFixed(2)}</td>
                       <td>${this.state.recents[3].Open.toFixed(2)}</td>
                       <td>${this.state.recents[4].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[5].Open.toFixed(2)}</td>
+                    </tr>
+                    <tr>
+                      <td>
+                        <strong>Result</strong>
+                      </td>
+                      <td className={this.state.recents[1].Open > this.state.recents[0].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[1].Open.toFixed(2)}</td>
+                      <td className={this.state.recents[2].Open > this.state.recents[1].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[2].Open.toFixed(2)}</td>
+                      <td className={this.state.recents[3].Open > this.state.recents[2].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[3].Open.toFixed(2)}</td>
+                      <td className={this.state.recents[4].Open > this.state.recents[3].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[4].Open.toFixed(2)}</td>
+                      <td className={this.state.recents[5].Open > this.state.recents[4].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[5].Open.toFixed(2)}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -153,6 +163,16 @@ export default class CustomCard extends Component {
                   x="v.Time"
                   y2="v.strategy_cu_return"
                   y="v.market_cu_return"
+                />
+              ) : null}
+
+              {this.props.multiPrice ? (
+                <MultiLineEx
+                  modelData={this.props.modelData}
+                  coin={this.props.coin}
+                  x="v.Time"
+                  y2="v.Open"
+                  y="v.SMA"
                 />
               ) : null}
             </div>
