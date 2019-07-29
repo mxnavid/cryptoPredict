@@ -74,9 +74,9 @@ class Cryptocurrency extends Component {
                 </div>
 
                 <div className="column has-text-white">
-                  <div className="subtitle has-text-white">Trend Confidence &nbsp;&nbsp;<i class="fas fa-donate"></i> </div>
+                  <div className="subtitle has-text-white">Trend Confidence &nbsp;&nbsp;<i class="fas fa-balance-scale"></i> </div>
                   <div className="title has-text-info has-text-weight-bold">
-                    {this.state.last_one.Score.toFixed(4) * 100}%
+                    {(this.state.last_one.Score * 100).toFixed(2) }%
                   </div>
                 </div>
               </div>
