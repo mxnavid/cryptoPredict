@@ -30,10 +30,10 @@ export default class CustomCard extends Component {
                   coin={this.props.coin}
                   time={1}
                   name={this.props.graphTitle}
-                  label="Price"
+                  label={this.props.graphTitle}
                   x="v.Time"
                   y={"v." + this.props.graphTitle}
-                  color="indigo"
+                  color="#0018A8" //hsl(204, 86%, 53%)	
                   // className="column"
                   show="false"
                 />
