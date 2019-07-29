@@ -17,7 +17,7 @@ export default class CustomCard extends Component {
 
   render() {
     return (
-      <div className="column">
+      <div className={this.props.customWidth ? "column " + this.props.customWidth : "column"}>
         <div className="card">
           <header className="card-header">
             <p className="card-header-title">{this.props.cardTitle}</p>
