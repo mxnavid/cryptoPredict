@@ -14,25 +14,16 @@ export default class Sentiment extends Component {
       // this.setState({
       //    inputText: "idk"
       // })
-      fetch('http://a42a30b9.ngrok.io/sentimentScore', {
-         method: 'GET',
-         mode: 'no-cors',
-         headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            'Access-Control-Allow-Origin': '*'
-            //   'Access-Control-Allow-Credentials': true
-         }
-      })
+      fetch('http://060f4bd8.ngrok.io/sentimentScore')
          .then((response) => response.json())
          .then((responseJson) => {
 
-            console.log(responseJson)
+            // console.log(responseJson)
             console.log("Hi")
          })
-         .catch((error) => {
-            console.error(error);
-         });
+      //    .catch((error) => {
+      //       console.error(error);
+      //    });
    }
 
    handleChange = (text) => {
