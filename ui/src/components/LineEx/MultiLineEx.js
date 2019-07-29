@@ -94,8 +94,6 @@ class MultiLineEx extends React.Component {
               max: this.props.yMax
             },
             gridLines: {
-              color: "#696969",
-              zeroLineColor: "#696969",
               zeroLineWidth: 2
             }
           }
@@ -108,7 +106,6 @@ class MultiLineEx extends React.Component {
             },
             gridLines: {
               display: false,
-              color: "#696969"
             }
           }
         ]
