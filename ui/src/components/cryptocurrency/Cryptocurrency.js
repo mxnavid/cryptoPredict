@@ -9,7 +9,6 @@ class Cryptocurrency extends Component {
   }
 
   importOutput = () => {
-    
     let curr_model_data;
 
     let { model_data } = require("../../scraped/" +
@@ -20,25 +19,22 @@ class Cryptocurrency extends Component {
 
     if (this.props.match.params.model !== "daily") {
       const { model_data } = require("../../scraped/" +
-      this.props.match.params.coin.toLowerCase() +
-      "/" +
-      this.props.match.params.coin +
-      "_model_output.js");
-      curr_model_data = model_data
+        this.props.match.params.coin.toLowerCase() +
+        "/" +
+        this.props.match.params.coin +
+        "_model_output.js");
+      curr_model_data = model_data;
 
-      console.log("not daily")
-    }
-    else {
-      console.log("daily")
-
+      console.log("not daily");
+    } else {
+      console.log("daily");
 
       const { model_data } = require("../../scraped/" +
-      this.props.match.params.coin.toLowerCase() +
-      "/" +
-      this.props.match.params.coin +
-      "_day_model_output.js");
-      curr_model_data = model_data
-
+        this.props.match.params.coin.toLowerCase() +
+        "/" +
+        this.props.match.params.coin +
+        "_day_model_output.js");
+      curr_model_data = model_data;
     }
 
     this.state = {
@@ -63,7 +59,8 @@ class Cryptocurrency extends Component {
               <div className="columns">
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Current Price &nbsp;&nbsp;<i class="fas fa-donate" />{" "}
+                    Current Price &nbsp;&nbsp;
+                    <i class="fas fa-donate" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
                     ${this.state.last_one.Open.toFixed(2)}
@@ -72,7 +69,8 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Future Price &nbsp;&nbsp;<i class="fas fa-coins" />{" "}
+                    Future Price &nbsp;&nbsp;
+                    <i class="fas fa-coins" />{" "}
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
@@ -151,17 +149,22 @@ class Cryptocurrency extends Component {
             </div>
           </div>
           <div className="columns">
+          {this.props.match.params.model === "daily" ? null :
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
               cardTitle="Sentiment"
               graphTitle="Polarity"
               lineGraph={true}
-            />
+            />}
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Volume Coin Traded"
+              cardTitle={
+                this.props.match.params.model === "daily"
+                  ? "Volume Coin Traded (Daily)"
+                  : "Volume Coin Traded"
+              }
               graphTitle="VolumeCoin"
               lineGraph={true}
             />
