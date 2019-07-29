@@ -17,7 +17,7 @@ export default class Card extends Component {
       model_data
     } = require("../../scraped/" + props.cardTitle.toLowerCase() + "/" + props.cardTitle + "_model_output.js");
 
-    this.state.model_data = model_data;
+    this.state.crypto_data = model_data;
   }
 
   handleClick = (e, num) => {
@@ -78,16 +78,16 @@ export default class Card extends Component {
                   <div className="columns">
                     <div className="column">
                       <p>
-                        Sentiment: <i className="far fa-frown" />
+              Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown" /> : <i className="far fa-smile" /> }
                       </p>
                     </div>
                     <div className="column">
-                      <p>Price: $free.99</p>
+                      <p>Price: ${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</p>
                     </div>
                     <div className="column">
                       <p>
                         Prediction:{" "}
-                        {this.state.model_data[this.state.model_data.length - 1]
+                        {this.state.crypto_data[this.state.crypto_data.length - 1]
                           .Pred_Signal === -1 ? (
                           <i className="fas fa-angle-double-down" />
                         ) : (
@@ -120,6 +120,8 @@ export default class Card extends Component {
               </div>
               <div className="chart active-chart first-chart">
                 <LineExNoScale
+
+              modelData={this.state.crypto_data}
                   coin={this.props.cardTitle}
                   time={1}
                   name={this.props.title}
@@ -136,6 +138,7 @@ export default class Card extends Component {
 
               <div className="chart second-chart">
                 <LineExNoScale
+              modelData={this.state.crypto_data}
                   coin={this.props.cardTitle}
                   time={6}
                   name={this.props.title}
@@ -152,6 +155,7 @@ export default class Card extends Component {
 
               <div className="chart third-chart">
                 <LineExNoScale
+              modelData={this.state.crypto_data}
                   coin={this.props.cardTitle}
                   time={24}
                   name={this.props.title}
@@ -168,6 +172,7 @@ export default class Card extends Component {
 
               <div className="chart fourth-chart">
                 <LineExNoScale
+              modelData={this.state.crypto_data}
                   coin={this.props.cardTitle}
                   time={24 * 3}
                   name={this.props.title}
@@ -185,11 +190,11 @@ export default class Card extends Component {
           </div>
 
           <footer className="card-footer">
-            <p className="card-footer-item">
+            {/* <p className="card-footer-item">
               <span>
                 <a href="#">Expand Graph</a>
               </span>
-            </p>
+            </p> */}
             <p className="card-footer-item">
               <span>
                 <Link to={"/cryptocurrency/" + this.props.title}>

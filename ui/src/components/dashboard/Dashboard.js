@@ -4,10 +4,13 @@ import { data } from "../../data.js";
 import PageHeader from "../layout/PageHeader";
 
 export default class Dashboard extends Component {
+
+  
+
   render() {
     return (
       <div>
-        <PageHeader title="Dashboard" subtitle="Cryptocurrently" hasST={true} />
+        <PageHeader title="Dashboard" />
 
         <section className="section">
           <div className="columns ">

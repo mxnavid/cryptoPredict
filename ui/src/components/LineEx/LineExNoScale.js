@@ -6,12 +6,8 @@ class LineEx extends React.Component {
   constructor(props) {
     super(props);
 
-    const {
-      model_data
-    } = require("../../scraped/" + props.coin.toLowerCase() + "/" + props.coin + "_model_output.js");
-
-    const x = model_data.slice(-12 * props.time).map(v => eval(props.x));
-    const y = model_data.slice(-12 * props.time).map(v => eval(props.y));
+    const x = props.modelData.slice(-12 * props.time).map(v => eval(props.x));
+    const y = props.modelData.slice(-12 * props.time).map(v => eval(props.y));
 
     this.data = {
       labels: x,
