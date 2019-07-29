@@ -28,6 +28,7 @@ def cleanTweets(tweet):
     return cleanTweet
 
 def writeDFtoCSV(df, outputFileName):
+    df = df.tail(2000)
     df.to_csv(outputFileName, encoding='utf-8', index=False)
 
 def writeJs(inputFileName, outputFileName):
