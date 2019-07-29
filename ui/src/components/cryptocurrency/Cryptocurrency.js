@@ -39,7 +39,7 @@ class Cryptocurrency extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">Current Price &nbsp;&nbsp;<i class="fas fa-donate"></i> </div>
                   <div className="title has-text-info has-text-weight-bold">
-                    ${this.state.last_one.Open}
+                    ${this.state.last_one.Open.toFixed(2)}
                   </div>
                   {/* <p>5 minutes ago</p> */}
                 </div>
@@ -48,11 +48,11 @@ class Cryptocurrency extends Component {
                   <div className="subtitle has-text-white">Future Price &nbsp;&nbsp;<i class="fas fa-coins"></i> </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
-                      ${this.state.last_one.FuturePrice}
+                      ${this.state.last_one.FuturePrice.toFixed(2)}
                     </div>
                   ) : (
                     <div className="title has-text-danger has-text-weight-bold">
-                      ${this.state.last_one.FuturePrice}
+                      ${this.state.last_one.FuturePrice.toFixed(2)}
                     </div>
                   )}
                 </div>
