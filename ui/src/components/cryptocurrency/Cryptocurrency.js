@@ -29,7 +29,7 @@ class Cryptocurrency extends Component {
 
         <section class="hero" style={{ backgroundColor: "#0018A8" }}>
           <div class="hero-body columns">
-            <div className="column">
+            <div className="column is-one-third">
               <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
                 {coin}
               </h1>
