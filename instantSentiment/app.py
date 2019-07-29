@@ -16,7 +16,7 @@ def sentimentGetter():
 
 @app.route("/needScore", methods=["POST"])
 def getSentiment():
-    textInput = request.json['textFromUI']
+    textInput = request.json["textFromUI"]
     blob = TextBlob(textInput)
     pol = blob.polarity
     sub = blob.sentiment.subjectivity
