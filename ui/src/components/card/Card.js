@@ -190,11 +190,11 @@ export default class Card extends Component {
           </div>
 
           <footer className="card-footer">
-            <p className="card-footer-item">
+            {/* <p className="card-footer-item">
               <span>
                 <a href="#">Expand Graph</a>
               </span>
-            </p>
+            </p> */}
             <p className="card-footer-item">
               <span>
                 <Link to={"/cryptocurrency/" + this.props.title}>
