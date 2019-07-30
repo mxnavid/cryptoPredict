@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import Card from "../card/Card";
 import { data } from "../../data.js";
-import PageHeader from "../layout/PageHeader";
-import DashboardRow from "./DashboardRow";
 
 export default class Dashboard extends Component {
   constructor(props) {
@@ -43,10 +41,10 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <section class="hero" style={{ backgroundColor: "#0018A8" }}>
-          <div class="hero-body columns">
+        <section className="hero" style={{ backgroundColor: "#0018A8" }}>
+          <div className="hero-body columns">
             <div className="column is-two-fifths">
-              <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
+              <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
                 Dashboard
               </h1>
             </div>
@@ -55,7 +53,7 @@ export default class Dashboard extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Comparing &nbsp;&nbsp;
-                    <i class="fas fa-donate" />{" "}
+                    <i className="fas fa-donate" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
                     Price
@@ -65,7 +63,7 @@ export default class Dashboard extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Updating In... &nbsp;&nbsp;
-                    <i class="fas fa-clock" />{" "}
+                    <i className="fas fa-clock" />{" "}
                   </div>
                   <div className="title has-text-danger has-text-weight-bold">
                     5 minutes
@@ -75,7 +73,7 @@ export default class Dashboard extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Today's Date &nbsp;&nbsp;
-                    <i class="fas fa-calendar" />{" "}
+                    <i className="fas fa-calendar" />{" "}
                   </div>
                   <div className="title has-text-success has-text-weight-bold">
                     8/2/2019
@@ -85,10 +83,10 @@ export default class Dashboard extends Component {
                 {/* <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Showing &nbsp;&nbsp;
-                    <i class="fas fa-calendar" />{" "}
+                    <i className="fas fa-calendar" />{" "}
                   </div>
                   <div className="title has-text-grey-light has-text-weight-bold">
-                    Separately <i class="far fa-edit" />
+                    Separately <i className="far fa-edit" />
                   </div>
                 </div> */}
               </div>

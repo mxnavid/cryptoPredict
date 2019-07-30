@@ -1,12 +1,8 @@
 import React, { Component } from "react";
 
-import PageHeader from "../layout/PageHeader";
 import CustomCard from "../customcard/CustomCard";
 
 class Cryptocurrency extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   importOutput = () => {
     let curr_model_data;
