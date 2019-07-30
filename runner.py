@@ -68,10 +68,10 @@ def ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro):
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-prevTime = datetime.datetime.now() - timedelta(minutes=1)
+prevTime = datetime.datetime.now() - timedelta(minutes=5)
 ray.init()
 while True:
-    if (datetime.datetime.now() > prevTime + timedelta(minutes=1)):
+    if (datetime.datetime.now() > prevTime + timedelta(minutes=5)):
         prevTime = datetime.datetime.now()
         print(datetime.datetime.now())
         p = subprocess.Popen(['scp',
