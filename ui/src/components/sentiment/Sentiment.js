@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import curl from "curlrequest";
 
 export default class Sentiment extends Component {
   state = {
@@ -7,7 +8,21 @@ export default class Sentiment extends Component {
 
   componentDidMount() {}
 
-  handleSubmit = (event) => {
+  handleSubmit = event => {
+    const options = {
+      url: "http://060f4bd8.ngrok.io/sentimentScore",
+      include: true,
+      // headers: {
+      //   accept: "application/json",
+      //   "Content-Type": "application/json"
+      // }
+    };
+
+    curl.request(options, function(err, data) {
+      console.log(data);
+      console.log("well that didn't work...");
+    });
+
     // this.setState({
     //    inputText: "idk"
     // })
@@ -40,12 +55,6 @@ export default class Sentiment extends Component {
               >
                 Sentiment
               </h1>
-              {/* <h2
-                className="subtitle has-text-white"
-                style={{ fontSize: "28px" }}
-              >
-                Cryptocurrently
-              </h2> */}
             </div>
           </div>
         </section>
@@ -85,7 +94,7 @@ is-offset-one-quarter"
                     <div className="column ">
                       <a href="#">#PositiveImpact</a> <a href="#">#Sentiment</a>
                       <br />
-                      <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
+                      <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                     </div>
                     <div className="column has-text-right">
                       {/* <a class="button is-link is-rounded">Submit</a> */}

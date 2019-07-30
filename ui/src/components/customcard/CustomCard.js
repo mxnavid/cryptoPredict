@@ -59,14 +59,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[0].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             &nbsp;&nbsp;&nbsp;Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             &nbsp;&nbsp;&nbsp;Down
                           </div>
                         </td>
@@ -74,14 +74,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[1].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             &nbsp;&nbsp;&nbsp;Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
@@ -89,14 +89,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[2].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
@@ -104,14 +104,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[3].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
@@ -119,14 +119,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[4].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
