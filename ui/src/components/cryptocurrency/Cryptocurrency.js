@@ -157,6 +157,7 @@ class Cryptocurrency extends Component {
               graphTitle="Polarity"
               lineGraph={true}
             />}
+          {this.props.match.params.model === "daily" ? null :
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
@@ -167,7 +168,7 @@ class Cryptocurrency extends Component {
               }
               graphTitle="VolumeCoin"
               lineGraph={true}
-            />
+            />}
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}

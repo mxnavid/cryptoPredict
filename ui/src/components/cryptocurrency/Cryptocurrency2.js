@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 
 import PageHeader from "../layout/PageHeader";
-import CustomCard from "../customcard/CustomCard";
+import CustomCard from "../customcard/CustomCard2";
+
 
 class Cryptocurrency2 extends Component {
   constructor(props) {
@@ -158,17 +159,7 @@ class Cryptocurrency2 extends Component {
                 lineGraph={true}
               />
             )}
-            <CustomCard
-              modelData={this.state.crypto_data}
-              coin={coin}
-              cardTitle={
-                this.props.match.params.model === "daily"
-                  ? "Volume Coin Traded (Daily)"
-                  : "Volume Coin Traded"
-              }
-              graphTitle="VolumeCoin"
-              lineGraph={true}
-            />
+
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
