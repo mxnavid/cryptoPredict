@@ -2,20 +2,15 @@ import React, { Component } from "react";
 import curl from "curlrequest";
 
 export default class Sentiment extends Component {
+
   state = {
     inputText: ""
   };
-
-  componentDidMount() {}
 
   handleSubmit = event => {
     const options = {
       url: "http://060f4bd8.ngrok.io/sentimentScore",
       include: true,
-      // headers: {
-      //   accept: "application/json",
-      //   "Content-Type": "application/json"
-      // }
     };
 
     curl.request(options, function(err, data) {
@@ -97,14 +92,12 @@ is-offset-one-quarter"
                       <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                     </div>
                     <div className="column has-text-right">
-                      {/* <a class="button is-link is-rounded">Submit</a> */}
                       <input
                         type="submit"
                         value="Submit"
                         className="button is-link is-rounded"
                         onClick={this.handleSubmit}
                       />
-                      {/* <p>hello</p> */}
                     </div>
                   </div>
                 </form>
@@ -112,20 +105,6 @@ is-offset-one-quarter"
             </div>
           </div>
         </section>
-        {/* <form onSubmit={this.handleSubmit}>
-                  <div className="field">
-                     <div align="center">
-                        <label className="label" style={{ fontSize: "32px" }}>Enter Text for Sentiment Scoring</label>
-                        <textarea rows="6" cols="75" style={{ fontSize: "24px" }} placeholder="What's happening?" value={this.state.value} onChange={this.handleChange} ></textarea>
-                     </div>
-                  </div>
-                  <div className="control">
-                     <div align="center">
-                        <input type="submit" value="Submit" style={{ height: 75, marginTop: 5, width: 300, fontSize: "30px" }}  className="button is-link"/>
-                     </div>
-                  </div>
-               
-            </form> */}
       </div>
     );
   }
