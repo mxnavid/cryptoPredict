@@ -11,15 +11,11 @@ from landonSimpleModels.litecoin_model import litecoinModel
 from landonSimpleModels.ethereum_model import ethereumModel
 import pandas as pd
 import numpy as np
-import ray
-import time
 
-@ray.remote
 def bitcoin2(THIS_FOLDER):
     bitcoin = CryptoCrawler('Bitcoin', 'BTC', os.path.join(THIS_FOLDER, 'data/bitcoin.csv'), t2)
     return bitcoin
 
-@ray.remote
 def bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro):
     bitcoin.dict['5min'] = pd.merge(bitcoin.dict['5min'], sp500, on='Time', sort=False, how='outer')
     bitcoin.dict['5min'] = pd.merge(bitcoin.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
@@ -31,12 +27,10 @@ def bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro):
     bitcoinModel(os.path.join(THIS_FOLDER, 'landonSimpleModels/Bitcoin_5min_output.csv'),
                  os.path.join(THIS_FOLDER, 'ui/src/scraped/bitcoin/Bitcoin_model_output.js'))
 
-@ray.remote
 def litecoin2(THIS_FOLDER):
     litecoin = CryptoCrawler('Litecoin', 'LTC', os.path.join(THIS_FOLDER, 'data/litecoin.csv'), t2)
     return litecoin
 
-@ray.remote
 def litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro):
     litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], sp500, on='Time', sort=False, how='outer')
     litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
@@ -48,12 +42,10 @@ def litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro):
     litecoinModel(os.path.join(THIS_FOLDER, 'landonSimpleModels/Litecoin_5min_output.csv'),
                   os.path.join(THIS_FOLDER, 'ui/src/scraped/litecoin/Litecoin_model_output.js'))
 
-@ray.remote
 def ethereum2(THIS_FOLDER):
     ethereum = CryptoCrawler('Ethereum', 'ETH', os.path.join(THIS_FOLDER, 'data/ethereum.csv'), t2)
     return ethereum
 
-@ray.remote
 def ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro):
     ethereum.dict['5min'] = pd.merge(ethereum.dict['5min'], sp500, on='Time', sort=False, how='outer')
     ethereum.dict['5min'] = pd.merge(ethereum.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
@@ -69,7 +61,6 @@ THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 prevTime = datetime.datetime.now() - timedelta(minutes=5)
-ray.init()
 while True:
     if (datetime.datetime.now() > prevTime + timedelta(minutes=5)):
         prevTime = datetime.datetime.now()
@@ -80,15 +71,16 @@ while True:
         sts = os.waitpid(p.pid, 0)
 
         print('download done')
-        bitcoin = bitcoin2.remote(THIS_FOLDER)
-        ethereum = ethereum2.remote(THIS_FOLDER)
-        litecoin = litecoin2.remote(THIS_FOLDER)
+        bitcoin = bitcoin2(THIS_FOLDER)
+        ethereum = ethereum2(THIS_FOLDER)
+        litecoin = litecoin2(THIS_FOLDER)
         print('coins done')
 
-        sp500 = ray.get(bitcoin).setsp500()
-        usdeuro = ray.get(bitcoin).setUSDEuroRate()
+        sp500 = bitcoin.setsp500()
+        usdeuro = bitcoin.setUSDEuroRate()
 
-        bitcoin3.remote(ray.get(bitcoin), THIS_FOLDER, sp500, usdeuro)
-        ethereum3.remote(ray.get(ethereum), THIS_FOLDER, sp500, usdeuro)
-        litecoin3.remote(ray.get(litecoin), THIS_FOLDER, sp500, usdeuro)
+        bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro)
+        ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro)
+        litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro)
         print('models done')
+        print(datetime.datetime.now())

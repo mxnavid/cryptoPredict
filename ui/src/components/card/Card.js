@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import LineEx from "../LineEx/LineEx";
 import LineExNoScale from "../LineEx/LineExNoScale";
 // import MultiLineEx from "../LineEx/MultiLineEx";
 
