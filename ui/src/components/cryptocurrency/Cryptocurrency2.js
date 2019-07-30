@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 
+<<<<<<< HEAD
+import CustomCard from "../customcard/CustomCard";
+=======
 import PageHeader from "../layout/PageHeader";
 import CustomCard from "../customcard/CustomCard2";
 
+>>>>>>> 6bbafbaa059ab117410b40a4dfed4ee6d4b1e349
 
 class Cryptocurrency2 extends Component {
-  constructor(props) {
-    super(props);
-  }
 
   importOutput = () => {
     let curr_model_data;
@@ -17,7 +18,6 @@ class Cryptocurrency2 extends Component {
       "/" +
       this.props.match.params.coin +
       "_model_output.js");
-
     if (this.props.match.params.model !== "daily") {
       const { model_data } = require("../../scraped/" +
         this.props.match.params.coin.toLowerCase() +
@@ -49,10 +49,10 @@ class Cryptocurrency2 extends Component {
     const { coin } = this.props.match.params;
     return (
       <div key={coin} onLoad={this.importOutput()}>
-        <section class="hero" style={{ backgroundColor: "#0018A8" }}>
-          <div class="hero-body columns">
+        <section className="hero" style={{ backgroundColor: "#0018A8" }}>
+          <div className="hero-body columns">
             <div className="column is-one-third">
-              <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
+              <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
                 {coin}
               </h1>
             </div>
@@ -61,7 +61,7 @@ class Cryptocurrency2 extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Current Price &nbsp;&nbsp;
-                    <i class="fas fa-donate" />{" "}
+                    <i className="fas fa-donate" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
                     ${this.state.last_one.Open.toFixed(2)}
@@ -71,7 +71,7 @@ class Cryptocurrency2 extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Future Price &nbsp;&nbsp;
-                    <i class="fas fa-coins" />{" "}
+                    <i className="fas fa-coins" />{" "}
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
@@ -86,15 +86,15 @@ class Cryptocurrency2 extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend (Daily) &nbsp;&nbsp;<i class="fas fa-chart-line"> </i>
+                    Trend (Daily) &nbsp;&nbsp;<i className="fas fa-chart-line"> </i>
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
-                      <i class="fas fa-angle-double-up" /> &nbsp;&nbsp;&nbsp;Up
+                      <i className="fas fa-angle-double-up" /> &nbsp;&nbsp;&nbsp;Up
                     </div>
                   ) : (
                     <div className="title has-text-danger has-text-weight-bold">
-                      <i class="fas fa-angle-double-down" />{" "}
+                      <i className="fas fa-angle-double-down" />{" "}
                       &nbsp;&nbsp;&nbsp;Down
                     </div>
                   )}
@@ -103,7 +103,7 @@ class Cryptocurrency2 extends Component {
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Trend Confidence &nbsp;&nbsp;
-                    <i class="fas fa-balance-scale" />{" "}
+                    <i className="fas fa-balance-scale" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
                     {(this.state.last_one.Score * 100).toFixed(2)}%
