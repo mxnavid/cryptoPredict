@@ -12,6 +12,7 @@ from landonSimpleModels.ethereum_model import ethereumModel
 import pandas as pd
 import numpy as np
 import ray
+import time
 
 @ray.remote
 def bitcoin2(THIS_FOLDER):
@@ -37,7 +38,6 @@ def litecoin2(THIS_FOLDER):
 
 @ray.remote
 def litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro):
-    litecoin = CryptoCrawler('Litecoin', 'LTC', os.path.join(THIS_FOLDER, 'data/litecoin.csv'), t2)
     litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], sp500, on='Time', sort=False, how='outer')
     litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
     litecoin.dict['5min'] = litecoin.dict['5min'].sort_values(litecoin.dict['5min'].columns[0], ascending=True)
@@ -68,10 +68,10 @@ def ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro):
 THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
-prevTime = datetime.datetime.now() + timedelta(minutes=-5)
+prevTime = datetime.datetime.now() - timedelta(minutes=1)
 ray.init()
 while True:
-    if (datetime.datetime.now() > prevTime + timedelta(minutes=5)):
+    if (datetime.datetime.now() > prevTime + timedelta(minutes=1)):
         prevTime = datetime.datetime.now()
         print(datetime.datetime.now())
         p = subprocess.Popen(['scp',
