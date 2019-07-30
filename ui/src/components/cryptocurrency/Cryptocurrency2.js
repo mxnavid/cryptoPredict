@@ -1,9 +1,5 @@
 import React, { Component } from "react";
 
-<<<<<<< HEAD
-=======
-import PageHeader from "../layout/PageHeader";
->>>>>>> 79d38e48f59cfaf07351fe4bf11082fa3a49a87c
 import CustomCard from "../customcard/CustomCard2";
 
 
