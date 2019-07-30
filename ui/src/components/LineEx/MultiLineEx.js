@@ -24,17 +24,17 @@ class MultiLineEx extends React.Component {
           label: "Market Return",
           fill: false,
           lineTension: 0.1,
-          backgroundColor: "indigo",
-          borderColor: "indigo",
+          backgroundColor: "#0018A8",
+          borderColor: "#0018A8",
           borderDash: [],
           borderDashOffset: 0.0,
           borderJoinStyle: "miter",
-          pointBorderColor: "indigo",
+          pointBorderColor: "#0018A8",
           pointBackgroundColor: "#fff",
           pointBorderWidth: 1,
           pointHoverRadius: 5,
-          pointHoverBackgroundColor: "indigo",
-          pointHoverBorderColor: "indigo",
+          pointHoverBackgroundColor: "#0018A8",
+          pointHoverBorderColor: "#0018A8",
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           data: y
@@ -81,11 +81,6 @@ class MultiLineEx extends React.Component {
     };
 
     this.options = {
-      legend: {
-        labels: {
-          fontSize: 16
-        }
-      },
       scales: {
         yAxes: [
           {

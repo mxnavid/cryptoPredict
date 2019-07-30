@@ -122,9 +122,9 @@ class Header extends Component {
           </div>
           <div className="navbar-end">
             <div className="navbar-item">
-              {/* <div class="loader">Loading...</div> */}
+              {/* <div className="loader">Loading...</div> */}
               <p className="has-text-white">
-                <i class="fas fa-sync" />
+                <i className="fas fa-sync" />
                 &nbsp;&nbsp; Last refreshed at <span id="refresh_time">12</span>
               </p>
             </div>

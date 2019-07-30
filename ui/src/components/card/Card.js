@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import LineEx from "../LineEx/LineEx";
 import LineExNoScale from "../LineEx/LineExNoScale";
 // import MultiLineEx from "../LineEx/MultiLineEx";
 
@@ -56,7 +55,7 @@ export default class Card extends Component {
   render() {
     return (
       <div className="column">
-        <div className={"card" + " card" + this.props.num}>
+        <div className={"card card" + this.props.num}>
           <div className="card-content">
             <div className="media">
               <div className="media-left">
@@ -102,16 +101,16 @@ export default class Card extends Component {
               <div className="tabs is-centered is-fullwidth">
                 <ul>
                   <li onClick={e => this.handleClick(e, 1)}>
-                    <a className="is-active-anchor">Past Hour</a>
+                    <a href={null} className="is-active-anchor">Past Hour</a>
                   </li>
                   <li onClick={e => this.handleClick(e, 6)}>
-                    <a>Past 6 Hours</a>
+                    <a href={null}>Past 6 Hours</a>
                   </li>
                   <li onClick={e => this.handleClick(e, 24)}>
-                    <a>Past Day</a>
+                    <a href={null}>Past Day</a>
                   </li>
                   <li onClick={e => this.handleClick(e, 24 * 3)}>
-                    <a>Past 3 Days</a>
+                    <a href={null}>Past 3 Days</a>
                   </li>
                   {/* <li>
                   <a>Documents</a>

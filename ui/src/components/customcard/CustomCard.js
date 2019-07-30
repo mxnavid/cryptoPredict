@@ -6,18 +6,18 @@ export default class CustomCard extends Component {
   constructor(props) {
     super(props);
 
-    const { model_data } = require("../../scraped/" +
-      props.coin.toLowerCase() +
-      "/" +
-      props.coin +
-      "_model_output.js");
+    // const { model_data } = require("../../scraped/" +
+    //   props.coin.toLowerCase() +
+    //   "/" +
+    //   props.coin +
+    //   "_model_output.js");
 
-    this.state = { data: model_data, recents: model_data.slice(-6) };
+    this.state = { data: props.modelData, recents: props.modelData.slice(-6) };
   }
 
   render() {
     return (
-      <div className="column">
+      <div className={this.props.customWidth ? "column " + this.props.customWidth : "column"}>
         <div className="card">
           <header className="card-header">
             <p className="card-header-title">{this.props.cardTitle}</p>
@@ -30,10 +30,10 @@ export default class CustomCard extends Component {
                   coin={this.props.coin}
                   time={1}
                   name={this.props.graphTitle}
-                  label="Price"
+                  label={this.props.graphTitle}
                   x="v.Time"
                   y={"v." + this.props.graphTitle}
-                  color="indigo"
+                  color="#0018A8" //hsl(204, 86%, 53%)	
                   // className="column"
                   show="false"
                 />
@@ -43,7 +43,7 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Mins</th>
+                      <th>Mins Ago</th>
                       <th>25</th>
                       <th>20</th>
                       <th>15</th>
@@ -59,14 +59,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[0].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             &nbsp;&nbsp;&nbsp;Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             &nbsp;&nbsp;&nbsp;Down
                           </div>
                         </td>
@@ -74,14 +74,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[1].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             &nbsp;&nbsp;&nbsp;Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
@@ -89,14 +89,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[2].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
@@ -104,14 +104,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[3].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
@@ -119,14 +119,14 @@ export default class CustomCard extends Component {
                       {this.state.recents[4].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
+                            <i className="fas fa-angle-double-up" />{" "}
                             Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
+                            <i className="fas fa-angle-double-down" />{" "}
                             Down
                           </div>
                         </td>
