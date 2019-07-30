@@ -6,13 +6,13 @@ export default class CustomCard extends Component {
   constructor(props) {
     super(props);
 
-    const { model_data } = require("../../scraped/" +
-      props.coin.toLowerCase() +
-      "/" +
-      props.coin +
-      "_model_output.js");
+    // const { model_data } = require("../../scraped/" +
+    //   props.coin.toLowerCase() +
+    //   "/" +
+    //   props.coin +
+    //   "_model_output.js");
 
-    this.state = { data: model_data, recents: model_data.slice(-6) };
+    this.state = { data: props.modelData, recents: props.modelData.slice(-6) };
   }
 
   render() {

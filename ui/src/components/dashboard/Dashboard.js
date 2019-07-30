@@ -45,7 +45,7 @@ export default class Dashboard extends Component {
       <div>
         <section class="hero" style={{ backgroundColor: "#0018A8" }}>
           <div class="hero-body columns">
-            <div className="column is-one-third">
+            <div className="column is-two-fifths">
               <h1 class="title has-text-white" style={{ fontSize: "48px" }}>
                 Dashboard
               </h1>
@@ -82,7 +82,7 @@ export default class Dashboard extends Component {
                   </div>
                 </div>
 
-                <div className="column has-text-white">
+                {/* <div className="column has-text-white">
                   <div className="subtitle has-text-white">
                     Showing &nbsp;&nbsp;
                     <i class="fas fa-calendar" />{" "}
@@ -90,38 +90,12 @@ export default class Dashboard extends Component {
                   <div className="title has-text-grey-light has-text-weight-bold">
                     Separately <i class="far fa-edit" />
                   </div>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </section>
         <section className="section">
-          <div className="columns">
-            <div className="column">
-              <DashboardRow
-                coin="Bitcoin"
-                data={this.state.bitcoin_data}
-                cardTitle="Price"
-              />
-            </div>
-
-            <div className="column ">
-              <DashboardRow
-                coin="Ethereum"
-                data={this.state.ethereum_data}
-                cardTitle="Price"
-              />
-            </div>
-            <div className="column">
-              <DashboardRow
-                coin="Litecoin"
-                data={this.state.litecoin_data}
-                cardTitle="Price"
-              />
-            </div>
-          </div>
-        </section>
-        {/* <section className="section">
           <div className="columns ">
             {data.map((crypto, num) => {
               // console.log(num);
@@ -143,7 +117,7 @@ export default class Dashboard extends Component {
             })}
             
           </div>
-        </section> */}
+        </section>
       </div>
     );
   }

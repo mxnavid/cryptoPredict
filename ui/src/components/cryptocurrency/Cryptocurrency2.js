@@ -3,7 +3,7 @@ import React, { Component } from "react";
 import PageHeader from "../layout/PageHeader";
 import CustomCard from "../customcard/CustomCard";
 
-class Cryptocurrency extends Component {
+class Cryptocurrency2 extends Component {
   constructor(props) {
     super(props);
   }
@@ -85,7 +85,7 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend &nbsp;&nbsp;<i class="fas fa-chart-line"> </i>
+                    Trend (Daily) &nbsp;&nbsp;<i class="fas fa-chart-line"> </i>
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
@@ -149,14 +149,15 @@ class Cryptocurrency extends Component {
             </div>
           </div>
           <div className="columns">
-          {this.props.match.params.model === "daily" ? null :
-            <CustomCard
-              modelData={this.state.crypto_data}
-              coin={coin}
-              cardTitle="Sentiment"
-              graphTitle="Polarity"
-              lineGraph={true}
-            />}
+            {this.props.match.params.model === "daily" ? null : (
+              <CustomCard
+                modelData={this.state.crypto_data}
+                coin={coin}
+                cardTitle="Sentiment"
+                graphTitle="Polarity"
+                lineGraph={true}
+              />
+            )}
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
@@ -189,4 +190,4 @@ class Cryptocurrency extends Component {
   }
 }
 
-export default Cryptocurrency;
+export default Cryptocurrency2;
