@@ -5,7 +5,6 @@ import MultiLineEx from "../LineEx/MultiLineEx";
 export default class CustomCard extends Component {
   constructor(props) {
     super(props);
-    this.date1 = Date().toString().slice(4, 10);
     this.date = Date().toString().slice(4, 7);
     this.number = Date().toString().slice(8,10);
     this.past = Number(this.number);
