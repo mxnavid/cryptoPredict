@@ -165,7 +165,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Parabolic Stop and Return"
+              cardTitle="Parabolic Stop and Reverse"
               graphTitle="SAR"
               lineGraph={true}
             />
