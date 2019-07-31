@@ -65,7 +65,7 @@ export default class Card extends Component {
               </div>
               <div className="media-content">
                 <p className="title is-4">{this.props.cardTitle}</p>
-                <p className="subtitle is-6"></p>
+                <p className="subtitle is-6">Price</p>
               </div>
             </div>
           </div>

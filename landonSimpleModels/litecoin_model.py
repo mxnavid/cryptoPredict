@@ -18,10 +18,10 @@ def litecoinModel(file, outputFileName):
     target = df['Open']
     #df = df.drop(['Subjectivity'],1)
     #df = df.drop(['Polarity'],1)
-    df = df.drop(['VolumeCoin'],1)
+    #df = df.drop(['VolumeCoin'],1)
     df = df.drop(['VolumeUSD'],1)
-    df = df.drop(['S&P500 Close'],1)
-    df = df.drop(['S&P500 Volume'],1)
+    #df = df.drop(['S&P500 Close'],1)
+    #df = df.drop(['S&P500 Volume'],1)
     df = df.drop(['USDEuro'],1)
     print(df)
 
@@ -152,4 +152,4 @@ def litecoinModel(file, outputFileName):
         f.write("}")
     #comment
     print(Sharpe)
-# litecoinModel('Litecoin_5min_output.csv', '../ui/src/scraped/litecoin/Litecoin_model_output.js')
+#litecoinModel('Litecoin_5min_output.csv', '../ui/src/scraped/litecoin/Litecoin_model_output.js')

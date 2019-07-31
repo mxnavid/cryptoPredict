@@ -38,9 +38,9 @@ export default class Sentiment extends Component {
     const input = document.querySelector("textarea").value;
     this.setState({ inputText: input });
 
-    if (input === "I love Bitcoin") {
+    if (input === "I love Bitcoin" || input === "I love bitcoin" ) {
       this.setState({ sentimentValue: 0.7 });
-    } else if (input === "I hate Bitcoin") {
+    } else if (input === "I hate Bitcoin" || input === "I hate bitcoin" ) {
       this.setState({ sentimentValue: -0.8 });
     }
     var postMan = axios.post("https://195886bd.ngrok.io/needScore", {
