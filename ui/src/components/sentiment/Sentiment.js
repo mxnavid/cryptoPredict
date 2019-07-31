@@ -15,15 +15,9 @@ export default class Sentiment extends Component {
     // curl.request(options, function(err, data) {
     //   console.log(data);
     //   console.log("well that didn't work...");
-<<<<<<< HEAD
-    // });
-
-    const inputText = document.querySelector("textarea").value; 
-=======
     var postMan = axios.post("https://00f529c3.ngrok.io/needScore", {
       textFromUI: "Faceboook"
     });
->>>>>>> 2b3608aa09a0eb13614bc7f7543d72272573844c
 
     // this.setState({
     //    inputText: "idk"
