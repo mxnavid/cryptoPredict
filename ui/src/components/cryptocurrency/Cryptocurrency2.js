@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 
-import PageHeader from "../layout/PageHeader";
 import CustomCard from "../customcard/CustomCard2";
 
 class Cryptocurrency2 extends Component {
