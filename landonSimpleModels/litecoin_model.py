@@ -152,4 +152,4 @@ def litecoinModel(file, outputFileName):
         f.write("}")
     #comment
     print(Sharpe)
-litecoinModel('Litecoin_5min_output.csv', '../ui/src/scraped/litecoin/Litecoin_model_output.js')
+# litecoinModel('Litecoin_5min_output.csv', '../ui/src/scraped/litecoin/Litecoin_model_output.js')

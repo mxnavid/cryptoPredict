@@ -12,10 +12,6 @@
 * pip install ta-lib
 * pip install python-twitter
 * pip install flask
-* pip install ray==0.7.1
-* pip install pyarrow
-* pip install psutil
-* pip install setproctitle
 
 ## Running the UI
 * cd ui

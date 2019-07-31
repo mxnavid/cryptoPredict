@@ -72,7 +72,7 @@ def bitcoinModel(file, outputFileName):
     order = [0, 1, 2, 3]
     fig = sns.FacetGrid(data=Regime_split, hue='Regime', hue_order=order, aspect=10, size=4)
     fig.map(plt.scatter, 'Time', 'market_cu_return', s=3).add_legend()
-    plt.show()
+    # plt.show()
 
     #for i in order:
         #print('Mean for regime %i: ' % i, unsup.means_[i][0])
@@ -121,7 +121,7 @@ def bitcoinModel(file, outputFileName):
     plt.plot(df['market_cu_return'][-p_data:], color='r', label='Market Returns')
     plt.figtext(0.14, 0.9, s='Sharpe ratio: %.2f' % Sharpe)
     plt.legend(loc='best')
-    plt.show()
+    # plt.show()
 
     #print(cls.score(X,y))
     #print(cls.predict(X[-1:]))
@@ -150,4 +150,4 @@ def bitcoinModel(file, outputFileName):
         f.write(df.to_json(orient='records'))
         f.write("}")
 
-bitcoinModel('Bitcoin_5min_output.csv', '../ui/src/scraped/bitcoin/Bitcoin_model_output.js')
+# bitcoinModel('Bitcoin_5min_output.csv', '../ui/src/scraped/bitcoin/Bitcoin_model_output.js')
