@@ -62,7 +62,7 @@ export default class Dashboard extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Updating In... &nbsp;&nbsp;
+                    Refresh Rate &nbsp;&nbsp;
                     <i className="fas fa-clock" />{" "}
                   </div>
                   <div className="title has-text-danger has-text-weight-bold">
