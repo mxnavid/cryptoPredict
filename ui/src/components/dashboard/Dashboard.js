@@ -5,6 +5,9 @@ import { data } from "../../data.js";
 export default class Dashboard extends Component {
   constructor(props) {
     super(props);
+    this.date = Date()
+      .toString()
+      .slice(4, 15);
 
     let bitcoin_data;
     let ethereum_data;
@@ -76,7 +79,7 @@ export default class Dashboard extends Component {
                     <i className="fas fa-calendar" />{" "}
                   </div>
                   <div className="title has-text-success has-text-weight-bold">
-                    8/2/2019
+                    {this.date}
                   </div>
                 </div>
 

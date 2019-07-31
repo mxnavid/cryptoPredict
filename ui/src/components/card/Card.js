@@ -76,24 +76,24 @@ export default class Card extends Component {
                 <div>
                   <div className="columns">
                     <div className="column">
-                      <p>
-              <h5>Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown" /> : <i className="far fa-smile" /> } 
-                     </h5> </p>
+                    
+              <h5>Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown has-text-danger" /> : <i className="far fa-smile has-text-success" /> } 
+                     </h5>
                     </div>
                     <div className="column">
-                      <p><h5>Price:  ${this.state.crypto_data[this.state.crypto_data.length - 1].Open} </h5></p>
+                      <h5>Price:  <span className="has-text-info">${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</span> </h5>
                     </div>
                     <div className="column">
-                      <p>
+                      
                       <h5>  Prediction:{" "}
                         {this.state.crypto_data[this.state.crypto_data.length - 1]
                           .Pred_Signal === -1 ? (
-                          <i className="fas fa-angle-double-down" /> 
+                          <i className="fas fa-angle-double-down has-text-danger" /> 
                         ) : (
-                          <i className="fas fa-angle-double-up" />
+                          <i className="fas fa-angle-double-up has-text-success" />
                         )}
                         </h5>
-                      </p>
+                      
                     </div>
                   </div>
                 </div>

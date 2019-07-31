@@ -142,7 +142,7 @@ class Cryptocurrency extends Component {
           </div>
           <div className="columns">
             <div className="column">
-              <p className="title">Additonal Info</p>
+              <p className="title">Additional Info</p>
             </div>
           </div>
           <div className="columns">
