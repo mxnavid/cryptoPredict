@@ -1,20 +1,22 @@
 import React, { Component } from "react";
 import curl from "curlrequest";
-
+import axios from "axios";
 export default class Sentiment extends Component {
   state = {
     inputText: ""
   };
 
   handleSubmit = event => {
-    const options = {
-      url: "http://060f4bd8.ngrok.io/sentimentScore",
-      include: true
-    };
+    // const options = {
+    //   url: "http://060f4bd8.ngrok.io/sentimentScore",
+    //   include: true
+    // };
 
-    curl.request(options, function(err, data) {
-      console.log(data);
-      console.log("well that didn't work...");
+    // curl.request(options, function(err, data) {
+    //   console.log(data);
+    //   console.log("well that didn't work...");
+    var postMan = axios.post("https://00f529c3.ngrok.io/needScore", {
+      textFromUI: "Faceboook"
     });
 
     // this.setState({
@@ -31,6 +33,22 @@ export default class Sentiment extends Component {
     //    });
     // alert("Hello");
   };
+
+  componentDidMount() {
+    var text = axios
+      .get("https://00f529c3.ngrok.io/sentimentScore/text")
+      .then(response => console.log(response.data));
+    var polarity = axios
+      .get("https://00f529c3.ngrok.io/sentimentScore/polarity")
+      .then(response => console.log(response.data));
+    var subjectivity = axios
+      .get("https://00f529c3.ngrok.io/sentimentScore/subjectivity")
+      .then(response => console.log(response.data));
+
+    var postMan = axios.post("https://00f529c3.ngrok.io/needScore", {
+      textFromUI: "facevook"
+    });
+  }
 
   handleChange = text => {
     this.setState({ inputText: text.target.value.substr(0, 100) });
