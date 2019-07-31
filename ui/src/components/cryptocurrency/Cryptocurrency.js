@@ -120,7 +120,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Past Hour"
+              cardTitle="Past Hour (Price)"
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
