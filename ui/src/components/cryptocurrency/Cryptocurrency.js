@@ -44,8 +44,8 @@ class Cryptocurrency extends Component {
     return (
       <div key={coin} onLoad={this.importOutput()}>
         <section className="hero" style={{ backgroundColor: "#0018A8" }}>
-          <div className="hero-body columns">
-            <div className="column is-one-third">
+          <div className="hero-body columns" >
+            <div className="column is-one-third" >
               <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
                 {coin}
               </h1>
@@ -142,7 +142,7 @@ class Cryptocurrency extends Component {
           </div>
           <div className="columns">
             <div className="column">
-              <p className="title">Additonal Info</p>
+              <p className="title">Additional Info</p>
             </div>
           </div>
           <div className="columns">

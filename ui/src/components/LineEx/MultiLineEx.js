@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 
 class MultiLineEx extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     // var {hourly_data} = require("../../scraped/ethereum/Ethereum_model_output.js");
     // var ethereum_data = hourly_data
 
@@ -57,7 +57,7 @@ class MultiLineEx extends React.Component {
           pointHoverBorderWidth: 2,
           pointRadius: 1,
           data: y2
-        },
+        }
         // {
         //   label: "Ethereum",
         //   fill: false,
@@ -100,7 +100,7 @@ class MultiLineEx extends React.Component {
               fontColor: "#fff"
             },
             gridLines: {
-              display: false,
+              display: false
             }
           }
         ]
@@ -112,7 +112,7 @@ class MultiLineEx extends React.Component {
     return (
       <div>
         <Line data={this.data} options={this.options} />
-          {/* <div>
+        {/* <div>
             <h4>{this.props.name}</h4>
           </div> */}
       </div>
