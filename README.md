@@ -22,8 +22,9 @@
 * npm install
 * npm install react-router-dom
 * npm install bulma
-* npm install react-twitter-embed
+* npm install axios
 * npm start
+
 
 ## TOKENS FOR SCRAPING
 * twitter (only on server)
