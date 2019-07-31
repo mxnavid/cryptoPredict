@@ -41,7 +41,7 @@ export default class Dashboard extends Component {
   render() {
     return (
       <div>
-        <section className="hero" style={{ backgroundColor: "#0018A8" }}>
+        <section className="hero" style={{ backgroundColor: "#0518A8" }}>
           <div className="hero-body columns">
             <div className="column is-two-fifths">
               <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
@@ -113,7 +113,6 @@ export default class Dashboard extends Component {
                 />
               );
             })}
-            
           </div>
         </section>
       </div>

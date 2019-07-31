@@ -5,8 +5,12 @@ import MultiLineEx from "../LineEx/MultiLineEx";
 export default class CustomCard extends Component {
   constructor(props) {
     super(props);
-    this.date = Date().toString().slice(4, 7);
-    this.number = Date().toString().slice(8,10);
+    this.date = Date()
+      .toString()
+      .slice(4, 7);
+    this.number = Date()
+      .toString()
+      .slice(8, 10);
     this.past = Number(this.number);
 
     // const { model_data } = require("../../scraped/" +
@@ -20,7 +24,11 @@ export default class CustomCard extends Component {
 
   render() {
     return (
-      <div className={this.props.customWidth ? "column " + this.props.customWidth : "column"}>
+      <div
+        className={
+          this.props.customWidth ? "column " + this.props.customWidth : "column"
+        }
+      >
         <div className="card">
           <header className="card-header">
             <p className="card-header-title">{this.props.cardTitle}</p>
@@ -36,7 +44,7 @@ export default class CustomCard extends Component {
                   label={this.props.graphTitle}
                   x="v.Time"
                   y={"v." + this.props.graphTitle}
-                  color="#0018A8" //hsl(204, 86%, 53%)	
+                  color="#0018A8" //hsl(204, 86%, 53%)
                   // className="column"
                   show="false"
                 />
@@ -47,17 +55,17 @@ export default class CustomCard extends Component {
                   <thead>
                     <tr>
                       <th>Previous Days</th>
-                      <th>{this.date + " " + (this.past-5)}</th>
-                      <th>{this.date + " " + (this.past-4)}</th>
-                      <th>{this.date + " " + (this.past-3)}</th>
-                      <th>{this.date + " " + (this.past-2)}</th>
-                      <th>{this.date + " " + (this.past-1) }</th>
+                      <th>{this.date + " " + (this.past - 5)}</th>
+                      <th>{this.date + " " + (this.past - 4)}</th>
+                      <th>{this.date + " " + (this.past - 3)}</th>
+                      <th>{this.date + " " + (this.past - 2)}</th>
+                      <th>{this.date + " " + (this.past - 1)}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>
-                        <strong>Trend</strong>
+                        <strong>Prediction</strong>
                       </td>
                       {this.state.recents[0].Pred_Signal === 1 ? (
                         <td>
@@ -84,53 +92,46 @@ export default class CustomCard extends Component {
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
-                            Down
+                            <i class="fas fa-angle-double-down" /> Down
                           </div>
                         </td>
                       )}
                       {this.state.recents[2].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
-                            Up
+                            <i class="fas fa-angle-double-up" /> Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
-                            Down
+                            <i class="fas fa-angle-double-down" /> Down
                           </div>
                         </td>
                       )}
                       {this.state.recents[3].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
-                            Up
+                            <i class="fas fa-angle-double-up" /> Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
-                            Down
+                            <i class="fas fa-angle-double-down" /> Down
                           </div>
                         </td>
                       )}
                       {this.state.recents[4].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold">
-                            <i class="fas fa-angle-double-up" />{" "}
-                            Up
+                            <i class="fas fa-angle-double-up" /> Up
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold">
-                            <i class="fas fa-angle-double-down" />{" "}
-                            Down
+                            <i class="fas fa-angle-double-down" /> Down
                           </div>
                         </td>
                       )}
@@ -149,11 +150,56 @@ export default class CustomCard extends Component {
                       <td>
                         <strong>Result</strong>
                       </td>
-                      <td className={this.state.recents[1].Open > this.state.recents[0].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[1].Open.toFixed(2)}</td>
-                      <td className={this.state.recents[2].Open > this.state.recents[1].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[2].Open.toFixed(2)}</td>
-                      <td className={this.state.recents[3].Open > this.state.recents[2].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[3].Open.toFixed(2)}</td>
-                      <td className={this.state.recents[4].Open > this.state.recents[3].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[4].Open.toFixed(2)}</td>
-                      <td className={this.state.recents[5].Open > this.state.recents[4].Open ? "has-text-success" : "has-text-danger" }>${this.state.recents[5].Open.toFixed(2)}</td>
+                      <td
+                        className={
+                          this.state.recents[1].Open >
+                          this.state.recents[0].Open
+                            ? "has-text-success"
+                            : "has-text-danger"
+                        }
+                      >
+                        ${this.state.recents[1].Open.toFixed(2)}
+                      </td>
+                      <td
+                        className={
+                          this.state.recents[2].Open >
+                          this.state.recents[1].Open
+                            ? "has-text-success"
+                            : "has-text-danger"
+                        }
+                      >
+                        ${this.state.recents[2].Open.toFixed(2)}
+                      </td>
+                      <td
+                        className={
+                          this.state.recents[3].Open >
+                          this.state.recents[2].Open
+                            ? "has-text-success"
+                            : "has-text-danger"
+                        }
+                      >
+                        ${this.state.recents[3].Open.toFixed(2)}
+                      </td>
+                      <td
+                        className={
+                          this.state.recents[4].Open >
+                          this.state.recents[3].Open
+                            ? "has-text-success"
+                            : "has-text-danger"
+                        }
+                      >
+                        ${this.state.recents[4].Open.toFixed(2)}
+                      </td>
+                      <td
+                        className={
+                          this.state.recents[5].Open >
+                          this.state.recents[4].Open
+                            ? "has-text-success"
+                            : "has-text-danger"
+                        }
+                      >
+                        ${this.state.recents[5].Open.toFixed(2)}
+                      </td>
                     </tr>
                   </tbody>
                 </table>

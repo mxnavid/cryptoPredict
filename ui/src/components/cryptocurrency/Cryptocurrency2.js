@@ -3,9 +3,7 @@ import React, { Component } from "react";
 import PageHeader from "../layout/PageHeader";
 import CustomCard from "../customcard/CustomCard2";
 
-
 class Cryptocurrency2 extends Component {
-
   importOutput = () => {
     let curr_model_data;
 
@@ -82,11 +80,13 @@ class Cryptocurrency2 extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend (Daily) &nbsp;&nbsp;<i className="fas fa-chart-line"> </i>
+                    Trend (Daily) &nbsp;&nbsp;
+                    <i className="fas fa-chart-line"> </i>
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
-                      <i className="fas fa-angle-double-up" /> &nbsp;&nbsp;&nbsp;Up
+                      <i className="fas fa-angle-double-up" />{" "}
+                      &nbsp;&nbsp;&nbsp;Up
                     </div>
                   ) : (
                     <div className="title has-text-danger has-text-weight-bold">
@@ -120,7 +120,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Price Trend"
+              cardTitle="Prediction"
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}

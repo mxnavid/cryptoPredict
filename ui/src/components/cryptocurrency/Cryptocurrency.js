@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import CustomCard from "../customcard/CustomCard";
 
 class Cryptocurrency extends Component {
-
   importOutput = () => {
     let curr_model_data;
 
@@ -81,11 +80,13 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend &nbsp;&nbsp;<i className="fas fa-chart-line"> </i>
+                    Prediction &nbsp;&nbsp;
+                    <i className="fas fa-chart-line"> </i>
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
                     <div className="title has-text-success has-text-weight-bold">
-                      <i className="fas fa-angle-double-up" /> &nbsp;&nbsp;&nbsp;Up
+                      <i className="fas fa-angle-double-up" />{" "}
+                      &nbsp;&nbsp;&nbsp;Up
                     </div>
                   ) : (
                     <div className="title has-text-danger has-text-weight-bold">
@@ -119,7 +120,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Price Trend"
+              cardTitle="Prediction"
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
@@ -145,26 +146,28 @@ class Cryptocurrency extends Component {
             </div>
           </div>
           <div className="columns">
-          {this.props.match.params.model === "daily" ? null :
-            <CustomCard
-              modelData={this.state.crypto_data}
-              coin={coin}
-              cardTitle="Sentiment"
-              graphTitle="Polarity"
-              lineGraph={true}
-            />}
-          {this.props.match.params.model === "daily" ? null :
-            <CustomCard
-              modelData={this.state.crypto_data}
-              coin={coin}
-              cardTitle={
-                this.props.match.params.model === "daily"
-                  ? "Volume Coin Traded (Daily)"
-                  : "Volume Coin Traded"
-              }
-              graphTitle="VolumeCoin"
-              lineGraph={true}
-            />}
+            {this.props.match.params.model === "daily" ? null : (
+              <CustomCard
+                modelData={this.state.crypto_data}
+                coin={coin}
+                cardTitle="Sentiment"
+                graphTitle="Polarity"
+                lineGraph={true}
+              />
+            )}
+            {this.props.match.params.model === "daily" ? null : (
+              <CustomCard
+                modelData={this.state.crypto_data}
+                coin={coin}
+                cardTitle={
+                  this.props.match.params.model === "daily"
+                    ? "Volume Coin Traded (Daily)"
+                    : "Volume Coin Traded"
+                }
+                graphTitle="VolumeCoin"
+                lineGraph={true}
+              />
+            )}
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
