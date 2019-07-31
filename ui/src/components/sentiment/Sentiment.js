@@ -7,15 +7,17 @@ export default class Sentiment extends Component {
   };
 
   handleSubmit = event => {
-    const options = {
-      url: "http://060f4bd8.ngrok.io/sentimentScore",
-      include: true
-    };
+    // const options = {
+    //   url: "http://060f4bd8.ngrok.io/sentimentScore",
+    //   include: true
+    // };
 
-    curl.request(options, function(err, data) {
-      console.log(data);
-      console.log("well that didn't work...");
-    });
+    // curl.request(options, function(err, data) {
+    //   console.log(data);
+    //   console.log("well that didn't work...");
+    // });
+
+    const inputText = document.querySelector("textarea").value; 
 
     // this.setState({
     //    inputText: "idk"
@@ -34,6 +36,8 @@ export default class Sentiment extends Component {
 
   handleChange = text => {
     this.setState({ inputText: text.target.value.substr(0, 100) });
+
+
   };
 
   render() {
