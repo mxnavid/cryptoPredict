@@ -65,7 +65,7 @@ export default class Card extends Component {
               </div>
               <div className="media-content">
                 <p className="title is-4">{this.props.cardTitle}</p>
-                <p className="subtitle is-6">Price</p>
+                <p className="subtitle is-6"></p>
               </div>
             </div>
           </div>
@@ -77,21 +77,22 @@ export default class Card extends Component {
                   <div className="columns">
                     <div className="column">
                       <p>
-              Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown" /> : <i className="far fa-smile" /> }
+              <b>Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown" /> : <i className="far fa-smile" /> } </b>
                       </p>
                     </div>
                     <div className="column">
-                      <p>Price: ${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</p>
+                      <p><b>Price:  ${this.state.crypto_data[this.state.crypto_data.length - 1].Open} </b> </p>
                     </div>
                     <div className="column">
                       <p>
-                        Prediction:{" "}
+                        <b> Prediction:{" "}
                         {this.state.crypto_data[this.state.crypto_data.length - 1]
                           .Pred_Signal === -1 ? (
                           <i className="fas fa-angle-double-down" />
                         ) : (
                           <i className="fas fa-angle-double-up" />
                         )}
+                        </b>
                       </p>
                     </div>
                   </div>
