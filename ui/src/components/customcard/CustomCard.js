@@ -31,7 +31,7 @@ export default class CustomCard extends Component {
                   label={this.props.graphTitle}
                   x="v.Time"
                   y={"v." + this.props.graphTitle}
-                  color="#0018A8" //hsl(204, 86%, 53%)
+                  color="#0397DB" //hsl(204, 86%, 53%)
                   // className="column"
                   show="false"
                 />

@@ -120,7 +120,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Prediction"
+              cardTitle="Past Hour"
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
@@ -171,14 +171,14 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="RSI"
-              graphTitle="RSI"
+              cardTitle="Simple Moving Average"
+              graphTitle="SMA"
               lineGraph={true}
             />
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="SAR"
+              cardTitle="Parabolic Stop and Return"
               graphTitle="SAR"
               lineGraph={true}
             />
