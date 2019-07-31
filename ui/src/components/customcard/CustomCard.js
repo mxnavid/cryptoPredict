@@ -31,7 +31,7 @@ export default class CustomCard extends Component {
                   label={this.props.graphTitle}
                   x="v.Time"
                   y={"v." + this.props.graphTitle}
-                  color="#0018A8" //hsl(204, 86%, 53%)
+                  color="#0397DB" //hsl(204, 86%, 53%)
                   // className="column"
                   show="false"
                 />
@@ -56,69 +56,69 @@ export default class CustomCard extends Component {
                       </td>
                       {this.state.recents[0].Pred_Signal === 1 ? (
                         <td>
-                          <div className="has-text-success has-text-weight-bold">
+                          <div className="has-text-success has-text-weight-bold has-text-centered">
                             <i className="fas fa-angle-double-up" />{" "}
-                            &nbsp;&nbsp;&nbsp;Up
+                            &nbsp;&nbsp;&nbsp;
                           </div>
                         </td>
                       ) : (
                         <td>
-                          <div className="has-text-danger has-text-weight-bold">
+                          <div className="has-text-danger has-text-weight-bold has-text-centered">
                             <i className="fas fa-angle-double-down" />{" "}
-                            &nbsp;&nbsp;&nbsp;Down
+                            &nbsp;&nbsp;&nbsp;
                           </div>
                         </td>
                       )}
                       {this.state.recents[1].Pred_Signal === 1 ? (
                         <td>
-                          <div className="has-text-success has-text-weight-bold">
+                          <div className="has-text-success has-text-weight-bold has-text-centered">
                             <i className="fas fa-angle-double-up" />{" "}
-                            &nbsp;&nbsp;&nbsp;Up
+                            &nbsp;&nbsp;&nbsp;
                           </div>
                         </td>
                       ) : (
                         <td>
-                          <div className="has-text-danger has-text-weight-bold">
-                            <i className="fas fa-angle-double-down" /> Down
+                          <div className="has-text-danger has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-down" /> 
                           </div>
                         </td>
                       )}
                       {this.state.recents[2].Pred_Signal === 1 ? (
                         <td>
-                          <div className="has-text-success has-text-weight-bold">
-                            <i className="fas fa-angle-double-up" /> Up
+                          <div className="has-text-success has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-up" /> 
                           </div>
                         </td>
                       ) : (
                         <td>
-                          <div className="has-text-danger has-text-weight-bold">
-                            <i className="fas fa-angle-double-down" /> Down
+                          <div className="has-text-danger has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-down" /> 
                           </div>
                         </td>
                       )}
                       {this.state.recents[3].Pred_Signal === 1 ? (
                         <td>
-                          <div className="has-text-success has-text-weight-bold">
-                            <i className="fas fa-angle-double-up" /> Up
+                          <div className="has-text-success has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-up" /> 
                           </div>
                         </td>
                       ) : (
                         <td>
-                          <div className="has-text-danger has-text-weight-bold">
-                            <i className="fas fa-angle-double-down" /> Down
+                          <div className="has-text-danger has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-down" /> 
                           </div>
                         </td>
                       )}
                       {this.state.recents[4].Pred_Signal === 1 ? (
                         <td>
-                          <div className="has-text-success has-text-weight-bold">
-                            <i className="fas fa-angle-double-up" /> Up
+                          <div className="has-text-success has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-up" /> 
                           </div>
                         </td>
                       ) : (
                         <td>
-                          <div className="has-text-danger has-text-weight-bold">
-                            <i className="fas fa-angle-double-down" /> Down
+                          <div className="has-text-danger has-text-weight-bold has-text-centered">
+                            <i className="fas fa-angle-double-down" /> 
                           </div>
                         </td>
                       )}

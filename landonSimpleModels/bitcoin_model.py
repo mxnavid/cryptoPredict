@@ -8,6 +8,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 import os
 from datetime import datetime
+from datetime import timedelta
 
 def bitcoinModel(file, outputFileName):
     pd.set_option('display.expand_frame_repr', False)
@@ -140,6 +141,7 @@ def bitcoinModel(file, outputFileName):
 
     df.to_csv(os.path.join(path, 'Bitcoin_model_output.csv'),encoding = 'utf-8', index = False)
 
+    df['Time'] = df['Time'].apply(lambda x: x + timedelta(hours=-4))
     df['Time'] = df['Time'].values.astype(str)
     df['Time'] = df['Time'].apply(lambda x: datetime.strptime(x[:-3], '%Y-%m-%dT%H:%M:%S.%f').strftime('%Y-%m-%d %H:%M'))
 

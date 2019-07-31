@@ -65,7 +65,7 @@ export default class Card extends Component {
               </div>
               <div className="media-content">
                 <p className="title is-4">{this.props.cardTitle}</p>
-                <p className="subtitle is-6">Price</p>
+                <p className="subtitle is-6"></p>
               </div>
             </div>
           </div>
@@ -76,23 +76,24 @@ export default class Card extends Component {
                 <div>
                   <div className="columns">
                     <div className="column">
-                      <p>
-              Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown" /> : <i className="far fa-smile" /> }
-                      </p>
+                    
+              <h5>Sentiment: {this.state.crypto_data[this.state.crypto_data.length - 1].Polarity < 0 ? <i className="far fa-frown has-text-danger" /> : <i className="far fa-smile has-text-success" /> } 
+                     </h5>
                     </div>
                     <div className="column">
-                      <p>Price: ${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</p>
+                      <h5>Price:  <span className="has-text-info">${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</span> </h5>
                     </div>
                     <div className="column">
-                      <p>
-                        Prediction:{" "}
+                      
+                      <h5>  Prediction:{" "}
                         {this.state.crypto_data[this.state.crypto_data.length - 1]
                           .Pred_Signal === -1 ? (
-                          <i className="fas fa-angle-double-down" />
+                          <i className="fas fa-angle-double-down has-text-danger" /> 
                         ) : (
-                          <i className="fas fa-angle-double-up" />
+                          <i className="fas fa-angle-double-up has-text-success" />
                         )}
-                      </p>
+                        </h5>
+                      
                     </div>
                   </div>
                 </div>

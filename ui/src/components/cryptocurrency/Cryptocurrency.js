@@ -44,8 +44,8 @@ class Cryptocurrency extends Component {
     return (
       <div key={coin} onLoad={this.importOutput()}>
         <section className="hero" style={{ backgroundColor: "#0018A8" }}>
-          <div className="hero-body columns">
-            <div className="column is-one-third">
+          <div className="hero-body columns" >
+            <div className="column is-one-third" >
               <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
                 {coin}
               </h1>
@@ -64,7 +64,7 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Future Price &nbsp;&nbsp;
+                    Est. Future Price &nbsp;&nbsp;
                     <i className="fas fa-coins" />{" "}
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
@@ -98,7 +98,7 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend Confidence &nbsp;&nbsp;
+                    Model Confidence &nbsp;&nbsp;
                     <i className="fas fa-balance-scale" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
@@ -120,7 +120,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Prediction"
+              cardTitle="Past Hour"
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
@@ -142,7 +142,7 @@ class Cryptocurrency extends Component {
           </div>
           <div className="columns">
             <div className="column">
-              <p className="title">Additonal Info</p>
+              <p className="title">Additional Info</p>
             </div>
           </div>
           <div className="columns">
@@ -171,14 +171,14 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="RSI"
-              graphTitle="RSI"
+              cardTitle="Simple Moving Average"
+              graphTitle="SMA"
               lineGraph={true}
             />
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="SAR"
+              cardTitle="Parabolic Stop and Return"
               graphTitle="SAR"
               lineGraph={true}
             />

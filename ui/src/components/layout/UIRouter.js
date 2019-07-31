@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import Dashboard from "../Dashboard/Dashboard";
+import Dashboard from "../dashboard/Dashboard";
 import Cryptocurrency from "../cryptocurrency/Cryptocurrency";
 import Cryptocurrency2 from "../cryptocurrency/Cryptocurrency2";
 import Sentiment from "../sentiment/Sentiment";

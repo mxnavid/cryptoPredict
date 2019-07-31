@@ -63,7 +63,7 @@ class Cryptocurrency2 extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Future Price &nbsp;&nbsp;
+                    Est. Future Price &nbsp;&nbsp;
                     <i className="fas fa-coins" />{" "}
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
@@ -79,7 +79,7 @@ class Cryptocurrency2 extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend (Daily) &nbsp;&nbsp;
+                    Prediction &nbsp;&nbsp;
                     <i className="fas fa-chart-line"> </i>
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
@@ -97,7 +97,7 @@ class Cryptocurrency2 extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend Confidence &nbsp;&nbsp;
+                    Model Confidence &nbsp;&nbsp;
                     <i className="fas fa-balance-scale" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
@@ -119,7 +119,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Prediction"
+              cardTitle="Past 12 Days"
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
@@ -141,7 +141,7 @@ class Cryptocurrency2 extends Component {
           </div>
           <div className="columns">
             <div className="column">
-              <p className="title">Additonal Info</p>
+              <p className="title">Additional Info</p>
             </div>
           </div>
           <div className="columns">
@@ -158,14 +158,14 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="RSI"
-              graphTitle="RSI"
+              cardTitle="Simple Moving Average"
+              graphTitle="SMA"
               lineGraph={true}
             />
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="SAR"
+              cardTitle="Parabolic Stop and Return"
               graphTitle="SAR"
               lineGraph={true}
             />
