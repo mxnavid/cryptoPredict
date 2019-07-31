@@ -43,6 +43,13 @@ export default class Sentiment extends Component {
     } else if (input === "I hate Bitcoin") {
       this.setState({ sentimentValue: -0.8 });
     }
+    var postMan = axios.post("https://195886bd.ngrok.io/needScore", {
+      textFromUI: input
+    });
+
+    var polarity = axios
+      .get("https://195886bd.ngrok.io/sentimentScore/polarity")
+      .then(response => this.setState({ sentimentValue: response.data }));
 
     this.setState({ display: "block" });
   };
@@ -51,12 +58,12 @@ export default class Sentiment extends Component {
   //   var text = axios
   //     .get("https://00f529c3.ngrok.io/sentimentScore/text")
   //     .then(response => console.log(response.data));
-  //   var polarity = axios
-  //     .get("https://00f529c3.ngrok.io/sentimentScore/polarity")
-  //     .then(response => console.log(response.data));
-  //   var subjectivity = axios
-  //     .get("https://00f529c3.ngrok.io/sentimentScore/subjectivity")
-  //     .then(response => console.log(response.data));
+  // var polarity = axios
+  //   .get("https://00f529c3.ngrok.io/sentimentScore/polarity")
+  //   .then(response => console.log(response.data));
+  // var subjectivity = axios
+  //   .get("https://00f529c3.ngrok.io/sentimentScore/subjectivity")
+  //   .then(response => console.log(response.data));
 
   //   var postMan = axios.post("https://00f529c3.ngrok.io/needScore", {
   //     textFromUI: "facevook"
