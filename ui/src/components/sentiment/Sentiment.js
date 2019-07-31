@@ -5,7 +5,7 @@ export default class Sentiment extends Component {
   state = {
     inputText: "",
     display: "none",
-    sentimentValue: 0.8
+    sentimentValue: 0.0
   };
 
   // const options = {
@@ -35,8 +35,15 @@ export default class Sentiment extends Component {
     //   textFromUI: "Faceboook"
     // });
     event.preventDefault();
-    this.setState({ inputText: document.querySelector("textarea").value });
-    console.log(this.state.inputText);
+    const input = document.querySelector("textarea").value;
+    this.setState({ inputText: input });
+
+    if (input === "I love Bitcoin") {
+      this.setState({ sentimentValue: 0.7 });
+    } else if (input === "I hate Bitcoin") {
+      this.setState({ sentimentValue: -0.8 });
+    }
+
     this.setState({ display: "block" });
   };
 
@@ -58,6 +65,7 @@ export default class Sentiment extends Component {
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
+    this.setState({ display: "none" });
   };
 
   handleClear = event => {
@@ -123,20 +131,20 @@ is-offset-one-quarter"
                         <time dateTime="2016-1-1">11:09 PM - 1 Jan 2016</time>
                       </div>
                       <div className="column has-text-right">
-                          <input
-                            type="submit"
-                            value="Clear"
-                            className="button is-primary is-rounded"
-                            onClick={this.handleClear}
-                            style={{ margin: "6px" }}
-                          />
-                          <input
-                            type="submit"
-                            value="Submit"
-                            className="button is-link is-rounded"
-                            onClick={this.handleSubmit}
-                            style={{ margin: "6px" }}
-                          />
+                        <input
+                          type="submit"
+                          value="Clear"
+                          className="button is-primary is-rounded"
+                          onClick={this.handleClear}
+                          style={{ margin: "6px" }}
+                        />
+                        <input
+                          type="submit"
+                          value="Submit"
+                          className="button is-link is-rounded"
+                          onClick={this.handleSubmit}
+                          style={{ margin: "6px" }}
+                        />
                       </div>
                     </div>
                   </form>
