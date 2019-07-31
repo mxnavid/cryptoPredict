@@ -64,7 +64,7 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Future Price &nbsp;&nbsp;
+                    Est. Future Price &nbsp;&nbsp;
                     <i className="fas fa-coins" />{" "}
                   </div>
                   {this.state.last_one.Pred_Signal === 1 ? (
@@ -98,7 +98,7 @@ class Cryptocurrency extends Component {
 
                 <div className="column has-text-white">
                   <div className="subtitle has-text-white">
-                    Trend Confidence &nbsp;&nbsp;
+                    Model Confidence &nbsp;&nbsp;
                     <i className="fas fa-balance-scale" />{" "}
                   </div>
                   <div className="title has-text-info has-text-weight-bold">
