@@ -88,7 +88,7 @@ export default class Card extends Component {
                       <h5>  Prediction:{" "}
                         {this.state.crypto_data[this.state.crypto_data.length - 1]
                           .Pred_Signal === -1 ? (
-                          <i className="fas fa-angle-double-down" />
+                          <i className="fas fa-angle-double-down" /> 
                         ) : (
                           <i className="fas fa-angle-double-up" />
                         )}
