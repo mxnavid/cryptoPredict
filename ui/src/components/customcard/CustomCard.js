@@ -11,11 +11,7 @@ export default class CustomCard extends Component {
 
   render() {
     return (
-      <div
-        className={
-          this.props.customWidth ? "column " + this.props.customWidth : "column"
-        }
-      >
+      <div className={this.props.customWidth ? "column is-full-mobile is-half-tablet is-half-desktop is-" + this.props.customWidth + "-widescreen is-"+ this.props.customWidth + "-fullhd" : "column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"}>
         <div className="card">
           <header className="card-header">
             <p className="card-header-title">{this.props.cardTitle}</p>
@@ -38,15 +34,16 @@ export default class CustomCard extends Component {
               ) : null}
 
               {this.props.table ? (
+                <div className="table-wrapper">
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
                       <th>Mins Ago</th>
-                      <th>25</th>
-                      <th>20</th>
-                      <th>15</th>
-                      <th>10</th>
-                      <th>5</th>
+                      <th className="has-text-centered">25</th>
+                      <th className="has-text-centered">20</th>
+                      <th className="has-text-centered">15</th>
+                      <th className="has-text-centered">10</th>
+                      <th className="has-text-centered">5</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -79,46 +76,46 @@ export default class CustomCard extends Component {
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" /> 
+                            <i className="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[2].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" /> 
+                            <i className="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" /> 
+                            <i className="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[3].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" /> 
+                            <i className="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" /> 
+                            <i className="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[4].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" /> 
+                            <i className="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" /> 
+                            <i className="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
@@ -190,6 +187,7 @@ export default class CustomCard extends Component {
                     </tr>
                   </tbody>
                 </table>
+                </div>
               ) : null}
 
               {this.props.multiLine ? (

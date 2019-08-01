@@ -54,7 +54,7 @@ export default class Card extends Component {
 
   render() {
     return (
-      <div className="column">
+      <div className="column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd">
         <div className={"card card" + this.props.num}>
           <div className="card-content">
             <div className="media">
@@ -81,7 +81,7 @@ export default class Card extends Component {
                      </h5>
                     </div>
                     <div className="column">
-                      <h5>Price:  <span className="has-text-info">${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</span> </h5>
+                      <h5>Price:  <span style={{fontWeight: 200}}>${this.state.crypto_data[this.state.crypto_data.length - 1].Open}</span> </h5>
                     </div>
                     <div className="column">
                       

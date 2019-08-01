@@ -45,15 +45,15 @@ export default class Dashboard extends Component {
     return (
       <div>
         <section className="hero" style={{ backgroundColor: "#0518A8" }}>
-          <div className="hero-body columns">
-            <div className="column is-two-fifths">
+          <div className="hero-body columns is-mobile is-multiline">
+            <div className="column is-full-mobile is-full-tablet is-full-desktop is-two-fifths-widescreen is-two-fifths-fullhd">
               <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
                 Dashboard
               </h1>
             </div>
-            <div className="column">
-              <div className="columns">
-                <div className="column has-text-white">
+            <div className="column is-full-mobile is-full-tablet is-full-desktop is-three-fifths-widescreen is-three-fifths-fullhd">
+              <div className="columns is-mobile is-multiline">
+                <div className="column is-full-mobile is-full-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Comparing &nbsp;&nbsp;
                     <i className="fas fa-donate" />{" "}
@@ -63,7 +63,7 @@ export default class Dashboard extends Component {
                   </div>
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-full-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Refresh Rate &nbsp;&nbsp;
                     <i className="fas fa-clock" />{" "}
@@ -73,7 +73,7 @@ export default class Dashboard extends Component {
                   </div>
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-full-tablet is-one-third-desktop is-one-third-widescreen is-one-third-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Today's Date &nbsp;&nbsp;
                     <i className="fas fa-calendar" />{" "}
@@ -97,7 +97,7 @@ export default class Dashboard extends Component {
           </div>
         </section>
         <section className="section">
-          <div className="columns ">
+          <div className="columns is-mobile is-multiline">
             {data.map((crypto, num) => {
               // console.log(num);
               return (
