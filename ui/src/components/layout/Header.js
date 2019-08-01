@@ -117,7 +117,7 @@ class Header extends Component {
               }}
               id="Sentiment"
             >
-              Sentiment
+              Sentiment Demo
             </Link>
           </div>
           <div className="navbar-end">
