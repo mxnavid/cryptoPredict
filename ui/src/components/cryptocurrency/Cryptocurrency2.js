@@ -186,8 +186,8 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Relative Strength Index"
-              graphTitle="RSI"
+              cardTitle="Correlation on Price"
+              graphTitle="Corr"
               lineGraph={true}
               customWidth="one-quarter"
             />
