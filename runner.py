@@ -17,13 +17,22 @@ def bitcoin2(THIS_FOLDER):
     return bitcoin
 
 
-def bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro):
+def bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro, ethereum, litecoin):
     bitcoin.dict['5min'] = pd.merge(bitcoin.dict['5min'], sp500, on='Time', sort=False, how='outer')
     bitcoin.dict['5min'] = pd.merge(bitcoin.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
+
+    coin1 = litecoin.dict['5min'][['Time', 'Open']]
+    coin2 = ethereum.dict['5min'][['Time', 'Open']]
+    coin1 = coin1.rename(columns={"Time": "Time", "Open": "Litecoin"})
+    coin2 = coin2.rename(columns={"Time": "Time", "Open": "Ethereum"})
+    bitcoin.dict['5min'] = pd.merge(bitcoin.dict['5min'], coin1, on='Time', sort=False, how='outer')
+    bitcoin.dict['5min'] = pd.merge(bitcoin.dict['5min'], coin2, on='Time', sort=False, how='outer')
+
     bitcoin.dict['5min'] = bitcoin.dict['5min'].sort_values(bitcoin.dict['5min'].columns[0], ascending=True)
     bitcoin.dict['5min'].replace('', np.nan, inplace=True)
     bitcoin.dict['5min'] = bitcoin.dict['5min'].fillna(method='ffill')
     bitcoin.dict['5min'] = bitcoin.dict['5min'].tail(2000)
+    print(bitcoin.dict['5min'])
     util.writeFiles(bitcoin, THIS_FOLDER)
     bitcoinModel(os.path.join(THIS_FOLDER, 'landonSimpleModels/Bitcoin_5min_output.csv'),
                  os.path.join(THIS_FOLDER, 'ui/src/scraped/bitcoin/Bitcoin_model_output.js'))
@@ -34,9 +43,17 @@ def litecoin2(THIS_FOLDER):
     return litecoin
 
 
-def litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro):
+def litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro, bitcoin, ethereum):
     litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], sp500, on='Time', sort=False, how='outer')
     litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
+
+    coin1 = bitcoin.dict['5min'][['Time', 'Open']]
+    coin2 = ethereum.dict['5min'][['Time', 'Open']]
+    coin1 = coin1.rename(columns={"Time": "Time", "Open": "Bitcoin"})
+    coin2 = coin2.rename(columns={"Time": "Time", "Open": "Ethereum"})
+    litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], coin1, on='Time', sort=False, how='outer')
+    litecoin.dict['5min'] = pd.merge(litecoin.dict['5min'], coin2, on='Time', sort=False, how='outer')
+
     litecoin.dict['5min'] = litecoin.dict['5min'].sort_values(litecoin.dict['5min'].columns[0], ascending=True)
     litecoin.dict['5min'].replace('', np.nan, inplace=True)
     litecoin.dict['5min'] = litecoin.dict['5min'].fillna(method='ffill')
@@ -51,9 +68,17 @@ def ethereum2(THIS_FOLDER):
     return ethereum
 
 
-def ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro):
+def ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro, bitcoin, litecoin):
     ethereum.dict['5min'] = pd.merge(ethereum.dict['5min'], sp500, on='Time', sort=False, how='outer')
     ethereum.dict['5min'] = pd.merge(ethereum.dict['5min'], usdeuro, on='Time', sort=False, how='outer')
+
+    coin1 = bitcoin.dict['5min'][['Time', 'Open']]
+    coin2 = litecoin.dict['5min'][['Time', 'Open']]
+    coin1 = coin1.rename(columns={"Time": "Time", "Open": "Bitcoin"})
+    coin2 = coin2.rename(columns={"Time": "Time", "Open": "Litecoin"})
+    ethereum.dict['5min'] = pd.merge(ethereum.dict['5min'], coin1, on='Time', sort=False, how='outer')
+    ethereum.dict['5min'] = pd.merge(ethereum.dict['5min'], coin2, on='Time', sort=False, how='outer')
+
     ethereum.dict['5min'] = ethereum.dict['5min'].sort_values(ethereum.dict['5min'].columns[0], ascending=True)
     ethereum.dict['5min'].replace('', np.nan, inplace=True)
     ethereum.dict['5min'] = ethereum.dict['5min'].fillna(method='ffill')
@@ -84,8 +109,8 @@ while True:
         sp500 = bitcoin.setsp500()
         usdeuro = bitcoin.setUSDEuroRate()
 
-        bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro)
-        ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro)
-        litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro)
+        bitcoin3(bitcoin, THIS_FOLDER, sp500, usdeuro, litecoin, ethereum)
+        ethereum3(ethereum, THIS_FOLDER, sp500, usdeuro, bitcoin, litecoin)
+        litecoin3(litecoin, THIS_FOLDER, sp500, usdeuro, bitcoin, ethereum)
         print('models done')
         print(datetime.datetime.now())
