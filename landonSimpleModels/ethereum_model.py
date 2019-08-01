@@ -20,8 +20,8 @@ def ethereumModel(file, outputFileName):
     #df = df.drop(['Polarity'],1)
     #df = df.drop(['VolumeCoin'],1)
     df = df.drop(['VolumeUSD'],1)
-    #df = df.drop(['S&P500 Close'],1)
-    #df = df.drop(['S&P500 Volume'],1)
+    df = df.drop(['S&P500 Close'],1)
+    df = df.drop(['S&P500 Volume'],1)
     df = df.drop(['USDEuro'],1)
     #print(df)
 
@@ -90,7 +90,7 @@ def ethereumModel(file, outputFileName):
     Regime_split = Regime_split.dropna()
 
     cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-              decision_function_shape='ovo', degree=3, gamma='auto', kernel='poly',
+              decision_function_shape='ovo', degree=4, gamma='auto', kernel='linear',
               max_iter=-1, probability=False, random_state=0, shrinking=True,
               tol=0.001, verbose=True)
 
@@ -154,6 +154,6 @@ def ethereumModel(file, outputFileName):
         f.write("module.exports = { model_data : ")
         f.write(df.to_json(orient='records'))
         f.write("}")
-    print(df)
+    print(Sharpe)
 
-# ethereumModel('Ethereum_5min_output.csv', '../ui/src/scraped/ethereum/Ethereum_model_output.js')
+#ethereumModel('Ethereum_5min_output.csv', '../ui/src/scraped/ethereum/Ethereum_model_output.js')
