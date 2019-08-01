@@ -54,9 +54,9 @@ class Cryptocurrency2 extends Component {
               </h1>
               <Link
                 to={"/cryptocurrency/" + coin}
-                className="subtitle has-text-white"
+                className="subtitle has-text-primary"
               >
-                Daily Model
+                Daily Model &nbsp;&nbsp;<i class="far fa-edit" />
               </Link>
             </div>
             <div className="column">
@@ -133,6 +133,7 @@ class Cryptocurrency2 extends Component {
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
+              customWidth="3"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -140,6 +141,7 @@ class Cryptocurrency2 extends Component {
               cardTitle="Previous Predictions"
               graphTitle="Pred_Signal"
               table={true}
+              customWidth="6"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -147,28 +149,23 @@ class Cryptocurrency2 extends Component {
               cardTitle="Market Return vs Model Return"
               graphTitle="strategy_cu_return"
               multiLine={true}
+              customWidth="3"
             />
           </div>
-          <div className="columns">
+          <div className="columns is-mobile is-multiline">
             <div className="column">
               <p className="title">Additional Info</p>
             </div>
           </div>
-          <div className="columns">
-            <CustomCard
-              modelData={this.state.crypto_data}
-              coin={coin}
-              cardTitle="Sentiment"
-              graphTitle="Polarity"
-              lineGraph={true}
-            />
-
+          <div className="columns is-mobile is-multiline">
+            
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
               cardTitle="Simple Moving Average"
               graphTitle="SMA"
               lineGraph={true}
+              customWidth="is-half"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -176,6 +173,7 @@ class Cryptocurrency2 extends Component {
               cardTitle="Parabolic Stop and Reverse"
               graphTitle="SAR"
               lineGraph={true}
+              customWidth="is-half"
             />
           </div>
         </section>

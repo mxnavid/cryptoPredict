@@ -5,20 +5,14 @@ import MultiLineEx from "../LineEx/MultiLineEx";
 export default class CustomCard extends Component {
   constructor(props) {
     super(props);
-    this.date = Date.now();
-    this.five = this.date - 24 * 60 * 60 * 1000 * 5;
-    this.newDate = Date(parseInt(this.five));
+    // this.date = Date.now();
+    // this.five = this.date - 24 * 60 * 60 * 1000 * 5;
+    // this.newDate = Date(parseInt(this.five));
 
-    this.number = Date()
-      .toString()
-      .slice(8, 10);
-    this.past = Number(this.number);
-
-    // const { model_data } = require("../../scraped/" +
-    //   props.coin.toLowerCase() +
-    //   "/" +
-    //   props.coin +
-    //   "_model_output.js");
+    // this.number = Date()
+    //   .toString()
+    //   .slice(8, 10);
+    // this.past = Number(this.number);
 
     this.state = { data: props.modelData, recents: props.modelData.slice(-6) };
   }
@@ -27,14 +21,14 @@ export default class CustomCard extends Component {
     return (
       <div
         className={
-          this.props.customWidth
-            ? "column is-full-mobile is-half-tablet is-half-desktop is-" +
-              this.props.customWidth +
-              "-widescreen is-" +
-              this.props.customWidth +
-              "-fullhd"
-            : "column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"
-        }
+        this.props.customWidth
+          ? "column is-full-mobile is-half-tablet is-half-desktop is-" +
+            this.props.customWidth +
+            "-widescreen is-" +
+            this.props.customWidth +
+            "-fullhd"
+          : "column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"
+      }
       >
         <div className="card">
           <header className="card-header">
@@ -58,21 +52,16 @@ export default class CustomCard extends Component {
               ) : null}
 
               {this.props.table ? (
+                <div className="table-wrapper">
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Days</th>
+                      <th>Date</th>
                       <th className="has-text-centered">{5}</th>
                       <th className="has-text-centered">{4}</th>
                       <th className="has-text-centered">{3}</th>
                       <th className="has-text-centered">{2}</th>
                       <th className="has-text-centered">{1}</th>
-                    <th>History</th>
-                      <th className="has-text-centered">5 days</th>
-                      <th className="has-text-centered">4 days</th>
-                      <th className="has-text-centered">3 days</th>
-                      <th className="has-text-centered">2 days</th>
-                      <th className="has-text-centered">1 days</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -150,11 +139,21 @@ export default class CustomCard extends Component {
                       <td>
                         <strong>Open</strong>
                       </td>
-                      <td className="has-text-centered">{this.state.recents[0].Open.toFixed(2)}</td>
-                      <td className="has-text-centered">{this.state.recents[1].Open.toFixed(2)}</td>
-                      <td className="has-text-centered">{this.state.recents[2].Open.toFixed(2)}</td>
-                      <td className="has-text-centered">{this.state.recents[3].Open.toFixed(2)}</td>
-                      <td className="has-text-centered">{this.state.recents[4].Open.toFixed(2)}</td>
+                      <td className="has-text-centered">
+                        ${this.state.recents[0].Open.toFixed(2)}
+                      </td>
+                      <td className="has-text-centered">
+                        ${this.state.recents[1].Open.toFixed(2)}
+                      </td>
+                      <td className="has-text-centered">
+                        ${this.state.recents[2].Open.toFixed(2)}
+                      </td>
+                      <td className="has-text-centered">
+                        ${this.state.recents[3].Open.toFixed(2)}
+                      </td>
+                      <td className="has-text-centered">
+                        ${this.state.recents[4].Open.toFixed(2)}
+                      </td>
                     </tr>
                     <tr>
                       <td>
@@ -164,8 +163,8 @@ export default class CustomCard extends Component {
                         className={
                           this.state.recents[1].Open >
                           this.state.recents[0].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
+                            ? "has-text-success has-text-centered"
+                            : "has-text-danger has-text-centered"
                         }
                       >
                         ${this.state.recents[1].Open.toFixed(2)}
@@ -174,8 +173,8 @@ export default class CustomCard extends Component {
                         className={
                           this.state.recents[2].Open >
                           this.state.recents[1].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
+                            ? "has-text-success has-text-centered"
+                            : "has-text-danger has-text-centered"
                         }
                       >
                         ${this.state.recents[2].Open.toFixed(2)}
@@ -184,8 +183,8 @@ export default class CustomCard extends Component {
                         className={
                           this.state.recents[3].Open >
                           this.state.recents[2].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
+                            ? "has-text-success has-text-centered"
+                            : "has-text-danger has-text-centered"
                         }
                       >
                         ${this.state.recents[3].Open.toFixed(2)}
@@ -194,8 +193,8 @@ export default class CustomCard extends Component {
                         className={
                           this.state.recents[4].Open >
                           this.state.recents[3].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
+                            ? "has-text-success has-text-centered"
+                            : "has-text-danger has-text-centered"
                         }
                       >
                         ${this.state.recents[4].Open.toFixed(2)}
@@ -204,8 +203,8 @@ export default class CustomCard extends Component {
                         className={
                           this.state.recents[5].Open >
                           this.state.recents[4].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
+                            ? "has-text-success has-text-centered"
+                            : "has-text-danger has-text-centered"
                         }
                       >
                         ${this.state.recents[5].Open.toFixed(2)}
@@ -213,6 +212,7 @@ export default class CustomCard extends Component {
                     </tr>
                   </tbody>
                 </table>
+                </div>
               ) : null}
 
               {this.props.multiLine ? (

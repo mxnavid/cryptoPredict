@@ -131,11 +131,11 @@ export default class CustomCard extends Component {
                         <td>
                           <strong>Open</strong>
                         </td>
-                        <td>{this.state.recents[0].Open.toFixed(2)}</td>
-                        <td>{this.state.recents[1].Open.toFixed(2)}</td>
-                        <td>{this.state.recents[2].Open.toFixed(2)}</td>
-                        <td>{this.state.recents[3].Open.toFixed(2)}</td>
-                        <td>{this.state.recents[4].Open.toFixed(2)}</td>
+                        <td className="has-text-centered">${this.state.recents[0].Open.toFixed(2)}</td>
+                        <td className="has-text-centered">${this.state.recents[1].Open.toFixed(2)}</td>
+                        <td className="has-text-centered">${this.state.recents[2].Open.toFixed(2)}</td>
+                        <td className="has-text-centered">${this.state.recents[3].Open.toFixed(2)}</td>
+                        <td className="has-text-centered">${this.state.recents[4].Open.toFixed(2)}</td>
                       </tr>
                       <tr>
                         <td>
@@ -145,51 +145,51 @@ export default class CustomCard extends Component {
                           className={
                             this.state.recents[1].Open >
                             this.state.recents[0].Open
-                              ? "has-text-success"
-                              : "has-text-danger"
+                              ? "has-text-success has-text-centered"
+                              : "has-text-danger has-text-centered"
                           }
                         >
-                          {this.state.recents[1].Open.toFixed(2)}
+                          ${this.state.recents[1].Open.toFixed(2)}
                         </td>
                         <td
                           className={
                             this.state.recents[2].Open >
                             this.state.recents[1].Open
-                              ? "has-text-success"
-                              : "has-text-danger"
+                              ? "has-text-success has-text-centered"
+                              : "has-text-danger has-text-centered"
                           }
                         >
-                          {this.state.recents[2].Open.toFixed(2)}
+                          ${this.state.recents[2].Open.toFixed(2)}
                         </td>
                         <td
                           className={
                             this.state.recents[3].Open >
                             this.state.recents[2].Open
-                              ? "has-text-success"
-                              : "has-text-danger"
+                              ? "has-text-success has-text-centered"
+                              : "has-text-danger has-text-centered"
                           }
                         >
-                          {this.state.recents[3].Open.toFixed(2)}
+                          ${this.state.recents[3].Open.toFixed(2)}
                         </td>
                         <td
                           className={
                             this.state.recents[4].Open >
                             this.state.recents[3].Open
-                              ? "has-text-success"
-                              : "has-text-danger"
+                              ? "has-text-success has-text-centered"
+                              : "has-text-danger has-text-centered"
                           }
                         >
-                          {this.state.recents[4].Open.toFixed(2)}
+                          ${this.state.recents[4].Open.toFixed(2)}
                         </td>
                         <td
                           className={
                             this.state.recents[5].Open >
                             this.state.recents[4].Open
-                              ? "has-text-success"
-                              : "has-text-danger"
+                              ? "has-text-success has-text-centered"
+                              : "has-text-danger has-text-centered"
                           }
                         >
-                          {this.state.recents[5].Open.toFixed(2)}
+                          ${this.state.recents[5].Open.toFixed(2)}
                         </td>
                       </tr>
                     </tbody>

@@ -55,10 +55,10 @@ class Cryptocurrency extends Component {
               </h1>
               <Link
                 to={"/cryptocurrency/" + coin + "/daily"}
-                className="subtitle has-text-white"
+                className="subtitle has-text-primary"
                 style={{ marginTop: 0 }}
               >
-                5 Minute Model
+                5 Minute Model &nbsp;&nbsp;<i class="far fa-edit"></i>
               </Link>
             </div>
             <div className="column">
@@ -135,7 +135,7 @@ class Cryptocurrency extends Component {
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
-              // customWidth="3"
+              customWidth="3"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -143,7 +143,7 @@ class Cryptocurrency extends Component {
               cardTitle="Previous Predictions"
               graphTitle="Pred_Signal"
               table={true}
-              // customWidth="5"
+              customWidth="6"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -151,7 +151,7 @@ class Cryptocurrency extends Component {
               cardTitle="Market Return vs Model Return"
               graphTitle="strategy_cu_return"
               multiLine={true}
-              // customWidth="4"
+              customWidth="3"
             />
           </div>
           <div className="columns is-mobile is-multiline">
