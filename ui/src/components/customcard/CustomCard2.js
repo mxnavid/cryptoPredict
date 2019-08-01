@@ -43,7 +43,7 @@ export default class CustomCard extends Component {
                   time={1}
                   name={this.props.graphTitle}
                   label={this.props.graphTitle}
-                  x="v.Time"
+                  x="v.Date"
                   y={"v." + this.props.graphTitle}
                   color="#0397DB" //hsl(204, 86%, 53%)
                   // className="column"
@@ -219,7 +219,7 @@ export default class CustomCard extends Component {
                 <MultiLineEx
                   modelData={this.props.modelData}
                   coin={this.props.coin}
-                  x="v.Time"
+                  x="v.Date"
                   y2="v.strategy_cu_return"
                   y="v.market_cu_return"
                 />
@@ -229,7 +229,7 @@ export default class CustomCard extends Component {
                 <MultiLineEx
                   modelData={this.props.modelData}
                   coin={this.props.coin}
-                  x="v.Time"
+                  x="v.Date"
                   y2="v.Open"
                   y="v.SMA"
                 />
