@@ -8,67 +8,29 @@ export default class Sentiment extends Component {
     sentimentValue: 0.0
   };
 
-  // const options = {
-  //   url: "http://060f4bd8.ngrok.io/sentimentScore",
-  //   include: true
-  // };
-
-  // curl.request(options, function(err, data) {
-  //   console.log(data);
-  //   console.log("well that didn't work...");
-  // this.setState({
-  //    inputText: "idk"
-  // })
-  // fetch("http://060f4bd8.ngrok.io/sentimentScore")
-  //   .then(response => response.json())
-  //   .then(responseJson => {
-  //     // console.log(responseJson)
-  //     console.log("Hi");
-  //   });
-  //    .catch((error) => {
-  //       console.error(error);
-  //    });
-  // alert("Hello");
-
   handleSubmit = event => {
-    // var postMan = axios.post("https://00f529c3.ngrok.io/needScore", {
-    //   textFromUI: "Faceboook"
-    // });
     event.preventDefault();
     const input = document.querySelector("textarea").value;
     this.setState({ inputText: input });
 
-    if (input === "I love Bitcoin" || input === "I love bitcoin" ) {
-      this.setState({ sentimentValue: 0.7 });
-    } else if (input === "I hate Bitcoin" || input === "I hate bitcoin" ) {
-      this.setState({ sentimentValue: -0.8 });
-    }
-    var postMan = axios.post("https://195886bd.ngrok.io/needScore", {
+    // if (input === "I love Bitcoin" || input === "I love bitcoin") {
+    //   this.setState({ sentimentValue: 0.7 });
+    // } else if (input === "I hate Bitcoin" || input === "I hate bitcoin") {
+    //   this.setState({ sentimentValue: -0.8 });
+    // }
+    axios.post("http://127.0.0.1:8080/needScore", {
       textFromUI: input
     });
 
-    var polarity = axios
-      .get("https://195886bd.ngrok.io/sentimentScore/polarity")
+    axios
+      .get("http://127.0.0.1:8080/sentimentScore/polarity")
       .then(response => this.setState({ sentimentValue: response.data }));
+    // var polarity = axios
+    //   .get("hhttp://127.0.0.1:8080/sentimentScore/polarity")
+    //   .then(response => console.log(response.data));
 
     this.setState({ display: "block" });
   };
-
-  // componentDidMount() {
-  //   var text = axios
-  //     .get("https://00f529c3.ngrok.io/sentimentScore/text")
-  //     .then(response => console.log(response.data));
-  // var polarity = axios
-  //   .get("https://00f529c3.ngrok.io/sentimentScore/polarity")
-  //   .then(response => console.log(response.data));
-  // var subjectivity = axios
-  //   .get("https://00f529c3.ngrok.io/sentimentScore/subjectivity")
-  //   .then(response => console.log(response.data));
-
-  //   var postMan = axios.post("https://00f529c3.ngrok.io/needScore", {
-  //     textFromUI: "facevook"
-  //   });
-  // }
 
   handleChange = event => {
     this.setState({ [event.target.name]: event.target.value });
@@ -114,7 +76,7 @@ is-offset-one-quarter"
                     </figure>
                   </div>
                   <div className="media-content">
-                    <p className="title is-4">Enter Text Here</p>
+                    <p className="title is-4">Sentiment Analyzer</p>
                     <p className="subtitle is-6">@Cryptowatch</p>
                   </div>
                 </div>
