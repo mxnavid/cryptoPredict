@@ -146,7 +146,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Market Return vs Model Return"
+              cardTitle="Cumulative Market vs Model Return"
               graphTitle="strategy_cu_return"
               multiLine={true}
               customWidth="3"
@@ -186,8 +186,8 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Individual Return Per Day"
-              graphTitle="str_ret"
+              cardTitle="Relative Strength Index"
+              graphTitle="RSI"
               lineGraph={true}
               customWidth="one-quarter"
             />

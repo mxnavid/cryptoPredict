@@ -148,7 +148,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Market Return vs Model Return"
+              cardTitle="Cumulative Market vs Model Return"
               graphTitle="strategy_cu_return"
               multiLine={true}
               customWidth="3"
@@ -197,6 +197,22 @@ class Cryptocurrency extends Component {
               coin={coin}
               cardTitle="Parabolic Stop and Reverse"
               graphTitle="SAR"
+              lineGraph={true}
+              customWidth="one-quarter"
+            />
+            <CustomCard
+              modelData={this.state.crypto_data}
+              coin={coin}
+              cardTitle="Average Directional Index"
+              graphTitle="ADX"
+              lineGraph={true}
+              customWidth="one-quarter"
+            />
+            <CustomCard
+              modelData={this.state.crypto_data}
+              coin={coin}
+              cardTitle="Correlation on Price"
+              graphTitle="Corr"
               lineGraph={true}
               customWidth="one-quarter"
             />
