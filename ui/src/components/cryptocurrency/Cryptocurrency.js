@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import CustomCard from "../customcard/CustomCard";
+import {Link} from "react-router-dom";
 
 class Cryptocurrency extends Component {
   importOutput = () => {
@@ -44,15 +45,17 @@ class Cryptocurrency extends Component {
     return (
       <div key={coin} onLoad={this.importOutput()}>
         <section className="hero" style={{ backgroundColor: "#0018A8" }}>
-          <div className="hero-body columns" >
-            <div className="column is-one-third" >
-              <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
+          <div className="hero-body columns is-mobile is-multiline" >
+            <div className="column is-full-mobile is-full-tablet is-full-desktop is-one-third-widescreen is-one-third-fullhd" >
+              <h1 className="title has-text-white" style={{ fontSize: "48px", marginBottom: "12px"}}>
                 {coin}
               </h1>
+              <Link to={"/cryptocurrency/" + coin + "/daily"} className="subtitle has-text-white" style={{marginTop: 0}}>5 Minute Model</Link>
+
             </div>
             <div className="column">
-              <div className="columns">
-                <div className="column has-text-white">
+              <div className="columns is-mobile is-multiline">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Current Price &nbsp;&nbsp;
                     <i className="fas fa-donate" />{" "}
@@ -62,7 +65,7 @@ class Cryptocurrency extends Component {
                   </div>
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Est. Future Price &nbsp;&nbsp;
                     <i className="fas fa-coins" />{" "}
@@ -78,7 +81,7 @@ class Cryptocurrency extends Component {
                   )}
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Prediction &nbsp;&nbsp;
                     <i className="fas fa-chart-line"> </i>
@@ -96,7 +99,7 @@ class Cryptocurrency extends Component {
                   )}
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Model Confidence &nbsp;&nbsp;
                     <i className="fas fa-balance-scale" />{" "}
@@ -111,12 +114,12 @@ class Cryptocurrency extends Component {
         </section>
 
         <section className="section">
-          <div className="columns">
+          <div className="columns is-mobile is-multiline ">
             <div className="column">
               <p className="title">Model Predictions</p>
             </div>
           </div>
-          <div className="columns">
+          <div className="columns is-mobile is-multiline">
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
@@ -124,6 +127,7 @@ class Cryptocurrency extends Component {
               graphTitle="Open"
               // multiPrice={true}
               lineGraph={true}
+              // customWidth="3"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -131,6 +135,7 @@ class Cryptocurrency extends Component {
               cardTitle="Previous Predictions From Model"
               graphTitle="Pred_Signal"
               table={true}
+              // customWidth="5"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -138,14 +143,15 @@ class Cryptocurrency extends Component {
               cardTitle="Market Return vs Model Return (WIP)"
               graphTitle="strategy_cu_return"
               multiLine={true}
+              // customWidth="4"
             />
           </div>
-          <div className="columns">
+          <div className="columns is-mobile is-multiline">
             <div className="column">
               <p className="title">Additional Info</p>
             </div>
           </div>
-          <div className="columns">
+          <div className=" columns is-mobile is-multiline">
             {this.props.match.params.model === "daily" ? null : (
               <CustomCard
                 modelData={this.state.crypto_data}
@@ -153,6 +159,7 @@ class Cryptocurrency extends Component {
                 cardTitle="Sentiment"
                 graphTitle="Polarity"
                 lineGraph={true}
+                customWidth="one-quarter"
               />
             )}
             {this.props.match.params.model === "daily" ? null : (
@@ -166,6 +173,7 @@ class Cryptocurrency extends Component {
                 }
                 graphTitle="VolumeCoin"
                 lineGraph={true}
+                customWidth="one-quarter"
               />
             )}
             <CustomCard
@@ -174,6 +182,7 @@ class Cryptocurrency extends Component {
               cardTitle="Simple Moving Average"
               graphTitle="SMA"
               lineGraph={true}
+              customWidth="one-quarter"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -181,6 +190,7 @@ class Cryptocurrency extends Component {
               cardTitle="Parabolic Stop and Reverse"
               graphTitle="SAR"
               lineGraph={true}
+              customWidth="one-quarter"
             />
           </div>
         </section>

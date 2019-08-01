@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 
 import CustomCard from "../customcard/CustomCard2";
+import {Link} from "react-router-dom";
 
 class Cryptocurrency2 extends Component {
   importOutput = () => {
@@ -45,9 +46,11 @@ class Cryptocurrency2 extends Component {
         <section className="hero" style={{ backgroundColor: "#0018A8" }}>
           <div className="hero-body columns">
             <div className="column is-one-third">
-              <h1 className="title has-text-white" style={{ fontSize: "48px" }}>
+              <h1 className="title has-text-white" style={{ fontSize: "48px", marginBottom: "12px"}}>
                 {coin}
               </h1>
+              <Link to={"/cryptocurrency/" + coin} className="subtitle has-text-white">Daily Model</Link>
+
             </div>
             <div className="column">
               <div className="columns">

@@ -30,6 +30,11 @@ code {
   display: none;
 }
 
+.table-wrapper {
+  overflow-x: auto !important;
+  
+}
+
 .loader {
   font-size: 28px;
   margin: 50px auto;
