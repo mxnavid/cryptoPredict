@@ -38,12 +38,12 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Mins</th>
-                      <th className="has-text-centered">25</th>
-                      <th className="has-text-centered">20</th>
-                      <th className="has-text-centered">15</th>
-                      <th className="has-text-centered">10</th>
-                      <th className="has-text-centered">5</th>
+                      <th>History</th>
+                      <th className="has-text-centered">25 min</th>
+                      <th className="has-text-centered">20 min</th>
+                      <th className="has-text-centered">15 min</th>
+                      <th className="has-text-centered">10 min</th>
+                      <th className="has-text-centered">5 min</th>
                     </tr>
                   </thead>
                   <tbody>

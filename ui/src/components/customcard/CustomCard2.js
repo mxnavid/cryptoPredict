@@ -55,12 +55,12 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Days Ago</th>
-                      <th>{5}</th>
-                      <th>{4}</th>
-                      <th>{3}</th>
-                      <th>{2}</th>
-                      <th>{1}</th>
+                    <th>History</th>
+                      <th className="has-text-centered">5 days</th>
+                      <th className="has-text-centered">4 days</th>
+                      <th className="has-text-centered">3 days</th>
+                      <th className="has-text-centered">2 days</th>
+                      <th className="has-text-centered">1 days</th>
                     </tr>
                   </thead>
                   <tbody>
