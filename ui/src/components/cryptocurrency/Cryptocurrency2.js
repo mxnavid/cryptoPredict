@@ -178,16 +178,16 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Simple Moving Average"
-              graphTitle="SMA"
+              cardTitle="Average Directional Index"
+              graphTitle="ADX"
               lineGraph={true}
               customWidth="one-quarter"
             />
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Parabolic Stop and Reverse"
-              graphTitle="SAR"
+              cardTitle="Individual Return Per Day"
+              graphTitle="str_ret"
               lineGraph={true}
               customWidth="one-quarter"
             />
