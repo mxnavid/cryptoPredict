@@ -59,7 +59,7 @@ class Cryptocurrency2 extends Component {
                 Daily Model &nbsp;&nbsp;<i class="far fa-edit" />
               </Link>
             </div>
-            <div className="column">
+            <div className="column" style={{paddingTop: "27px"}}>
               <div className="columns is-mobile is-multiline">
                 <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
