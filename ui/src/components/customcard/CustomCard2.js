@@ -5,9 +5,10 @@ import MultiLineEx from "../LineEx/MultiLineEx";
 export default class CustomCard extends Component {
   constructor(props) {
     super(props);
-    this.date = Date()
-      .toString()
-      .slice(4, 7);
+    this.date = Date.now();
+    this.five = (this.date-(24*60*60*1000*5))
+    this.newDate = Date(parseInt(this.five));
+      
     this.number = Date()
       .toString()
       .slice(8, 10);
@@ -54,12 +55,12 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Date</th>
-                      <th>{this.date + " " + (this.past - 5)}</th>
-                      <th>{this.date + " " + (this.past - 4)}</th>
-                      <th>{this.date + " " + (this.past - 3)}</th>
-                      <th>{this.date + " " + (this.past - 2)}</th>
-                      <th>{this.date + " " + (this.past - 1)}</th>
+                      <th>Days Ago</th>
+                      <th>{5}</th>
+                      <th>{4}</th>
+                      <th>{3}</th>
+                      <th>{2}</th>
+                      <th>{1}</th>
                     </tr>
                   </thead>
                   <tbody>

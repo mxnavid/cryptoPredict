@@ -11,7 +11,7 @@ from datetime import timedelta
 
 class CryptoCrawler:
 
-    ### Puts all the variables into a dictionary with the entries for tweets, hourly and daily cointaining pandas dataframes
+    ### Puts all the variables into a dictionary with the entries for tweets, 5min and daily cointaining pandas dataframes
     def __init__(self, cryptoName, cryptoShortName, fileNameTweet, token):
         self.dict = {}
         self.dict['token'] = token
@@ -24,10 +24,8 @@ class CryptoCrawler:
         self.dict['startDate'] = str(self.dict['tweets'].min().Time)
         self.dict['endDate'] = str(self.dict['tweets'].max().Time)
 
-        self.dict['5min'] = self.sethourlysentiment()
-        self.dict['5min'] = pd.merge(self.dict['5min'], self.sethourlyprice(), on='Time', sort=False, how='outer')
-        #self.dict['5min'] = pd.merge(self.dict['5min'], self.setsp500(), on='Time', sort=False, how='outer')
-        #self.dict['5min'] = pd.merge(self.dict['5min'], self.setUSDEuroRate(), on='Time', sort=False, how='outer')
+        self.dict['5min'] = self.set5minsentiment()
+        self.dict['5min'] = pd.merge(self.dict['5min'], self.set5minprice(), on='Time', sort=False, how='outer')
 
         self.dict['daily'] = pd.DataFrame(data=list(self.setwiki().items()), columns=['Time', 'Views'])
 
@@ -44,7 +42,7 @@ class CryptoCrawler:
     ### Get a json based on link and return the values as a dictionary
     def setwiki(self):
         startDate = util.dateFormatChanger(str(self.dict['startDate']), '%Y-%m-%d %H:%M', '%Y%m%d')
-        endDate = util.dateFormatChanger(str(self.dict['endDate']), '%Y-%m-%d %H:%M', '%Y%m%d')
+        endDate = (datetime.datetime.strptime(self.dict['endDate'], '%Y-%m-%d %H:%M') - timedelta(days=1)).strftime("%Y%m%d")
         today = date.today().strftime("%Y%m%d")
 
         if (startDate == today):
@@ -76,7 +74,7 @@ class CryptoCrawler:
                                   blob.polarity, blob.subjectivity))
         return timesentiment
 
-    def sethourlysentiment(self):
+    def set5minsentiment(self):
         dict = {}
         # combine all sentiment scores by hour into a dictionary with key time and tuple (frequency, sum)
         for index, row in self.dict['tweets'].iterrows():
@@ -99,7 +97,7 @@ class CryptoCrawler:
 
         return df
 
-    def sethourlyprice(self):
+    def set5minprice(self):
         end7date = datetime.datetime.strptime(self.dict['endDate'], '%Y-%m-%d %H:%M')
         end7date += timedelta(days=-7)
         index = pd.date_range(end7date, self.dict['endDate'], freq='5min')

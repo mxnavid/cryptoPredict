@@ -18,7 +18,7 @@ def litecoinModel(file, outputFileName):
     target = df['Open']
     #df = df.drop(['Subjectivity'],1)
     #df = df.drop(['Polarity'],1)
-    df = df.drop(['VolumeCoin'],1)
+    #df = df.drop(['VolumeCoin'],1)
     df = df.drop(['VolumeUSD'],1)
     df = df.drop(['S&P500 Close'],1)
     df = df.drop(['S&P500 Volume'],1)
@@ -90,7 +90,7 @@ def litecoinModel(file, outputFileName):
     Regime_split = Regime_split.dropna()
 
     cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-              decision_function_shape='ovo', degree=5, gamma='auto', kernel='rbf',
+              decision_function_shape='ovo', degree=4, gamma='auto', kernel='poly',
               max_iter=-1, probability=False, random_state=0, shrinking=True,
               tol=0.001, verbose=True)
 
@@ -152,4 +152,4 @@ def litecoinModel(file, outputFileName):
         f.write("}")
     #comment
     print(Sharpe)
-# litecoinModel('Litecoin_5min_output.csv', '../ui/src/scraped/litecoin/Litecoin_model_output.js')
+#litecoinModel('Litecoin_5min_output.csv', '../ui/src/scraped/litecoin/Litecoin_model_output.js')
