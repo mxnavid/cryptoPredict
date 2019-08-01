@@ -18,15 +18,15 @@ export default class Sentiment extends Component {
     // } else if (input === "I hate Bitcoin" || input === "I hate bitcoin") {
     //   this.setState({ sentimentValue: -0.8 });
     // }
-    axios.post("https://91f909d7.ngrok.io/needScore", {
+    axios.post("http://127.0.0.1:8080/needScore", {
       textFromUI: input
     });
 
     axios
-      .get("https://91f909d7.ngrok.io/sentimentScore/polarity")
+      .get("http://127.0.0.1:8080/sentimentScore/polarity")
       .then(response => this.setState({ sentimentValue: response.data }));
     // var polarity = axios
-    //   .get("https://91f909d7.ngrok.io/sentimentScore/polarity")
+    //   .get("hhttp://127.0.0.1:8080/sentimentScore/polarity")
     //   .then(response => console.log(response.data));
 
     this.setState({ display: "block" });
