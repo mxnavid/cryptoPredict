@@ -124,7 +124,7 @@ class Cryptocurrency extends Component {
         <section className="section">
           <div className="columns is-mobile is-multiline ">
             <div className="column">
-              <p className="title">Model Predictions</p>
+              <p className="title">Model Data</p>
             </div>
           </div>
           <div className="columns is-mobile is-multiline">
@@ -140,7 +140,7 @@ class Cryptocurrency extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Previous Predictions From Model"
+              cardTitle="Previous Predictions"
               graphTitle="Pred_Signal"
               table={true}
               // customWidth="5"
@@ -164,7 +164,7 @@ class Cryptocurrency extends Component {
               <CustomCard
                 modelData={this.state.crypto_data}
                 coin={coin}
-                cardTitle="Sentiment"
+                cardTitle="Twitter Sentiment"
                 graphTitle="Polarity"
                 lineGraph={true}
                 customWidth="one-quarter"
@@ -177,7 +177,7 @@ class Cryptocurrency extends Component {
                 cardTitle={
                   this.props.match.params.model === "daily"
                     ? "Volume Coin Traded (Daily)"
-                    : "Volume Coin Traded"
+                    : "Trade Volume"
                 }
                 graphTitle="VolumeCoin"
                 lineGraph={true}

@@ -67,6 +67,12 @@ export default class CustomCard extends Component {
                       <th className="has-text-centered">{3}</th>
                       <th className="has-text-centered">{2}</th>
                       <th className="has-text-centered">{1}</th>
+                    <th>History</th>
+                      <th className="has-text-centered">5 days</th>
+                      <th className="has-text-centered">4 days</th>
+                      <th className="has-text-centered">3 days</th>
+                      <th className="has-text-centered">2 days</th>
+                      <th className="has-text-centered">1 days</th>
                     </tr>
                   </thead>
                   <tbody>
