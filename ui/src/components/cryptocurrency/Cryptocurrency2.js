@@ -165,7 +165,7 @@ class Cryptocurrency2 extends Component {
               cardTitle="Simple Moving Average"
               graphTitle="SMA"
               lineGraph={true}
-              customWidth="is-half"
+              customWidth="one-quarter"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -173,7 +173,23 @@ class Cryptocurrency2 extends Component {
               cardTitle="Parabolic Stop and Reverse"
               graphTitle="SAR"
               lineGraph={true}
-              customWidth="is-half"
+              customWidth="one-quarter"
+            />
+            <CustomCard
+              modelData={this.state.crypto_data}
+              coin={coin}
+              cardTitle="Simple Moving Average"
+              graphTitle="SMA"
+              lineGraph={true}
+              customWidth="one-quarter"
+            />
+            <CustomCard
+              modelData={this.state.crypto_data}
+              coin={coin}
+              cardTitle="Parabolic Stop and Reverse"
+              graphTitle="SAR"
+              lineGraph={true}
+              customWidth="one-quarter"
             />
           </div>
         </section>
