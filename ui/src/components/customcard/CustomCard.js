@@ -38,7 +38,7 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Mins Ago</th>
+                      <th>Mins</th>
                       <th className="has-text-centered">25</th>
                       <th className="has-text-centered">20</th>
                       <th className="has-text-centered">15</th>
@@ -49,7 +49,7 @@ export default class CustomCard extends Component {
                   <tbody>
                     <tr>
                       <td>
-                        <strong>Prediction</strong>
+                        <strong>Pred</strong>
                       </td>
                       {this.state.recents[0].Pred_Signal === 1 ? (
                         <td>
@@ -122,17 +122,17 @@ export default class CustomCard extends Component {
                     </tr>
                     <tr>
                       <td>
-                        <strong>Current</strong>
+                        <strong>Open</strong>
                       </td>
-                      <td>${this.state.recents[0].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[1].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[2].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[3].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[4].Open.toFixed(2)}</td>
+                      <td>{this.state.recents[0].Open.toFixed(2)}</td>
+                      <td>{this.state.recents[1].Open.toFixed(2)}</td>
+                      <td>{this.state.recents[2].Open.toFixed(2)}</td>
+                      <td>{this.state.recents[3].Open.toFixed(2)}</td>
+                      <td>{this.state.recents[4].Open.toFixed(2)}</td>
                     </tr>
                     <tr>
                       <td>
-                        <strong>Result</strong>
+                        <strong>Res</strong>
                       </td>
                       <td
                         className={
@@ -142,7 +142,7 @@ export default class CustomCard extends Component {
                             : "has-text-danger"
                         }
                       >
-                        ${this.state.recents[1].Open.toFixed(2)}
+                        {this.state.recents[1].Open.toFixed(2)}
                       </td>
                       <td
                         className={
@@ -152,7 +152,7 @@ export default class CustomCard extends Component {
                             : "has-text-danger"
                         }
                       >
-                        ${this.state.recents[2].Open.toFixed(2)}
+                        {this.state.recents[2].Open.toFixed(2)}
                       </td>
                       <td
                         className={
@@ -162,7 +162,7 @@ export default class CustomCard extends Component {
                             : "has-text-danger"
                         }
                       >
-                        ${this.state.recents[3].Open.toFixed(2)}
+                        {this.state.recents[3].Open.toFixed(2)}
                       </td>
                       <td
                         className={
@@ -172,7 +172,7 @@ export default class CustomCard extends Component {
                             : "has-text-danger"
                         }
                       >
-                        ${this.state.recents[4].Open.toFixed(2)}
+                        {this.state.recents[4].Open.toFixed(2)}
                       </td>
                       <td
                         className={
@@ -182,7 +182,7 @@ export default class CustomCard extends Component {
                             : "has-text-danger"
                         }
                       >
-                        ${this.state.recents[5].Open.toFixed(2)}
+                        {this.state.recents[5].Open.toFixed(2)}
                       </td>
                     </tr>
                   </tbody>
