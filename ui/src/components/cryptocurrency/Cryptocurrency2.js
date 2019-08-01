@@ -137,7 +137,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Market Return vs Model Return (WIP)"
+              cardTitle="Market Return vs Model Return"
               graphTitle="strategy_cu_return"
               multiLine={true}
             />
