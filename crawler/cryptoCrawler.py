@@ -44,7 +44,7 @@ class CryptoCrawler:
     ### Get a json based on link and return the values as a dictionary
     def setwiki(self):
         startDate = util.dateFormatChanger(str(self.dict['startDate']), '%Y-%m-%d %H:%M', '%Y%m%d')
-        endDate = util.dateFormatChanger(str(self.dict['endDate']), '%Y-%m-%d %H:%M', '%Y%m%d')
+        endDate = (datetime.datetime.strptime(self.dict['endDate'], '%Y-%m-%d %H:%M') - timedelta(days=1)).strftime("%Y%m%d")
         today = date.today().strftime("%Y%m%d")
 
         if (startDate == today):
@@ -54,6 +54,8 @@ class CryptoCrawler:
 
         link = 'https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/' \
                + self.dict['name'] + '/daily/' + startDate + '00/' + endDate + '00'
+
+        print(link)
 
         value = util.readerJson(link)
         viewCount = {}
