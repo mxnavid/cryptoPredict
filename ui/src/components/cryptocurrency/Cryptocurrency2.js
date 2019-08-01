@@ -115,7 +115,7 @@ class Cryptocurrency2 extends Component {
         <section className="section">
           <div className="columns">
             <div className="column">
-              <p className="title">Model Predictions</p>
+              <p className="title">Model Data</p>
             </div>
           </div>
           <div className="columns">
@@ -130,7 +130,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Previous Predictions From Model"
+              cardTitle="Previous Predictions"
               graphTitle="Pred_Signal"
               table={true}
             />
