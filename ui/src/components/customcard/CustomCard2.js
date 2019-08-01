@@ -56,7 +56,7 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Date</th>
+                      <th>Days</th>
                       <th className="has-text-centered">{5}</th>
                       <th className="has-text-centered">{4}</th>
                       <th className="has-text-centered">{3}</th>

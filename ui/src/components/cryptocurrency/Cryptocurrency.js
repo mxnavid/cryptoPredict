@@ -167,7 +167,7 @@ class Cryptocurrency extends Component {
                 cardTitle="Twitter Sentiment"
                 graphTitle="Polarity"
                 lineGraph={true}
-                customWidth="one-quarter"
+                customWidth="one-third"
               />
             )}
             {this.props.match.params.model === "daily" ? null : (
@@ -181,7 +181,7 @@ class Cryptocurrency extends Component {
                 }
                 graphTitle="VolumeCoin"
                 lineGraph={true}
-                customWidth="one-quarter"
+                customWidth="one-third"
               />
             )}
             <CustomCard
@@ -190,7 +190,7 @@ class Cryptocurrency extends Component {
               cardTitle="Simple Moving Average"
               graphTitle="SMA"
               lineGraph={true}
-              customWidth="one-quarter"
+              customWidth="one-third"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -198,7 +198,7 @@ class Cryptocurrency extends Component {
               cardTitle="Parabolic Stop and Reverse"
               graphTitle="SAR"
               lineGraph={true}
-              customWidth="one-quarter"
+              customWidth="one-third"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -206,7 +206,7 @@ class Cryptocurrency extends Component {
               cardTitle="Average Directional Index"
               graphTitle="ADX"
               lineGraph={true}
-              customWidth="one-quarter"
+              customWidth="one-third"
             />
             <CustomCard
               modelData={this.state.crypto_data}
@@ -214,7 +214,7 @@ class Cryptocurrency extends Component {
               cardTitle="Correlation on Price"
               graphTitle="Corr"
               lineGraph={true}
-              customWidth="one-quarter"
+              customWidth="one-third"
             />
           </div>
         </section>
