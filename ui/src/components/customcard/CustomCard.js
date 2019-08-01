@@ -11,7 +11,17 @@ export default class CustomCard extends Component {
 
   render() {
     return (
-      <div className={this.props.customWidth ? "column is-full-mobile is-half-tablet is-half-desktop is-" + this.props.customWidth + "-widescreen is-"+ this.props.customWidth + "-fullhd" : "column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"}>
+      <div
+        className={
+          this.props.customWidth
+            ? "column is-full-mobile is-half-tablet is-half-desktop is-" +
+              this.props.customWidth +
+              "-widescreen is-" +
+              this.props.customWidth +
+              "-fullhd"
+            : "column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"
+        }
+      >
         <div className="card">
           <header className="card-header">
             <p className="card-header-title">{this.props.cardTitle}</p>
@@ -35,158 +45,155 @@ export default class CustomCard extends Component {
 
               {this.props.table ? (
                 <div className="table-wrapper">
-                <table className="table is-fullwidth is-striped">
-                  <thead>
-                    <tr>
-                      <th>Mins</th>
-                      <th className="has-text-centered">25</th>
-                      <th className="has-text-centered">20</th>
-                      <th className="has-text-centered">15</th>
-                      <th className="has-text-centered">10</th>
-                      <th className="has-text-centered">5</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <strong>Pred</strong>
-                      </td>
-                      {this.state.recents[0].Pred_Signal === 1 ? (
+                  <table className="table is-fullwidth is-striped">
+                    <thead>
+                      <tr>
+                        <th>Mins</th>
+                        <th className="has-text-centered">25</th>
+                        <th className="has-text-centered">20</th>
+                        <th className="has-text-centered">15</th>
+                        <th className="has-text-centered">10</th>
+                        <th className="has-text-centered">5</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
                         <td>
-                          <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" />{" "}
-                            &nbsp;&nbsp;&nbsp;
-                          </div>
+                          <strong>Pred</strong>
                         </td>
-                      ) : (
+                        {this.state.recents[0].Pred_Signal === 1 ? (
+                          <td>
+                            <div className="has-text-success has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-up" />
+                            </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="has-text-danger has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-down" />
+                            </div>
+                          </td>
+                        )}
+                        {this.state.recents[1].Pred_Signal === 1 ? (
+                          <td>
+                            <div className="has-text-success has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-up" />
+                            </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="has-text-danger has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-down" />
+                            </div>
+                          </td>
+                        )}
+                        {this.state.recents[2].Pred_Signal === 1 ? (
+                          <td>
+                            <div className="has-text-success has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-up" />
+                            </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="has-text-danger has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-down" />
+                            </div>
+                          </td>
+                        )}
+                        {this.state.recents[3].Pred_Signal === 1 ? (
+                          <td>
+                            <div className="has-text-success has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-up" />
+                            </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="has-text-danger has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-down" />
+                            </div>
+                          </td>
+                        )}
+                        {this.state.recents[4].Pred_Signal === 1 ? (
+                          <td>
+                            <div className="has-text-success has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-up" />
+                            </div>
+                          </td>
+                        ) : (
+                          <td>
+                            <div className="has-text-danger has-text-weight-bold has-text-centered">
+                              <i className="fas fa-angle-double-down" />
+                            </div>
+                          </td>
+                        )}
+                      </tr>
+                      <tr>
                         <td>
-                          <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" />{" "}
-                            &nbsp;&nbsp;&nbsp;
-                          </div>
+                          <strong>Open</strong>
                         </td>
-                      )}
-                      {this.state.recents[1].Pred_Signal === 1 ? (
+                        <td>{this.state.recents[0].Open.toFixed(2)}</td>
+                        <td>{this.state.recents[1].Open.toFixed(2)}</td>
+                        <td>{this.state.recents[2].Open.toFixed(2)}</td>
+                        <td>{this.state.recents[3].Open.toFixed(2)}</td>
+                        <td>{this.state.recents[4].Open.toFixed(2)}</td>
+                      </tr>
+                      <tr>
                         <td>
-                          <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" />{" "}
-                            &nbsp;&nbsp;&nbsp;
-                          </div>
+                          <strong>Res</strong>
                         </td>
-                      ) : (
-                        <td>
-                          <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" />
-                          </div>
+                        <td
+                          className={
+                            this.state.recents[1].Open >
+                            this.state.recents[0].Open
+                              ? "has-text-success"
+                              : "has-text-danger"
+                          }
+                        >
+                          {this.state.recents[1].Open.toFixed(2)}
                         </td>
-                      )}
-                      {this.state.recents[2].Pred_Signal === 1 ? (
-                        <td>
-                          <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" />
-                          </div>
+                        <td
+                          className={
+                            this.state.recents[2].Open >
+                            this.state.recents[1].Open
+                              ? "has-text-success"
+                              : "has-text-danger"
+                          }
+                        >
+                          {this.state.recents[2].Open.toFixed(2)}
                         </td>
-                      ) : (
-                        <td>
-                          <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" />
-                          </div>
+                        <td
+                          className={
+                            this.state.recents[3].Open >
+                            this.state.recents[2].Open
+                              ? "has-text-success"
+                              : "has-text-danger"
+                          }
+                        >
+                          {this.state.recents[3].Open.toFixed(2)}
                         </td>
-                      )}
-                      {this.state.recents[3].Pred_Signal === 1 ? (
-                        <td>
-                          <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" />
-                          </div>
+                        <td
+                          className={
+                            this.state.recents[4].Open >
+                            this.state.recents[3].Open
+                              ? "has-text-success"
+                              : "has-text-danger"
+                          }
+                        >
+                          {this.state.recents[4].Open.toFixed(2)}
                         </td>
-                      ) : (
-                        <td>
-                          <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" />
-                          </div>
+                        <td
+                          className={
+                            this.state.recents[5].Open >
+                            this.state.recents[4].Open
+                              ? "has-text-success"
+                              : "has-text-danger"
+                          }
+                        >
+                          {this.state.recents[5].Open.toFixed(2)}
                         </td>
-                      )}
-                      {this.state.recents[4].Pred_Signal === 1 ? (
-                        <td>
-                          <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-up" />
-                          </div>
-                        </td>
-                      ) : (
-                        <td>
-                          <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i className="fas fa-angle-double-down" />
-                          </div>
-                        </td>
-                      )}
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Open</strong>
-                      </td>
-                      <td>{this.state.recents[0].Open.toFixed(2)}</td>
-                      <td>{this.state.recents[1].Open.toFixed(2)}</td>
-                      <td>{this.state.recents[2].Open.toFixed(2)}</td>
-                      <td>{this.state.recents[3].Open.toFixed(2)}</td>
-                      <td>{this.state.recents[4].Open.toFixed(2)}</td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <strong>Res</strong>
-                      </td>
-                      <td
-                        className={
-                          this.state.recents[1].Open >
-                          this.state.recents[0].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
-                        }
-                      >
-                        {this.state.recents[1].Open.toFixed(2)}
-                      </td>
-                      <td
-                        className={
-                          this.state.recents[2].Open >
-                          this.state.recents[1].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
-                        }
-                      >
-                        {this.state.recents[2].Open.toFixed(2)}
-                      </td>
-                      <td
-                        className={
-                          this.state.recents[3].Open >
-                          this.state.recents[2].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
-                        }
-                      >
-                        {this.state.recents[3].Open.toFixed(2)}
-                      </td>
-                      <td
-                        className={
-                          this.state.recents[4].Open >
-                          this.state.recents[3].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
-                        }
-                      >
-                        {this.state.recents[4].Open.toFixed(2)}
-                      </td>
-                      <td
-                        className={
-                          this.state.recents[5].Open >
-                          this.state.recents[4].Open
-                            ? "has-text-success"
-                            : "has-text-danger"
-                        }
-                      >
-                        {this.state.recents[5].Open.toFixed(2)}
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               ) : null}
 

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 
 import CustomCard from "../customcard/CustomCard2";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class Cryptocurrency2 extends Component {
   importOutput = () => {
@@ -44,17 +44,24 @@ class Cryptocurrency2 extends Component {
     return (
       <div key={coin} onLoad={this.importOutput()}>
         <section className="hero" style={{ backgroundColor: "#0018A8" }}>
-          <div className="hero-body columns">
-            <div className="column is-one-third">
-              <h1 className="title has-text-white" style={{ fontSize: "48px", marginBottom: "12px"}}>
+          <div className="hero-body columns is-mobile is-multiline">
+            <div className="column is-full-mobile is-full-tablet is-full-desktop is-one-third-widescreen is-one-third-fullhd">
+              <h1
+                className="title has-text-white"
+                style={{ fontSize: "48px", marginBottom: "12px" }}
+              >
                 {coin}
               </h1>
-              <Link to={"/cryptocurrency/" + coin} className="subtitle has-text-white">Daily Model</Link>
-
+              <Link
+                to={"/cryptocurrency/" + coin}
+                className="subtitle has-text-white"
+              >
+                Daily Model
+              </Link>
             </div>
             <div className="column">
-              <div className="columns">
-                <div className="column has-text-white">
+              <div className="columns is-mobile is-multiline">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Current Price &nbsp;&nbsp;
                     <i className="fas fa-donate" />{" "}
@@ -64,7 +71,7 @@ class Cryptocurrency2 extends Component {
                   </div>
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Est. Future Price &nbsp;&nbsp;
                     <i className="fas fa-coins" />{" "}
@@ -80,7 +87,7 @@ class Cryptocurrency2 extends Component {
                   )}
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Prediction &nbsp;&nbsp;
                     <i className="fas fa-chart-line"> </i>
@@ -98,7 +105,7 @@ class Cryptocurrency2 extends Component {
                   )}
                 </div>
 
-                <div className="column has-text-white">
+                <div className="column is-full-mobile is-half-tablet is-one-quarter-desktop is-one-quarter-widescreen is-one-quarter-fullhd has-text-white">
                   <div className="subtitle has-text-white">
                     Model Confidence &nbsp;&nbsp;
                     <i className="fas fa-balance-scale" />{" "}
@@ -113,12 +120,12 @@ class Cryptocurrency2 extends Component {
         </section>
 
         <section className="section">
-          <div className="columns">
+          <div className="columns is-mobile is-multiline">
             <div className="column">
               <p className="title">Model Predictions</p>
             </div>
           </div>
-          <div className="columns">
+          <div className="columns is-mobile is-multiline">
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
@@ -137,7 +144,7 @@ class Cryptocurrency2 extends Component {
             <CustomCard
               modelData={this.state.crypto_data}
               coin={coin}
-              cardTitle="Market Return vs Model Return (WIP)"
+              cardTitle="Market Return vs Model Return"
               graphTitle="strategy_cu_return"
               multiLine={true}
             />
@@ -148,15 +155,13 @@ class Cryptocurrency2 extends Component {
             </div>
           </div>
           <div className="columns">
-            {this.props.match.params.model === "daily" ? null : (
-              <CustomCard
-                modelData={this.state.crypto_data}
-                coin={coin}
-                cardTitle="Sentiment"
-                graphTitle="Polarity"
-                lineGraph={true}
-              />
-            )}
+            <CustomCard
+              modelData={this.state.crypto_data}
+              coin={coin}
+              cardTitle="Sentiment"
+              graphTitle="Polarity"
+              lineGraph={true}
+            />
 
             <CustomCard
               modelData={this.state.crypto_data}

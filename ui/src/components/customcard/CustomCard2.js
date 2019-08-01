@@ -6,9 +6,9 @@ export default class CustomCard extends Component {
   constructor(props) {
     super(props);
     this.date = Date.now();
-    this.five = (this.date-(24*60*60*1000*5))
+    this.five = this.date - 24 * 60 * 60 * 1000 * 5;
     this.newDate = Date(parseInt(this.five));
-      
+
     this.number = Date()
       .toString()
       .slice(8, 10);
@@ -27,7 +27,13 @@ export default class CustomCard extends Component {
     return (
       <div
         className={
-          this.props.customWidth ? "column " + this.props.customWidth : "column"
+          this.props.customWidth
+            ? "column is-full-mobile is-half-tablet is-half-desktop is-" +
+              this.props.customWidth +
+              "-widescreen is-" +
+              this.props.customWidth +
+              "-fullhd"
+            : "column is-full-mobile is-half-tablet is-half-desktop is-one-third-widescreen is-one-third-fullhd"
         }
       >
         <div className="card">
@@ -55,101 +61,98 @@ export default class CustomCard extends Component {
                 <table className="table is-fullwidth is-striped">
                   <thead>
                     <tr>
-                      <th>Days Ago</th>
-                      <th>{5}</th>
-                      <th>{4}</th>
-                      <th>{3}</th>
-                      <th>{2}</th>
-                      <th>{1}</th>
+                      <th>Days</th>
+                      <th className="has-text-centered">{5}</th>
+                      <th className="has-text-centered">{4}</th>
+                      <th className="has-text-centered">{3}</th>
+                      <th className="has-text-centered">{2}</th>
+                      <th className="has-text-centered">{1}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td>
-                        <strong>Prediction</strong>
+                        <strong>Pred</strong>
                       </td>
                       {this.state.recents[0].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-up" />{" "}
-                            &nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-down" />{" "}
-                            &nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[1].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-up" />{" "}
-                            &nbsp;&nbsp;&nbsp;
+                            <i class="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-down" /> 
+                            <i class="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[2].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-up" /> 
+                            <i class="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-down" /> 
+                            <i class="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[3].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-up" /> 
+                            <i class="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-down" /> 
+                            <i class="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                       {this.state.recents[4].Pred_Signal === 1 ? (
                         <td>
                           <div className="has-text-success has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-up" /> 
+                            <i class="fas fa-angle-double-up" />
                           </div>
                         </td>
                       ) : (
                         <td>
                           <div className="has-text-danger has-text-weight-bold has-text-centered">
-                            <i class="fas fa-angle-double-down" /> 
+                            <i class="fas fa-angle-double-down" />
                           </div>
                         </td>
                       )}
                     </tr>
                     <tr>
                       <td>
-                        <strong>Current</strong>
+                        <strong>Open</strong>
                       </td>
-                      <td>${this.state.recents[0].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[1].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[2].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[3].Open.toFixed(2)}</td>
-                      <td>${this.state.recents[4].Open.toFixed(2)}</td>
+                      <td className="has-text-centered">{this.state.recents[0].Open.toFixed(2)}</td>
+                      <td className="has-text-centered">{this.state.recents[1].Open.toFixed(2)}</td>
+                      <td className="has-text-centered">{this.state.recents[2].Open.toFixed(2)}</td>
+                      <td className="has-text-centered">{this.state.recents[3].Open.toFixed(2)}</td>
+                      <td className="has-text-centered">{this.state.recents[4].Open.toFixed(2)}</td>
                     </tr>
                     <tr>
                       <td>
-                        <strong>Result</strong>
+                        <strong>Res</strong>
                       </td>
                       <td
                         className={
