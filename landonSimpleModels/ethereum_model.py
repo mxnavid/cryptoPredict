@@ -156,4 +156,4 @@ def ethereumModel(file, outputFileName):
         f.write("}")
     print(Sharpe)
 
-#ethereumModel('Ethereum_5min_output.csv', '../ui/src/scraped/ethereum/Ethereum_model_output.js')
+ethereumModel('Ethereum_5min_output.csv', '../ui/src/scraped/ethereum/Ethereum_model_output.js')
