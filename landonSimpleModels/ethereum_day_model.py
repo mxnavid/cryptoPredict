@@ -19,7 +19,7 @@ def ethereum_dayModel(outputFileName):
     day = now.strftime("%d")
     today = year + "-" + month + "-" + day
 
-    df = web.get_data_yahoo('ETH-USD', start="2010-07-12", end=today)
+    df = web.get_data_yahoo('ETH-USD', start="2016-07-12", end=today)
     df = df[['Open', 'High', 'Low', 'Close']]
 
 
