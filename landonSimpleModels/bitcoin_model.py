@@ -90,7 +90,7 @@ def bitcoinModel(file, outputFileName):
     Regime_split = Regime_split.dropna()
 
     cls = SVC(C=1.0, cache_size=400, class_weight=None, coef0=0.0,
-              decision_function_shape='ovo', degree=4, gamma='auto', kernel='poly',
+              decision_function_shape='ovo', degree=3, gamma='auto', kernel='poly',
               max_iter=-1, probability=False, random_state=0, shrinking=True,
               tol=.001, verbose=True)
 
@@ -152,4 +152,4 @@ def bitcoinModel(file, outputFileName):
     ##
     print(Sharpe)
 
-#bitcoinModel('Bitcoin_5min_output.csv', '../ui/src/scraped/bitcoin/Bitcoin_model_output.js')
+# bitcoinModel('Bitcoin_5min_output.csv', '../ui/src/scraped/bitcoin/Bitcoin_model_output.js')
